@@ -1,0 +1,8 @@
+- $*   - join items together as a string (separated by $IFS)
+- "$*" - same as above with no word-splitting on expansion
+
+- $@   - deconstruct array in the exact form of the array
+- "$@" - same as above with no word-splitting on expansion
+
+IF YOU FIND THAT REMOVING QUOTES MAKES YOUR PROGRAM WORK THEN
+IT'S CRINGE AND YOU'RE WRONG.

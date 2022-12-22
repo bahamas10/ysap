@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+ls ./files | while read file; do
+	echo "<$file>"
+done

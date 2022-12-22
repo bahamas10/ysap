@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+i=0
+find ./files -type f -print0 | while read -r -d '' file; do
+	echo "<$file>"
+	((i++))
+done
+echo "found $i files"

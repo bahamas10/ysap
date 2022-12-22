@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+while read line; do
+	name=$(echo "$line" | cut -d : -f 1)
+	id=$(echo "$line" | cut -d : -f 2)
+	desc=$(echo "$line" | cut -d : -f 3-)
+
+	echo "$id: $name is $desc"
+done < data.txt

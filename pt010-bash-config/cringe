@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+source ./conf
+
+echo "foo = $foo"
+echo "bar = $bar"
+echo "baz = $baz"

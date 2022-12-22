@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+declare -A conf
+while IFS='=' read -r key value; do
+	conf[$key]=$value
+done < ./conf
+
+echo "foo = ${conf[foo]}"
+echo "bar = ${conf[bar]}"
+echo "baz = ${conf[baz]}"

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+for f in ./files/*; do
+	bname=$(basename "$f")
+
+	name=$(echo "$bname" | cut -d - -f 1)
+	date=$(echo "$bname" | cut -d - -f 2- | cut -d . -f 1 | xargs echo)
+
+	echo "$date: $name"
+done
