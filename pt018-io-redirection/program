@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo 'this goes to stdout'
+echo 'this also goes to stdout' >&1
+
+echo 'this goes to stderr' >&2
+
+# copy stderr fd to fd 3
+exec 3>&2
+echo 'this also goes to stderr' >&3

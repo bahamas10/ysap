@@ -1,0 +1,5 @@
+./step-bomb 2>&1 | sort | awk '{print $1}' | uniq -c
+
+bc
+2^5
+2^6

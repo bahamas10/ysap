@@ -1,0 +1,5 @@
+./program | grep this
+./program | grep foo
+./program 2>&1 | grep foo
+./program 1>/dev/null 2>&1
+./program 2>&1 1>/dev/null

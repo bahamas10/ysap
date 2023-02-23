@@ -1,0 +1,17 @@
+uname
+ssh void uname
+ssh arbiter uname
+
+echo "$PWD"
+ssh void "echo $PWD"
+ssh void echo "$PWD"
+ssh void 'echo "$PWD"'
+
+ssh void -- echo hi
+ssh void -- printenv PWD
+pwd
+type -a pwd
+ssh void -- pwd
+ssh void -- type -a pwd
+ssh void -- builtin pwd
+ssh void -- command pwd
