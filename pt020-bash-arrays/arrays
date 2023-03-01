@@ -7,10 +7,13 @@ arr=(
 	$'new\nline'
 )
 
+echo '## * expansion'
 for thing in "${arr[*]}"; do
-	echo "cringe -> $thing"
+	echo "cringe -> '$thing'"
 done
+
 echo
+echo '## @ expansion'
 for thing in "${arr[@]}"; do
-	echo "based -> $thing"
+	echo "based -> '$thing'"
 done

@@ -1,0 +1,9 @@
+ssh -L 1234:void:8000 arbiter
+
+- 1234: the local port
+- void: the remote machine
+- 8000: the remote port
+
+python -mhttp.server -b localhost
+
+curl localhost:8000/foo.txt

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+bad=`echo "your name is \`whoami\`"`
+#echo "$bad"
+
+good=$(echo "your name is $(whoami)")
+echo "$good"

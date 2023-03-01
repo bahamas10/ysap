@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+read -r -d '' my_var_name <<-EOF
+hello this string has " and ' in it!
+how crazy is that
+I can even look at variables like $USER or $HOME
+EOF
+
+echo "$my_var_name"

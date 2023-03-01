@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+single="this has a 'single' quote in it"
+double='this has a "double" quote in it'
+
+echo "$single"
+echo "$double"

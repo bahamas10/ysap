@@ -1,0 +1,16 @@
+ssh -a arbiter
+
+ssh-add -l
+ssh-agent
+
+ssh-add -l
+
+ssh-keygen
+
+ssh-add -l
+
+ssh-add
+ssh void
+
+# put key on void
+ssh void

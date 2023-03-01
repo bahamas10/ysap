@@ -1,0 +1,9 @@
+ssh arbiter
+bash
+bash -l
+
+sudo -s
+sudo -i
+sudo su - root
+
+vim ~/.bash_profile
