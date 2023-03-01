@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+arr=(
+	'foo'
+	'bar'
+	$'baz\tbat'
+	$'new\nline'
+)
+
+for thing in "${arr[*]}"; do
+	echo "cringe -> $thing"
+done
+echo
+for thing in "${arr[@]}"; do
+	echo "based -> $thing"
+done
