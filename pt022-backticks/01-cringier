@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+example=`echo "your name is \`whoami\`"`
+echo "$example"

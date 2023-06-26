@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+arr=(
+	'foo'
+	'bar'
+	$'baz\tbat'
+	$'new\nline'
+)
+
+echo '## * expansion'
+for thing in "${arr[*]}"; do
+	echo "cringe -> '$thing'"
+done
+
+echo
+echo '## @ expansion'
+for thing in "${arr[@]}"; do
+	echo "based -> '$thing'"
+done

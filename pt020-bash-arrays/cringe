@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+names="
+alice
+bob
+claire
+dave eddy
+"
+
+for name in $names; do
+	echo "-> $name"
+done

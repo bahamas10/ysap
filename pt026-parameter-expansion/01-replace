@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+old="this is kinda a cool string i guess"
+echo "$old"
+
+new=${old/cool/neato}
+echo "$new"

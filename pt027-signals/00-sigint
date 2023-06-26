@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+on_sigint() {
+	echo "sigint received - ignoring lol"
+}
+
+trap on_sigint SIGINT
+
+while true; do
+	echo tick
+	sleep 1
+done

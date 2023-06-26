@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+both='this has a '\''single'\'' quote in it'
+
+echo "$both"

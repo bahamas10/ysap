@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+s="Hello World!"
+echo "input: $s"
+
+echo ",,: ${s,,}"
+echo "^^: ${s^^}"
