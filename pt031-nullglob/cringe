@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+i=0
+for f in files/*; do
+	echo "file: '$f'"
+	((i++))
+done
+
+echo "found $i files"

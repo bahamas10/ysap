@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+shopt -s nullglob
+
+i=0
+for f in files/*; do
+	echo "file: '$f'"
+	((i++))
+done
+
+echo "found $i files"

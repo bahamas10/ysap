@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+good() {
+	local output=$(true)
+	echo "good: $?"
+}
+
+bad() {
+	local output=$(false)
+	echo "bad: $?"
+}
+
+good
+bad
