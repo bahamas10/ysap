@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+data='{
+  "name": "'$1'",
+  "comment": "'$2'"
+}'
+
+sudo docker run --rm --network host ubuntu-with-curl -sS bash -c 'curl -X PUT -d "'"$data"'" localhost:8000/'

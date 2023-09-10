@@ -1,0 +1,23 @@
+FOO=hello
+echo $FOO
+
+bash
+echo $FOO
+exit
+
+
+FOO=hello
+echo $FOO
+export FOO
+
+bash
+echo $FOO
+exit
+
+FOO=bar
+bash
+# what happens?
+
+---
+
+env | grep FOO

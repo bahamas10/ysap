@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+my_func() {
+	line=$1
+	echo "(mapfile) called with line: $line"
+}
+
+mapfile -t -C my_func -c 1 foo < data.txt
+
+# print array
+printf '<%s>\n' "${foo[@]}"

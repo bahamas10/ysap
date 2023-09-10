@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+mapfile -t -n 2 foo < data.txt
+
+# print array
+printf '<%s>\n' "${foo[@]}"

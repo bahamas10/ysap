@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+name=$1
+comment=$2
+
+data=$(jq --null-input \
+	--arg name "$name" \
+	--arg comment "$comment" \
+	'$ARGS.named')
+
+sudo docker run --rm --network host \
+    ubuntu-with-curl \
+    curl -sS -X PUT -d "$data" localhost:8000/

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "called with $# args"
+
+if (($# > 0)); then
+	printf '<%s>\n' "$@"
+fi

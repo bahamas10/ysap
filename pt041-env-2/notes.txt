@@ -1,0 +1,10 @@
+cat /proc/$$/environ
+cat /proc/$$/environ | tr '\0' '\n'
+
+env
+
+why different?
+
+cat /proc/self/environ | tr '\0' '\n'
+
+why different?

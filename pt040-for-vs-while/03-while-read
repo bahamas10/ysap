@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+while read -r thing; do
+	echo "<$thing>"
+done < <(cat data.txt)

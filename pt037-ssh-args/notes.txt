@@ -1,0 +1,16 @@
+ssh void ls -l ./bin/args
+
+ssh void cat ./bin/args
+
+ssh void ./bin/args
+ssh void ./bin/args foo
+ssh void ./bin/args foo bar baz
+ssh void ./bin/args 'hello world'
+ssh void ./bin/args 'hello     world'
+
+# explain
+
+
+echo 'hello      world' | ssh void 'xargs -d "\n" ./bin/args'
+
+echo $'hello      world\ngoodbye    world' | ssh void 'xargs -d "\n" ./bin/args'
