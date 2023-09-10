@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# load the list of filenames into an array
+files=(files/*)
+
+if [[ -t 1 ]]; then
+	# stdout is a tty! print new-line separated
+	printf '%s\n' "${files[@]}"
+else
+	# not a tty - separate by spaces
+	printf '%s ' "${files[@]}"
+	printf '\n'
+fi
