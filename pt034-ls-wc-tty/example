@@ -4,10 +4,10 @@
 files=(files/*)
 
 if [[ -t 1 ]]; then
-	# stdout is a tty! print new-line separated
-	printf '%s\n' "${files[@]}"
-else
-	# not a tty - separate by spaces
+	# stdout is a tty! print normal
 	printf '%s ' "${files[@]}"
 	printf '\n'
+else
+	# not a tty - separate new-lines
+	printf '%s\n' "${files[@]}"
 fi
