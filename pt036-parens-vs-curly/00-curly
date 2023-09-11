@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-foo() {
-	echo "hello $1"
-}
-
-foo 'alice'
