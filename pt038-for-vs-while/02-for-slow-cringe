@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+IFS=$'\n'
+for thing in $(./slow-cat data.txt); do
+	echo "<$thing>"
+done

@@ -1,0 +1,14 @@
+make
+
+env
+./c-env
+./rust-env
+
+export DAVE_FOO=hi
+export DAVE_BAR=bye
+
+./c-env | grep DAVE
+./rust-env | grep DAVE
+
+env - FOO=hi BAR=bye ./c-env
+env - FOO=hi BAR=bye ./rust-env

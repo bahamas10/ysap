@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+name='alice'
+
+foo() {
+	local name=$1
+	echo "1: $name"
+}
+
+foo 'bob'
+echo "2: $name"

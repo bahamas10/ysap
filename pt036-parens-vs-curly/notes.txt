@@ -1,0 +1,13 @@
+first
+
+change to parens
+
+second
+
+change to parens
+undo, add local keyword
+
+third
+
+change to parens
+undo, add parens around function call

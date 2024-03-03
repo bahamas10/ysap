@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+data=$(./slow-cat data.txt)
+code=$?
+
+while read -r thing; do
+	echo "<$thing>"
+done <<< "$data"
+
+echo "slow-cat exited with code: $code"
