@@ -1,3 +1,5 @@
+SHELL := bash
+
 .PHONY: build
 build:
 	mkdir -p _site
@@ -7,7 +9,8 @@ build:
 	./make-ascii-table < episodes.txt > _site/index.txt
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
 	./make-redirects < episodes.txt
-	npx ansi-to-html _site/index.txt \
+	cat _site/index.txt <(./make-help -H) \
+		| npx ansi-to-html \
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template \
 		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' > _site/index.html

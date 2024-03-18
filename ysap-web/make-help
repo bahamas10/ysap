@@ -13,6 +13,14 @@ BLUE_COLOR='\x1b[38;5;12m'
 BOLD_COLOR='\x1b[38;1m'
 RST_COLOR='\x1b[38;0m'
 
+header=true
+while getopts 'H' opt; do
+	case "$opt" in
+		H) header=false;;
+		*) exit 1;;
+	esac
+done
+
 examples=(
 	'ysap.daveeddy.com|get the list of episodes'
 	'ysap.daveeddy.com/nocolor|get the list of episodes without color'
@@ -21,7 +29,7 @@ examples=(
 	'ysap.daveeddy.com/help|get the help and usage docs'
 )
 
-./make-header
+$header && ./make-header
 echo
 for example in "${examples[@]}"; do
 	IFS='|' read -r url desc <<< "$example"
