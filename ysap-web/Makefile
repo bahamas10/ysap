@@ -2,6 +2,8 @@
 build:
 	mkdir -p _site
 	cat episodes.txt > _site/text
+	./make-help > _site/help
+	./make-json < episodes.txt > _site/json
 	./make-ascii-table < episodes.txt > _site/index.txt
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
 	./make-redirects < episodes.txt

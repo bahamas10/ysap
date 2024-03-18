@@ -2,6 +2,16 @@
 #
 # Take a list of text episodes and generate redirect pages
 #
+# This allows us to basically have our own URL shortener, albeit in HTML
+# redirects and not HTTP - but still, it makes for smaller URLs.
+#
+# This will create files like:
+#
+# /v/4/index.html
+#
+# Which allows a user to request `GET /v/4` and get redirected to the tiktok
+# video URL for episode 4.
+#
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: March 17, 2024
 # License: MIT
