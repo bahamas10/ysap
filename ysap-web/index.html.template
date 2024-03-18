@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	<head>
+		<title>You suck at programming</title>
+<style>
+body {
+	background-color: #333;
+	color: #eee;
+}
+</style>
+	</head>
+	<body>
+		<pre><code>
+		CONTENT
+		</pre></code>
+		<br>
+		View this in your terminal with:
+		<pre><code>    curl ysap.daveeddy.com</code></pre>
+	</body>
+</html>

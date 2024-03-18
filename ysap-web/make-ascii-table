@@ -40,6 +40,7 @@ make-row() {
 	local title=$1
 	local desc=$2
 	local link=$3
+
 	printf "$TABLE_COLOR|$RST_COLOR"
 	printf "$TITLE_COLOR %-*s $RST_COLOR" "$max_title" "$title"
 	printf "$TABLE_COLOR|$RST_COLOR"
