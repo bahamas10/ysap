@@ -102,13 +102,7 @@ for ((i = 0; i < num_episodes; i++)); do
 done
 
 # generate output!
-echo -e " _   _ ___  __ _ _ __
-| | | / __|/ _\` | '_ \\   You suck at programming
-| |_| \\__ \\ (_| | |_) |  Episodes and guide by dave eddy
- \\__, |___/\\__,_| .__/   ${BLUE_COLOR}https://www.daveeddy.com${RST_COLOR}
-  __/ |         | |
- |___/          |_|      Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}
-"
+./make-header
 make-rule
 make-header 'TITLE' 'DESCRIPTION' 'VIDEO'
 make-rule

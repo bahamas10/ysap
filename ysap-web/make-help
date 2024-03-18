@@ -14,13 +14,15 @@ BOLD_COLOR='\x1b[38;1m'
 RST_COLOR='\x1b[38;0m'
 
 examples=(
-	'ysap.daveeddy.com|pull the list of episodes'
-	'ysap.daveeddy.com/nocolor|pull the list of episodes without color'
-	'ysap.daveeddy.com/text|pull the list of episodes in raw text format'
-	'ysap.daveeddy.com/json|pull the list of episodes in json format'
-	'ysap.daveeddy.com/help|get help and usage in your terminal'
+	'ysap.daveeddy.com|get the list of episodes'
+	'ysap.daveeddy.com/nocolor|get the list of episodes without color'
+	'ysap.daveeddy.com/text|get the list of episodes in raw text format'
+	'ysap.daveeddy.com/json|get the list of episodes in json format'
+	'ysap.daveeddy.com/help|get the help and usage docs'
 )
 
+./make-header
+echo
 for example in "${examples[@]}"; do
 	IFS='|' read -r url desc <<< "$example"
 	echo -e "${GRAY_COLOR}# $desc${RST_COLOR}"
