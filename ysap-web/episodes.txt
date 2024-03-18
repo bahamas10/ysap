@@ -1,0 +1,47 @@
+1 - Bash
+Bash Basics
+https://www.tiktok.com/@bahamas10_/video/7156734153147305262
+
+2 - Bash Arguments
+Parsing arguments in bash
+https://www.tiktok.com/@bahamas10_/video/7157457925466754347
+
+3 - Bash Files Again
+Reading files in bash
+https://www.tiktok.com/@bahamas10_/video/7158503684312157482
+
+4 - find | while
+Subshell basics and pitfalls
+https://www.tiktok.com/@bahamas10_/video/7162680518335548715
+
+5 - Bash Line Parse
+Parsing lines
+https://www.tiktok.com/@bahamas10_/video/7164209740883430699
+
+6 - Bash + DTrace
+Using DTrace and bash
+https://www.tiktok.com/@bahamas10_/video/7164821593967889710
+
+7 - man bash
+How to read the manpage
+https://www.tiktok.com/@bahamas10_/video/7165897094752947498
+
+8 - Bash Commands
+Various commands
+https://www.tiktok.com/@bahamas10_/video/7167010415010958635
+
+9 - Bash Variables
+Basics of variables
+https://www.tiktok.com/@bahamas10_/video/7168140685185486122
+
+10 - Bash Config
+A config file in bash
+https://www.tiktok.com/@bahamas10_/video/7174874405477027115
+
+11 - Bash Regex
+Regex in bash
+https://www.tiktok.com/@bahamas10_/video/7175941495688580394
+
+12 - Bash Time
+Parsing time in bash
+https://www.tiktok.com/@bahamas10_/video/7177133786377833774

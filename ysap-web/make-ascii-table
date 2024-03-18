@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+make-hyphens() {
+	local len=$1
+	local s
+	printf -v s '%*s' "$len" -
+	s=${s// /-}
+	printf '%s' "$s"
+}
+
+make-rule() {
+	printf '+ %s + %s + %s +\n' \
+		"$(make-hyphens "$max_title")" \
+		"$(make-hyphens "$max_desc")" \
+		"$(make-hyphens "$max_link")"
+}
+
+# read episode info from stdin (parse txt file)
+index=0
+titles=()
+descs=()
+links=()
+while read -r line; do
+	case "$index" in
+		0) titles+=("$line");;
+		1) descs+=("$line");;
+		2) links+=("$line");;
+		3) ;;
+	esac
+	index=$(( (index + 1) % 4 ))
+done
+
+num_episodes=${#titles[@]}
+
+# figure out the max title, desc, and link
+max_title=0
+max_desc=0
+max_link=0
+for ((i = 0; i < num_episodes; i++)); do
+	title=${titles[i]}
+	desc=${descs[i]}
+	link=${links[i]}
+
+	(( ${#title} > max_title )) && max_title=${#title}
+	(( ${#desc} > max_desc )) && max_desc=${#desc}
+	(( ${#link} > max_link )) && max_link=${#link}
+done
+
+# generate output!
+echo -e '
+ascii art here
+'
+make-rule
+for ((i = 0; i < num_episodes; i++)); do
+	title=${titles[i]}
+	desc=${descs[i]}
+	link=${links[i]}
+
+	printf '|'
+	printf ' %-*s ' "$max_title" "$title"
+	printf '|'
+	printf ' %*s ' "$max_desc" "$desc"
+	printf '|'
+	printf ' %*s ' "$max_link" "$link"
+	printf '|\n'
+done
+make-rule
+echo "list updated: $(date)"
