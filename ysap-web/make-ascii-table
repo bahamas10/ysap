@@ -1,4 +1,25 @@
 #!/usr/bin/env bash
+#
+# Take a list of text episodes and generate a nice console-compatible table
+#
+# Inspired by 0x on tiktok and cheat.sh
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+GRAY_COLOR='\x1b[38;5;8m'
+GREEN_COLOR='\x1b[38;5;10m'
+YELLOW_COLOR='\x1b[38;5;11m'
+BLUE_COLOR='\x1b[38;5;12m'
+BOLD_COLOR='\x1b[38;1m'
+RST_COLOR='\x1b[38;0m'
+
+TABLE_COLOR=$GRAY_COLOR
+HEADER_COLOR=$BOLD_COLOR
+TITLE_COLOR=$GREEN_COLOR
+DESC_COLOR=$YELLOW_COLOR
+LINK_COLOR=$BLUE_COLOR
 
 make-hyphens() {
 	local len=$1
@@ -9,10 +30,38 @@ make-hyphens() {
 }
 
 make-rule() {
-	printf '+ %s + %s + %s +\n' \
+	printf "$TABLE_COLOR+ %s + %s + %s +$RST_COLOR\n" \
 		"$(make-hyphens "$max_title")" \
 		"$(make-hyphens "$max_desc")" \
 		"$(make-hyphens "$max_link")"
+}
+
+make-row() {
+	local title=$1
+	local desc=$2
+	local link=$3
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$TITLE_COLOR %-*s $RST_COLOR" "$max_title" "$title"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$DESC_COLOR %-*s $RST_COLOR" "$max_desc" "$desc"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$LINK_COLOR %-*s $RST_COLOR" "$max_link" "$link"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf '\n'
+}
+
+make-header() {
+	local title=$1
+	local desc=$2
+	local link=$3
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$HEADER_COLOR %-*s $RST_COLOR" "$max_title" "$title"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$HEADER_COLOR %-*s $RST_COLOR" "$max_desc" "$desc"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf "$HEADER_COLOR %-*s $RST_COLOR" "$max_link" "$link"
+	printf "$TABLE_COLOR|$RST_COLOR"
+	printf '\n'
 }
 
 # read episode info from stdin (parse txt file)
@@ -22,9 +71,14 @@ descs=()
 links=()
 while read -r line; do
 	case "$index" in
-		0) titles+=("$line");;
+		0)
+			title=$line
+			num=${line%%.*}
+			links+=("http://ysap.daveeddy.com/v/$num")
+			titles+=("$title")
+			;;
 		1) descs+=("$line");;
-		2) links+=("$line");;
+		2) ;; # links+=("$line");;
 		3) ;;
 	esac
 	index=$(( (index + 1) % 4 ))
@@ -47,22 +101,22 @@ for ((i = 0; i < num_episodes; i++)); do
 done
 
 # generate output!
-echo -e '
-ascii art here
-'
+echo -e " _   _ ___  __ _ _ __
+| | | / __|/ _\` | '_ \\   You suck at programming
+| |_| \\__ \\ (_| | |_) |  Episodes and guide by dave eddy
+ \\__, |___/\\__,_| .__/   ${BLUE_COLOR}https://www.daveeddy.com${RST_COLOR}
+  __/ |         | |
+ |___/          |_|      Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}
+"
+make-rule
+make-header 'TITLE' 'DESCRIPTION' 'VIDEO'
 make-rule
 for ((i = 0; i < num_episodes; i++)); do
 	title=${titles[i]}
 	desc=${descs[i]}
 	link=${links[i]}
 
-	printf '|'
-	printf ' %-*s ' "$max_title" "$title"
-	printf '|'
-	printf ' %*s ' "$max_desc" "$desc"
-	printf '|'
-	printf ' %*s ' "$max_link" "$link"
-	printf '|\n'
+	make-row "$title" "$desc" "$link"
 done
 make-rule
-echo "list updated: $(date)"
+printf "${TABLE_COLOR}last updated: %s${RST_COLOR}\n" "$(TZ=utc date)"

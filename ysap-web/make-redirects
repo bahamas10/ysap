@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Take a list of text episodes and generate redirect pages
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+NUM_RE='^[0-9]+'
+
+# read episode info from stdin (parse txt file)
+index=0
+episodes=()
+links=()
+while read -r line; do
+	case "$index" in
+		0) # title
+			num=${line%%.*}
+			episodes+=("$num")
+			;;
+		1) ;;
+		2) # link
+			links+=("$line")
+			;;
+		3) ;;
+	esac
+	index=$(( (index + 1) % 4 ))
+done
+num_episodes=${#episodes[@]}
+
+mkdir -p _site/v
+for ((i = 0; i < num_episodes; i++)); do
+	episode=${episodes[i]}
+	link=${links[i]}
+
+	echo "generating page for episode $episode -> $link"
+
+	# sanity check - ensure the number is just a number
+	[[ $episode =~ $NUM_RE ]] || exit 1
+
+	mkdir -p "_site/v/$episode"
+	cat <<-EOF > "_site/v/$episode/index.html"
+	<html>
+	<head>
+	<meta http-equiv="refresh" content="0; URL=$link" />
+	</head>
+	<body>
+	Redirecting to $link
+	</body>
+	</html>
+	EOF
+done
