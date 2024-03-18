@@ -4,8 +4,17 @@
 		<title>You suck at programming</title>
 <style>
 body {
-	background-color: #333;
+	background-color: #100b14;
 	color: #eee;
+	font-family: monospace;
+}
+a {
+	color: #55F;
+	text-decoration: none;
+}
+a:visited {
+	color: #55F;
+	text-decoration: none;
 }
 </style>
 	</head>
