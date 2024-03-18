@@ -11,6 +11,7 @@ index=0
 titles=()
 descs=()
 links=()
+ttlinks=()
 while read -r line; do
 	case "$index" in
 		0)
@@ -20,7 +21,7 @@ while read -r line; do
 			titles+=("$title")
 			;;
 		1) descs+=("$line");;
-		2) ;;
+		2) ttlinks+=("$line");;
 		3) ;;
 	esac
 	index=$(( (index + 1) % 4 ))
@@ -33,11 +34,13 @@ for ((i = 0; i < num_episodes; i++)); do
 	title=${titles[i]}
 	desc=${descs[i]}
 	link=${links[i]}
+	ttlink=${ttlinks[i]}
 
 	object=$(jq -c --null-input \
 		--arg title "$title" \
 		--arg desc "$desc" \
 		--arg link "$link" \
+		--arg _tiktok_link "$ttlink" \
 		'$ARGS.named')
 	objects+=("$object")
 done
