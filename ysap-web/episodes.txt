@@ -1,5 +1,5 @@
 1. Bash
-Bash Basics
+An introduction to bash
 https://www.tiktok.com/@bahamas10_/video/7156734153147305262
 
 2. Bash Arguments
@@ -15,7 +15,7 @@ Subshell basics and pitfalls
 https://www.tiktok.com/@bahamas10_/video/7162680518335548715
 
 5. Bash Line Parse
-Parsing lines
+Parsing lines with builtins
 https://www.tiktok.com/@bahamas10_/video/7164209740883430699
 
 6. Bash + DTrace
@@ -27,7 +27,7 @@ How to read the manpage
 https://www.tiktok.com/@bahamas10_/video/7165897094752947498
 
 8. Bash Commands
-Various commands
+Commands, functions, aliases, builtins
 https://www.tiktok.com/@bahamas10_/video/7167010415010958635
 
 9. Bash Variables
@@ -43,7 +43,7 @@ Regex in bash
 https://www.tiktok.com/@bahamas10_/video/7175941495688580394
 
 12. Bash Time
-Parsing time in bash
+Timing commands with `time`
 https://www.tiktok.com/@bahamas10_/video/7177133786377833774
 
 13. Bash Date
@@ -59,7 +59,7 @@ Readline and terminal shortcuts
 https://www.tiktok.com/@bahamas10_/video/7185562822841994539
 
 16. Actually Fork Bombing
-This is how to safely to do it
+This is how to fork bomb a machine
 https://www.tiktok.com/@bahamas10_/video/7190123255766830382
 
 17. Safe Fork Bomb
@@ -119,7 +119,7 @@ IFS variable in scripts
 https://www.tiktok.com/@bahamas10_/video/7254649422762560811
 
 31. nullglob
-Understand this shell option (`shopt`)
+Understand this shell option w/ `shopt`
 https://www.tiktok.com/@bahamas10_/video/7257942648986651947
 
 32. `pgrep`/`pkill`
@@ -155,7 +155,7 @@ Env vars on Unix
 https://www.tiktok.com/@bahamas10_/video/7287322106424102190
 
 40. `mapfile` in bash
-Understanding the `mapfile` builtin command
+Understanding the `mapfile` builtin
 https://www.tiktok.com/@bahamas10_/video/7289468070785994027
 
 41. `/proc/&&/environ`
