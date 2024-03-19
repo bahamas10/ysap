@@ -8,7 +8,7 @@ build:
 	./make-json < episodes.txt > _site/json
 	./make-ascii-table < episodes.txt > _site/index.txt
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
-	./make-redirects < episodes.txt
+	./make-redirects _site < episodes.txt
 	cat _site/index.txt <(./make-help -H) \
 		| sed -e 's/ /\&nbsp;/g' \
 		| npx ansi-to-html \

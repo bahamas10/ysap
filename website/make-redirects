@@ -16,6 +16,10 @@
 # Date: March 17, 2024
 # License: MIT
 
+dir=$1
+
+[[ -n $dir ]] || exit 1
+
 NUM_RE='^[0-9]+'
 
 # read episode info from stdin (parse txt file)
@@ -38,7 +42,7 @@ while read -r line; do
 done
 num_episodes=${#episodes[@]}
 
-mkdir -p _site/v
+mkdir -p "$dir/v"
 for ((i = 0; i < num_episodes; i++)); do
 	episode=${episodes[i]}
 	link=${links[i]}
@@ -48,8 +52,8 @@ for ((i = 0; i < num_episodes; i++)); do
 	# sanity check - ensure the number is just a number
 	[[ $episode =~ $NUM_RE ]] || exit 1
 
-	mkdir -p "_site/v/$episode"
-	cat <<-EOF > "_site/v/$episode/index.html"
+	mkdir -p "$dir/v/$episode"
+	cat <<-EOF > "$dir/v/$episode/index.html"
 	<html>
 	<head>
 	<meta http-equiv="refresh" content="0; URL=$link" />
