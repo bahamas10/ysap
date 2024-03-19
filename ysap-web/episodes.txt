@@ -1,4 +1,4 @@
-1. Bash
+1. Bash Intro
 An introduction to bash
 https://www.tiktok.com/@bahamas10_/video/7156734153147305262
 
@@ -6,24 +6,24 @@ https://www.tiktok.com/@bahamas10_/video/7156734153147305262
 Parsing arguments in bash
 https://www.tiktok.com/@bahamas10_/video/7157457925466754347
 
-3. Bash Files Again
+3. Bash Reading Files
 Reading files in bash
 https://www.tiktok.com/@bahamas10_/video/7158503684312157482
 
-4. find | while
-Subshell basics and pitfalls
+4. Subshell Basics
+What happens when you `find | while`
 https://www.tiktok.com/@bahamas10_/video/7162680518335548715
 
-5. Bash Line Parse
+5. Bash Line Parsing
 Parsing lines with builtins
 https://www.tiktok.com/@bahamas10_/video/7164209740883430699
 
-6. Bash + DTrace
-Using DTrace and bash
+6. Bash and DTrace
+Using `dtrace` and bash
 https://www.tiktok.com/@bahamas10_/video/7164821593967889710
 
-7. man bash
-How to read the manpage
+7. Bash manpage
+How to read the manpage with `man`
 https://www.tiktok.com/@bahamas10_/video/7165897094752947498
 
 8. Bash Commands
@@ -35,11 +35,11 @@ Basics of variables
 https://www.tiktok.com/@bahamas10_/video/7168140685185486122
 
 10. Bash Config
-A config file in bash
+How to create a config file
 https://www.tiktok.com/@bahamas10_/video/7174874405477027115
 
 11. Bash Regex
-Regex in bash
+Using regex in pure bash
 https://www.tiktok.com/@bahamas10_/video/7175941495688580394
 
 12. Bash Time
@@ -70,8 +70,8 @@ https://www.tiktok.com/@bahamas10_/video/7191614736285404459
 Redirects and pipelines
 https://www.tiktok.com/@bahamas10_/video/7192982841188355374
 
-19. Quotes + SSH
-How to quote variables over SSH
+19. Quotes and SSH
+How to quote variables over `ssh`
 https://www.tiktok.com/@bahamas10_/video/7194975992052567342
 
 20. Bash Arrays
@@ -82,7 +82,7 @@ https://www.tiktok.com/@bahamas10_/video/7206361318553586986
 Quote wrangling in bash
 https://www.tiktok.com/@bahamas10_/video/7207497574180277546
 
-22. Backticks in bash
+22. Backtick Commands
 How to handle `backticks`
 https://www.tiktok.com/@bahamas10_/video/7209416428498324779
 
@@ -95,11 +95,11 @@ Understanding `ssh -L`
 https://www.tiktok.com/@bahamas10_/video/7212265603342634282
 
 25. SSH keys
-id_rsa and ssh keys
+`id_rsa` and ssh keys
 https://www.tiktok.com/@bahamas10_/video/7214984150904802603
 
 26. Parameter Expansion
-${parameter//expansions} in bash
+`${parameter//expansions}` in bash
 https://www.tiktok.com/@bahamas10_/video/7216822787996945706
 
 27. Signals
@@ -114,52 +114,52 @@ https://www.tiktok.com/@bahamas10_/video/7251261570750156074
 GNU Tools can be slightly unique
 https://www.tiktok.com/@bahamas10_/video/7253086383789591850
 
-30. IFS
-IFS variable in scripts
+30. IFS Variable
+`IFS` variable in scripts
 https://www.tiktok.com/@bahamas10_/video/7254649422762560811
 
-31. nullglob
-Understand this shell option w/ `shopt`
+31. Simple File Globbing
+Understand `shopt -s nullglab`
 https://www.tiktok.com/@bahamas10_/video/7257942648986651947
 
-32. `pgrep`/`pkill`
-What OS did these tools come from?
+32. Process ptools
+Using tools like `pkill` and `pgrep`
 https://www.tiktok.com/@bahamas10_/video/7259494243771632938
 
 33. PS1 Prompt
-Custom prompt for bash
+Custom prompt for bash with `PS1`
 https://www.tiktok.com/@bahamas10_/video/7262022629459103018
 
-34. isatty(3)
-How to tell if you're on a TTY
+34. Is a TTY
+Tell if you're on a TTY w/ `isatty(3)`
 https://www.tiktok.com/@bahamas10_/video/7266471930830605610
 
 35. Zombie Processes
 What is a defunct process?
 https://www.tiktok.com/@bahamas10_/video/7271341286806900011
 
-36. () vs {}
-Parenthesis vs curly braces in bash
+36. Parens vs Curly
+`()` vs `{}` in bash
 https://www.tiktok.com/@bahamas10_/video/7277754511098187050
 
 37. SSH Scripts
-Run commands over SSH
+Run commands over `ssh`
 https://www.tiktok.com/@bahamas10_/video/7282139775778262318
 
-38. `for` vs `while`
-For loops vs while loops
+38. For Loop vs While Loop
+When to use `for` vs `while`
 https://www.tiktok.com/@bahamas10_/video/7284371531646389547
 
 39. Environmental Variables
-Env vars on Unix
+Env vars on Unix with `env`
 https://www.tiktok.com/@bahamas10_/video/7287322106424102190
 
-40. `mapfile` in bash
+40. Reading a Whole File
 Understanding the `mapfile` builtin
 https://www.tiktok.com/@bahamas10_/video/7289468070785994027
 
-41. `/proc/&&/environ`
-The proc filesystem for environment
+41. Proc FS Environment
+Looking at `/proc/&&/environ`
 https://www.tiktok.com/@bahamas10_/video/7292170649970298154
 
 42. Docker Crimes

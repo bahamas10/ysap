@@ -3,10 +3,21 @@
 	<head>
 		<title>You suck at programming</title>
 		<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
 		body {
 			background-color: #100b14;
 			color: #eee;
 			font-family: monospace;
+		}
+		#container {
+			margin-right: auto;
+			margin-left: auto;
+			padding-left: 5px;
+			padding-right: 5px;
+			max-width: 800px;
 		}
 		a {
 			color: #55F;
@@ -19,8 +30,10 @@
 		</style>
 	</head>
 	<body>
-		<pre><code>
-		CONTENT
-		</pre></code>
+		<div id="container">
+			<pre><code>
+			CONTENT
+			</pre></code>
+		</div>
 	</body>
 </html>
