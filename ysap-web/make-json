@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Convert the list of episodes into JSON format
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+# read episode info from stdin (parse txt file)
+index=0
+titles=()
+descs=()
+links=()
+ttlinks=()
+while read -r line; do
+	case "$index" in
+		0)
+			title=$line
+			num=${line%%.*}
+			links+=("http://ysap.daveeddy.com/v/$num")
+			titles+=("$title")
+			;;
+		1) descs+=("$line");;
+		2) ttlinks+=("$line");;
+		3) ;;
+	esac
+	index=$(( (index + 1) % 4 ))
+done
+
+num_episodes=${#titles[@]}
+
+objects=()
+for ((i = 0; i < num_episodes; i++)); do
+	title=${titles[i]}
+	desc=${descs[i]}
+	link=${links[i]}
+	ttlink=${ttlinks[i]}
+
+	object=$(jq -c --null-input \
+		--arg title "$title" \
+		--arg desc "$desc" \
+		--arg link "$link" \
+		--arg _tiktok_link "$ttlink" \
+		'$ARGS.named')
+	objects+=("$object")
+done
+
+now=$(date +%s)
+printf '%s\n' "${objects[@]}" | jq -n --argjson date "$now" '{
+    "name": "You suck at programming",
+    "site": "http://ysap.daveeddy.com",
+    "generated": $date,
+    "episodes": [inputs]
+}'

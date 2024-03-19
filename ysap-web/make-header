@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Print the colorized YSAP logo and metadata
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+RED_COLOR='\x1b[38;5;9m'
+GREEN_COLOR='\x1b[38;5;10m'
+YELLOW_COLOR='\x1b[38;5;11m'
+BLUE_COLOR='\x1b[38;5;12m'
+MAGENTA_COLOR='\x1b[38;5;13m'
+RST_COLOR="\x1b[38;0m"
+
+COLOR_Y=$RED_COLOR
+COLOR_S=$GREEN_COLOR
+COLOR_A=$BLUE_COLOR
+COLOR_P=$MAGENTA_COLOR
+
+# generate output!
+echo -e "${COLOR_Y} _   _${COLOR_S} ___ ${COLOR_A} __ _ ${COLOR_P}_ __
+${COLOR_Y}| | | ${COLOR_S}/ __|${COLOR_A}/ _\` ${COLOR_P}| '_ \\   ${RST_COLOR}You suck at programming
+${COLOR_Y}| |_| ${COLOR_S}\\__ \\ ${COLOR_A}(_| ${COLOR_P}| |_) |  ${RST_COLOR}Episodes and guide by dave eddy
+${COLOR_Y} \\__,${COLOR_S} |___/${COLOR_A}\\__,_${COLOR_P}| .__/   ${BLUE_COLOR}https://www.daveeddy.com${RST_COLOR}
+${COLOR_Y}  __/ |${COLOR_S}     ${COLOR_A}    ${COLOR_P}| |
+${COLOR_Y} |___/ ${COLOR_S}     ${COLOR_A}    ${COLOR_P}|_|      ${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}"

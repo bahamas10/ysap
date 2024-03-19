@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+#
+# Generate a help page with color
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+GRAY_COLOR='\x1b[38;5;8m'
+GREEN_COLOR='\x1b[38;5;10m'
+YELLOW_COLOR='\x1b[38;5;11m'
+BLUE_COLOR='\x1b[38;5;12m'
+BOLD_COLOR='\x1b[38;1m'
+RST_COLOR='\x1b[38;0m'
+
+header=true
+while getopts 'H' opt; do
+	case "$opt" in
+		H) header=false;;
+		*) exit 1;;
+	esac
+done
+
+examples=(
+	'ysap.daveeddy.com|get the list of episodes'
+	'ysap.daveeddy.com/nocolor|get the list of episodes without color'
+	'ysap.daveeddy.com/text|get the list of episodes in raw text format'
+	'ysap.daveeddy.com/json|get the list of episodes in json format'
+	'ysap.daveeddy.com/help|get the help and usage docs'
+)
+
+$header && ./make-header
+echo
+for example in "${examples[@]}"; do
+	IFS='|' read -r url desc <<< "$example"
+	echo -e "${GRAY_COLOR}# $desc${RST_COLOR}"
+	echo -e "${GREEN_COLOR}$ curl ${RST_COLOR}$url"
+	echo
+done
