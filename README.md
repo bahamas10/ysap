@@ -3,6 +3,13 @@ You Suck at Programming
 
 A series on programming (actually just bash scripting) on tiktok and youtube.
 
+Repository
+----------
+
+- [episodes/](episodes/) - scripts and notes used during videos
+- [website/](website/) - scripts used for creating the http://ysap.daveeddy.com
+    site
+
 Episodes
 --------
 
@@ -32,6 +39,14 @@ $ curl ysap.daveeddy.com
 ...
 + --------------------------- + ------------------------------------------- + ----------------------------- +
 last updated: Mon Mar 18 06:13:00 UTC 2024
+```
+
+Notes For Dave
+--------------
+
+```
+Terminal size: 78x24
+Zoom command+ 3x
 ```
 
 License

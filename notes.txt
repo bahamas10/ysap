@@ -1,3 +1,0 @@
-dave's notes for videos
-terminal size: 78x24
-boot command+ 3x
