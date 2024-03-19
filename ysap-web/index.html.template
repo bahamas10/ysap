@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<title>You suck at programming</title>
+
+		<meta charset="UTF-8">
+
 		<style>
 		* {
 			margin: 0;

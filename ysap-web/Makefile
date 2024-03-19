@@ -10,7 +10,7 @@ build:
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
 	./make-redirects < episodes.txt
 	cat _site/index.txt <(./make-help -H) \
-		| npx ansi-to-html \
+		| npx ansi-to-html -x \
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template \
 		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' > _site/index.html
