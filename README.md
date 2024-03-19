@@ -7,8 +7,7 @@ Repository
 ----------
 
 - [episodes/](episodes/) - scripts and notes used during videos
-- [website/](website/) - scripts used for creating the http://ysap.daveeddy.com
-    site
+- [website/](website/) - scripts used for creating the ysap.daveeddy.com site
 
 Episodes
 --------
