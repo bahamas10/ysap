@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>You suck at programming</title>
-
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<style>
 		* {
@@ -18,8 +18,6 @@
 		#container {
 			margin-right: auto;
 			margin-left: auto;
-			padding-left: 5px;
-			padding-right: 5px;
 			max-width: 800px;
 		}
 		a {
@@ -36,7 +34,7 @@
 		<div id="container">
 			<pre><code>
 			CONTENT
-			</pre></code>
+			</code></pre>
 		</div>
 	</body>
 </html>
