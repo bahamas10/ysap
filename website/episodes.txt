@@ -177,3 +177,7 @@ https://www.tiktok.com/@bahamas10_/video/7342542801499950382
 45. Bash Substrings
 Substrings in bash
 https://www.tiktok.com/@bahamas10_/video/7345159439667825963
+
+46. Sudo and Echo
+`sudo echo` won't work how you think
+https://www.tiktok.com/@bahamas10_/video/7347734025408105771
