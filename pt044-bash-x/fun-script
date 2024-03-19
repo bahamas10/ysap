@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+want_user='dave'
+
+if [[ $USER == $want_user ]]; then
+	echo "hooray! it's dave"
+else
+	echo 'uh literally who even are you?'
+fi

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+msg='hello world'
+
+echo "${msg: -0}"
+echo "${msg: -1}"
+echo "${msg: -2}"
+echo "${msg: -3}"
+echo "${msg: -4}"
+echo "${msg: -5}"

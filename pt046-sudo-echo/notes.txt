@@ -1,0 +1,11 @@
+
+cat /etc/hostname # doesn't exist
+
+echo my-host-name > /etc/hostname
+sudo echo my-host-name > /etc/hostname
+
+# why?
+
+echo my-host-name | sudo tee /etc/hostname
+
+echo my-host-name | sudo tee /etc/hostname > /dev/null
