@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# Ensure the required dep programs are available
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 25, 2024
+# License: MIT
+
+code=0
+
+check() {
+	echo -n "$*... "
+	if ! "$@"; then
+		echo 'error'
+		code=1
+	fi
+}
+
+check command -v npx
+check command -v jq
+check npx strip-ansi-cli --version
+check npx ansi-to-html --version
+
+exit "$code"
