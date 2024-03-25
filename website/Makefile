@@ -4,11 +4,12 @@ SHELL := bash
 build:
 	mkdir -p _site
 	cat episodes.txt > _site/text
+	cat style.css > _site/style.css
 	./make-help > _site/help
 	./make-json < episodes.txt > _site/json
 	./make-ascii-table < episodes.txt > _site/index.txt
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
-	./make-redirects _site < episodes.txt
+	./make-video-pages _site < episodes.txt
 	cat _site/index.txt <(./make-help -H) \
 		| sed -e 's/ /\&nbsp;/g' \
 		| npx ansi-to-html \
