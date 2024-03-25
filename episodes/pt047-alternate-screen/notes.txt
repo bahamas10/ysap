@@ -1,0 +1,7 @@
+less /usr/share/dict/words
+
+tput smcup
+# hi
+tput rmcup
+
+tput smcup; head /usr/share/dict/words; sleep 2; tput rmcup

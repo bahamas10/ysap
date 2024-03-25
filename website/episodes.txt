@@ -181,3 +181,7 @@ https://www.tiktok.com/@bahamas10_/video/7345159439667825963
 46. Sudo and Echo
 `sudo echo` won't work how you think
 https://www.tiktok.com/@bahamas10_/video/7347734025408105771
+
+47. The Alternate Screen
+Alt screens in your terminal
+https://www.tiktok.com/@bahamas10_/video/7350386598216830251
