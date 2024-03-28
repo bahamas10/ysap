@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+ll_data=()
+ll_idx=()
+
+parr ()
+{
+    local key value name;
+    for name in "$@";
+    do
+        echo '(';
+        eval "
+		for key in \"\${!$name[@]}\"; do
+			value=\${$name[\$key]}
+			echo -e \"\\t[\$key]=\\\`\$value\\\`\"
+		done";
+        echo ')';
+    done
+}
+
+ll-insert() {
+	local data=$1
+
+	local idx=${#ll_idx[@]}
+
+	ll_data[idx]=$data
+	ll_idx[idx]=-1
+
+	if (( idx - 1 >= 0)); then
+		ll_idx[idx-1]=$idx
+	fi
+}
+
+ll-print() {
+	local idx=0
+	if [[ -z ${ll_idx[0]} ]]; then
+		idx=-1
+	fi
+
+	while ((idx != -1)); do
+		local data=${ll_data[idx]}
+		local idx=${ll_idx[idx]}
+
+		printf -- '%s -> ' "$data"
+	done
+	printf '(done)\n'
+}
+
+ll-reverse() {
+}
+
+ll-insert 'foo'
+ll-insert 'bar'
+ll-insert 'baz'
+ll-print
+
+ll-reverse
+ll-print

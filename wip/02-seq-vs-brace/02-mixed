@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+for i in foo {1..4} {8..10} bar; do
+	echo "$i"
+done

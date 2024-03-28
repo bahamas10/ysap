@@ -1,0 +1,11 @@
+set -H
+shopt -s extglob
+
+ls -1 files/*.txt
+ls -1 files/!(*.txt)
+
+ls -1 files/+(foo|bar).txt
+
++(thing) => /(thing)+/
+?(thing) => /(thing)?/
+*(thing) => /(thing)*/

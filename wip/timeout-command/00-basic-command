@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+timeout 1s ./my-long-command
