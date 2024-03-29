@@ -17,6 +17,10 @@ build:
 		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' > _site/index.html
 
+.PHONY: serve
+serve:
+	python3 -mhttp.server -d _site
+
 .PHONY: check
 check:
 	./check-deps
