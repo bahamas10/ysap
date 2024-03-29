@@ -115,7 +115,7 @@ while read -r line; do
 		0)
 			title=$line
 			num=${line%%.*}
-			links+=("http://ysap.daveeddy.com/v/$num")
+			links+=("https://ysap.daveeddy.com/v/$num")
 			titles+=("$title")
 			;;
 		1) descs+=("$line");;
