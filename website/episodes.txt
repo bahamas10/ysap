@@ -185,3 +185,7 @@ https://www.tiktok.com/@bahamas10_/video/7347734025408105771
 47. The Alternate Screen
 Alt screens in your terminal
 https://www.tiktok.com/@bahamas10_/video/7350386598216830251
+
+48. Shell Pipelines
+Use `PIPESTATUS` to track exit codes
+https://www.tiktok.com/@bahamas10_/video/7352947786515631403

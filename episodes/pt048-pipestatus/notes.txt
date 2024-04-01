@@ -1,0 +1,7 @@
+echo hi | cat foo - | head
+
+echo "${PIPESTATUS[*]}"
+
+true|false|true|false|true
+
+(exit 4) | (exit 7) | (exit 100) | (exit 0)
