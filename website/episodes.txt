@@ -189,3 +189,7 @@ https://www.tiktok.com/@bahamas10_/video/7350386598216830251
 48. Shell Pipelines
 Use `PIPESTATUS` to track exit codes
 https://www.tiktok.com/@bahamas10_/video/7352947786515631403
+
+49. Special Characters
+Using the `$'...'` syntax
+https://www.tiktok.com/@bahamas10_/video/7355534233634360619

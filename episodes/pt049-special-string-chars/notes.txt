@@ -1,0 +1,12 @@
+echo 'hello\nworld'
+
+echo -e 'hello\nworld'
+
+msg='hello\nworld'
+msg=$'hello\nworld'
+
+
+echo $'foo\nbar'
+echo $'foo\tbar'
+echo $'foo\vbar'
+echo $'foo\b\b\bbar'
