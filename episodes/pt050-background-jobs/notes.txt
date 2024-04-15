@@ -1,0 +1,23 @@
+jobs
+
+sleep 20
+
+sleep 20 &
+
+jobs
+
+kill %1
+
+--
+
+sleep 20 &
+
+/bin/kill
+
+--
+
+myfunc { sleep 20; echo done; }
+
+myfunc &
+
+jobs

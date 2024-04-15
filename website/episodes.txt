@@ -193,3 +193,7 @@ https://www.tiktok.com/@bahamas10_/video/7352947786515631403
 49. Special Characters
 Using the `$'...'` syntax
 https://www.tiktok.com/@bahamas10_/video/7355534233634360619
+
+50. Background Jobs
+Using `&` and `bg`
+https://www.tiktok.com/@bahamas10_/video/7358126357752237358
