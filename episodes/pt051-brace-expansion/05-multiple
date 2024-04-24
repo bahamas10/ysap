@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+array=(/etc/{foo,bar,baz}/{1,2,3}.txt)
+
+echo "${#array[@]} items"
+
+for item in "${array[@]}"; do
+	echo "$item"
+done

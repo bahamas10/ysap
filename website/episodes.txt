@@ -197,3 +197,7 @@ https://www.tiktok.com/@bahamas10_/video/7355534233634360619
 50. Background Jobs
 Using `&` and `bg`
 https://www.tiktok.com/@bahamas10_/video/7358126357752237358
+
+51. Brace Expansion
+Expanding `{...}` in bash
+https://www.tiktok.com/@bahamas10_/video/7361498703481294123
