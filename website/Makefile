@@ -10,7 +10,7 @@ build:
 	./make-ascii-table < episodes.txt > _site/index.txt
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
 	./make-video-pages _site < episodes.txt
-	cat _site/index.txt <(./make-help -H) \
+	cat _site/index.txt <(./make-socials) <(./make-help -H) \
 		| sed -e 's/ /\&nbsp;/g' \
 		| npx ansi-to-html \
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template \
