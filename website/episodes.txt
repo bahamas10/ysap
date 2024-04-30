@@ -201,3 +201,7 @@ https://www.tiktok.com/@bahamas10_/video/7358126357752237358
 51. Brace Expansion
 Expanding `{...}` in bash
 https://www.tiktok.com/@bahamas10_/video/7361498703481294123
+
+52. Brace Number Expansion
+Braces `{n..m}` vs `seq $n $m`
+https://www.tiktok.com/@bahamas10_/video/7361498703481294123
