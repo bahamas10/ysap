@@ -8,20 +8,7 @@
 # Date: March 17, 2024
 # License: MIT
 
-GRAY_COLOR='\x1b[38;5;8m'
-RED_COLOR='\x1b[38;5;9m'
-GREEN_COLOR='\x1b[38;5;10m'
-YELLOW_COLOR='\x1b[38;5;11m'
-BLUE_COLOR='\x1b[38;5;12m'
-BOLD_COLOR='\x1b[38;1m'
-RST_COLOR='\x1b[38;0m'
-
-TABLE_COLOR=$GRAY_COLOR
-HEADER_COLOR=$BOLD_COLOR
-TITLE_COLOR=$GREEN_COLOR
-DESC_COLOR=$YELLOW_COLOR
-LINK_COLOR=$BLUE_COLOR
-CODE_COLOR=$RED_COLOR
+. colors || exit 1
 
 make-hyphens() {
 	local len=$1
@@ -142,8 +129,6 @@ for ((i = 0; i < num_episodes; i++)); do
 done
 
 # generate output!
-./make-header
-echo
 make-rule
 make-header 'TITLE' 'DESCRIPTION' 'VIDEO'
 make-rule
@@ -155,4 +140,3 @@ for ((i = 0; i < num_episodes; i++)); do
 	make-row "$title" "$desc" "$link"
 done
 make-rule
-printf "${TABLE_COLOR}last updated: %s${RST_COLOR}\n" "$(TZ=utc date)"

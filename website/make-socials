@@ -6,13 +6,9 @@
 # Date: March 17, 2024
 # License: MIT
 
-GRAY_COLOR='\x1b[38;5;8m'
-GREEN_COLOR='\x1b[38;5;10m'
-BLUE_COLOR='\x1b[38;5;12m'
-RST_COLOR='\x1b[38;0m'
+. colors || exit 1
 
-echo -e "
-${GRAY_COLOR}# follow my socials${RST_COLOR}
+echo -e "${GRAY_COLOR}# follow my socials${RST_COLOR}
 ${GRAY_COLOR}+ --------- + ----------------------------------- +${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}TikTok   ${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/tiktok    ${GRAY_COLOR}|${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}YouTube  ${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/youtube   ${GRAY_COLOR}|${RST_COLOR}

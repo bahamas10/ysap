@@ -3,14 +3,28 @@ SHELL := bash
 .PHONY: build
 build:
 	mkdir -p _site
+	# copy static files
 	cat episodes.txt > _site/text
 	cat style.css > _site/style.css
-	./make-help > _site/help
+	# create json
 	./make-json < episodes.txt > _site/json
-	./make-ascii-table < episodes.txt > _site/index.txt
+	# create help page
+	cat <(./make-header) <(echo) <(./make-help) > _site/help
+	# create index ascii page for curl users
+	cat <(./make-header) <(echo) \
+	    <(./make-ascii-table < episodes.txt) \
+	    <(./make-footer) \
+	    > _site/index.txt
+	# create nocolor version of that page
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
+	# create all pagse for each video
 	./make-video-pages _site < episodes.txt
-	cat _site/index.txt <(./make-socials) <(./make-help -H) \
+	# create the main HTML page
+	cat <(./make-header) <(echo) \
+	    <(./make-socials) <(echo) \
+	    <(./make-ascii-table < episodes.txt) \
+	    <(./make-footer) <(echo) \
+	    <(./make-help) \
 		| sed -e 's/ /\&nbsp;/g' \
 		| npx ansi-to-html \
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template \
