@@ -205,3 +205,7 @@ https://www.tiktok.com/@bahamas10_/video/7361498703481294123
 52. Brace Number Expansion
 Braces `{n..m}` vs `seq $n $m`
 https://www.tiktok.com/@bahamas10_/video/7361498703481294123
+
+53. C-Style for-loops
+Using `for ((i = 0; i < 4; i++))` loops
+https://www.tiktok.com/@bahamas10_/video/7365931806325214510
