@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+max=4
+
+for ((i = 1; i <= max; i++)); do
+	echo "$i"
+done
