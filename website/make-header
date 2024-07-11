@@ -8,15 +8,22 @@
 
 . colors || exit 1
 
-COLOR_Y=$RED_COLOR
-COLOR_S=$GREEN_COLOR
-COLOR_A=$BLUE_COLOR
-COLOR_P=$MAGENTA_COLOR
+mapfile -t logo < logo.txt
 
-# generate output!
-echo -e "${COLOR_Y} _   _${COLOR_S} ___ ${COLOR_A} __ _ ${COLOR_P}_ __
-${COLOR_Y}| | | ${COLOR_S}/ __|${COLOR_A}/ _\` ${COLOR_P}| '_ \\   ${RST_COLOR}You suck at programming
-${COLOR_Y}| |_| ${COLOR_S}\\__ \\ ${COLOR_A}(_| ${COLOR_P}| |_) |  ${RST_COLOR}Episodes and guide by dave eddy
-${COLOR_Y} \\__,${COLOR_S} |___/${COLOR_A}\\__,_${COLOR_P}| .__/   ${BLUE_COLOR}https://ysap.daveeddy.com${RST_COLOR}
-${COLOR_Y}  __/ |${COLOR_S}     ${COLOR_A}    ${COLOR_P}| |
-${COLOR_Y} |___/ ${COLOR_S}     ${COLOR_A}    ${COLOR_P}|_|      ${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}"
+description=(
+	""
+	"${RST_COLOR}You suck at programming"
+	"${RST_COLOR}Episodes and guide by dave eddy"
+	"${BLUE_COLOR}https://ysap.daveeddy.com${RST_COLOR}"
+	''
+	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}"
+)
+
+len=${#logo[@]}
+
+for ((i = 0; i < len; i++)); do
+	logo_line=${logo[i]}
+	desc_line=${description[i]}
+
+	echo -e "$logo_line $desc_line"
+done
