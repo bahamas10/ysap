@@ -1,7 +1,7 @@
 SHELL := bash
 
 .PHONY: build
-build: favicon.ico ysap.png
+build: favicon.ico
 	mkdir -p _site
 	# copy static files
 	cat favicon.ico > _site/favicon.ico

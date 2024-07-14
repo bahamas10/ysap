@@ -31,6 +31,7 @@ foreach-episode() {
 		declare -A links
 		for line in "${lines[@]}"; do
 			read -r key value <<< "$line"
+			[[ -n $key && -n $value ]] || continue
 			links[$key]=$value
 		done
 
