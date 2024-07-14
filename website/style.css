@@ -8,6 +8,7 @@ body {
 	font-family: monospace;
 }
 #container {
+	position: relative;
 	margin-right: auto;
 	margin-left: auto;
 	max-width: 800px;
@@ -25,4 +26,12 @@ a:visited {
 }
 ul {
 	list-style-type: none;
+}
+
+#self-portrait {
+	position: absolute;
+	border-radius: 50%;
+	width: 64px;
+	left: 500px;
+	top: 30px;
 }

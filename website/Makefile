@@ -1,9 +1,11 @@
 SHELL := bash
 
 .PHONY: build
-build:
+build: favicon.ico ysap.png
 	mkdir -p _site
 	# copy static files
+	cat favicon.ico > _site/favicon.ico
+	cat ysap.png > _site/ysap.png
 	cat style.css > _site/style.css
 	# create json
 	./make-json > _site/json
@@ -29,6 +31,15 @@ build:
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template \
 		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' > _site/index.html
+
+favicon.ico:
+	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=32
+
+ysap.png:
+	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=256
+
+.PHONY: all
+all: build deploy
 
 .PHONY: serve
 serve:

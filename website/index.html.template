@@ -9,6 +9,7 @@
 	</head>
 	<body>
 		<div id="container">
+			<!--<img src="ysap.png" id="self-portrait" alt="ysap" />-->
 			<pre><code>
 			CONTENT
 			</code></pre>
