@@ -5,7 +5,6 @@ build: favicon.ico ysap.png
 	mkdir -p _site
 	# copy static files
 	cat favicon.ico > _site/favicon.ico
-	cat ysap.png > _site/ysap.png
 	cat style.css > _site/style.css
 	# create json
 	./make-json > _site/json
@@ -34,9 +33,6 @@ build: favicon.ico ysap.png
 
 favicon.ico:
 	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=32
-
-ysap.png:
-	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=256
 
 .PHONY: all
 all: build deploy
