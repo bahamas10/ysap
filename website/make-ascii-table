@@ -60,7 +60,7 @@ format-title() {
 	local num=$1
 	local title=$2
 	local s=$(format-ticks "$title" "$((max_title - title_pad))" "$TITLE_COLOR")
-	printf -v num '%-3d' "$num"
+	printf -v num '%*d.' "${#num_episodes}" "$num"
 
 	echo "${RST_COLOR}${NUM_COLOR}$num ${RST_COLOR}${TITLE_COLOR}$s"
 }
