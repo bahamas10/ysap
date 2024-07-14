@@ -4,25 +4,24 @@ SHELL := bash
 build:
 	mkdir -p _site
 	# copy static files
-	cat episodes.txt > _site/text
 	cat style.css > _site/style.css
 	# create json
-	./make-json < episodes.txt > _site/json
+	./make-json > _site/json
 	# create help page
 	cat <(./make-header) <(echo) <(./make-help) > _site/help
 	# create index ascii page for curl users
 	cat <(./make-header) <(echo) \
-	    <(./make-ascii-table < episodes.txt) \
+	    <(./make-ascii-table) \
 	    <(./make-footer) \
 	    > _site/index.txt
 	# create nocolor version of that page
 	npx strip-ansi-cli < _site/index.txt > _site/nocolor
 	# create all pagse for each video
-	./make-video-pages _site < episodes.txt
+	./make-video-pages _site
 	# create the main HTML page
 	cat <(./make-header) <(echo) \
 	    <(./make-socials) <(echo) \
-	    <(./make-ascii-table < episodes.txt) \
+	    <(./make-ascii-table) \
 	    <(./make-footer) <(echo) \
 	    <(./make-help) \
 		| sed -e 's/ /\&nbsp;/g' \
@@ -45,4 +44,4 @@ clean:
 
 .PHONY: deploy
 deploy:
-	rsync -avh --delete ./_site/ ysap.daveeddy.com:/var/www/ysap.daveeddy.com/
+	rsync -avh --delete ./_site/ web:/var/www/ysap.sh/

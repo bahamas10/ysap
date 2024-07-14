@@ -16,43 +16,27 @@
 # Date: March 17, 2024
 # License: MIT
 
+. ./util
+
 dir=$1
 
 [[ -n $dir ]] || exit 1
 
 NUM_RE='^[0-9]+'
 
-# read episode info from stdin (parse txt file)
-index=0
-episodes=()
-links=()
-titles=()
-descs=()
-while read -r line; do
-	case "$index" in
-		0) # title
-			num=${line%%.*}
-			episodes+=("$num")
-			titles+=("$line")
-			;;
-		1) # desc
-			descs+=("$line")
-			;;
-		2) # link
-			links+=("$line")
-			;;
-		3) ;;
-	esac
-	index=$(( (index + 1) % 4 ))
-done
-num_episodes=${#episodes[@]}
-
 mkdir -p "$dir/v"
-for ((i = 0; i < num_episodes; i++)); do
-	episode=${episodes[i]}
-	link=${links[i]}
-	title=${titles[i]}
-	desc=${descs[i]}
+
+make-video-page() {
+	local episode=$1
+	local title=$2
+	local desc=$3
+	local link=$4
+
+	local tiktok=$5
+	local youtube=$6
+	local instagram=$7
+
+	local ytcode=${youtube##*=}
 
 	echo "generating page for episode $episode -> $link"
 
@@ -73,20 +57,30 @@ for ((i = 0; i < num_episodes; i++)); do
 			<a href="/">&larr; You suck at programming</a>
 			<span class="center">
 				<h1>$title</h1>
-				<blockquote class="tiktok-embed" cite="$link" data-video-id="${link##*/}" data-embed-from="embed_page" style="width:325px;">
-					<section>
-						<a target="_blank" title="@bahamas10_" href="https://www.tiktok.com/@bahamas10_?refer=embed">@bahamas10_</a>
-						<p>$desc</p>
-						<a target="_blank" title="♬ original sound - Dave Eddy" href="https://www.tiktok.com/music/original-sound-7347734206501456683?refer=embed">♬ original sound - Dave Eddy</a>
-					</section>
-				</blockquote>
-				<script async src="https://www.tiktok.com/embed.js"></script>
+				<br>
 				<p>$desc</p>
 				<br>
-				<p><a href="$link">$link</a></p>
+				<p>
+				<iframe width="560" height="315"
+				src="https://www.youtube.com/embed/$ytcode"
+				title="" frameBorder="0"   allow="accelerometer;
+				autoplay; clipboard-write; encrypted-media;
+				gyroscope; picture-in-picture; web-share"
+				allowFullScreen>
+				</iframe>
+				</p>
+				<br>
+				<br>
+				<ul>
+					<li><a href="$youtube">Watch on YouTube</a></li>
+					<li><a href="$instagram">Watch on Instagram</a></li>
+					<li><a href="$tiktok">Watch on TikTok</a></li>
+				</ul>
 			</span>
 		</div>
 	</body>
 </html>
 	EOF
-done
+}
+
+foreach-episode make-video-page

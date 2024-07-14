@@ -6,20 +6,21 @@
 # Date: March 17, 2024
 # License: MIT
 
-. colors || exit 1
+. ./colors || exit 1
+. ./util || exit 1
 
 examples=(
-	'ysap.daveeddy.com|get the list of episodes'
-	'ysap.daveeddy.com/nocolor|get the list of episodes without color'
-	'ysap.daveeddy.com/text|get the list of episodes in raw text format'
-	'ysap.daveeddy.com/json|get the list of episodes in json format'
-	'ysap.daveeddy.com/help|get the help and usage docs'
-	'ysap.daveeddy.com/ip|get your current IP address as a string'
-	'ysap.daveeddy.com/ping|get a 200 with the text "pong"'
+	'|get the list of episodes'
+	'/nocolor|get the list of episodes without color'
+	'/json|get the list of episodes in json format'
+	'/help|get the help and usage docs'
+	'/ip|get your current IP address as a string'
+	'/ping|get a 200 with the text "pong"'
 )
 
 for example in "${examples[@]}"; do
-	IFS='|' read -r url desc <<< "$example"
+	IFS='|' read -r endpoint desc <<< "$example"
+	url=${SITE}$endpoint
 	echo -e "${GRAY_COLOR}# $desc${RST_COLOR}"
 	echo -e "${GREEN_COLOR}$ curl ${RST_COLOR}$url"
 	echo

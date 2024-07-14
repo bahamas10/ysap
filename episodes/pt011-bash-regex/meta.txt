@@ -1,0 +1,5 @@
+11. Bash Regex
+Using regex in pure bash
+youtube https://www.youtube.com/watch?v=nBH5z2H5BIY
+tiktok https://www.tiktok.com/@bahamas10_/video/7175941495688580394
+instagram https://www.instagram.com/reels/C7ZgD5cP4bn/

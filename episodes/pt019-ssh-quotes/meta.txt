@@ -1,0 +1,5 @@
+19. Quotes and SSH
+How to quote variables over `ssh`
+youtube https://www.youtube.com/watch?v=JtxnWIjxqU4
+tiktok https://www.tiktok.com/@bahamas10_/video/7194975992052567342
+instagram https://www.instagram.com/reels/C9QixeXsD46/

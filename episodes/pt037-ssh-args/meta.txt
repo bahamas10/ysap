@@ -1,0 +1,3 @@
+37. SSH Scripts
+Run commands over `ssh`
+tiktok https://www.tiktok.com/@bahamas10_/video/7282139775778262318

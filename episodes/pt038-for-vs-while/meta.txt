@@ -1,0 +1,3 @@
+38. For Loop vs While Loop
+When to use `for` vs `while`
+tiktok https://www.tiktok.com/@bahamas10_/video/7284371531646389547

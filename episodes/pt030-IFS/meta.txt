@@ -1,0 +1,3 @@
+30. IFS Variable
+`IFS` variable in scripts
+tiktok https://www.tiktok.com/@bahamas10_/video/7254649422762560811

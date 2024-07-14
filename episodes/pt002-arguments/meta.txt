@@ -1,0 +1,5 @@
+2. Bash Arguments
+Parsing arguments in bash
+youtube https://www.youtube.com/watch?v=GanBobctt7I
+tiktok https://www.tiktok.com/@bahamas10_/video/7157457925466754347
+instagram https://www.instagram.com/reels/C6U7BY8vzAO/

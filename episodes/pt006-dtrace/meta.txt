@@ -1,0 +1,5 @@
+6. Bash and DTrace
+Using `dtrace` and bash
+youtube https://www.youtube.com/watch?v=LNaXcOS22j0
+tiktok https://www.tiktok.com/@bahamas10_/video/7164821593967889710
+instagram https://www.instagram.com/reels/C6l3g0-N66c/

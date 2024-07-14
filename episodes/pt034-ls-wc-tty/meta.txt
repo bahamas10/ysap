@@ -1,0 +1,3 @@
+34. Is a TTY
+Tell if you're on a TTY w/ `isatty(3)`
+tiktok https://www.tiktok.com/@bahamas10_/video/7266471930830605610

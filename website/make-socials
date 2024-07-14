@@ -6,12 +6,13 @@
 # Date: March 17, 2024
 # License: MIT
 
-. colors || exit 1
+. ./colors || exit 1
+. ./util || exit 1
 
 echo -e "${GRAY_COLOR}# follow my socials${RST_COLOR}
-${GRAY_COLOR}+ --------- + ----------------------------------- +${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}TikTok   ${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/tiktok    ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}YouTube  ${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/youtube   ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Instagram${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/instagram ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Discord  ${GRAY_COLOR} | ${BLUE_COLOR}https://ysap.daveeddy.com/discord   ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}+ --------- + ----------------------------------- +${RST_COLOR}"
+${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}
+${GRAY_COLOR}| ${GREEN_COLOR}TikTok   ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/tiktok    ${GRAY_COLOR}|${RST_COLOR}
+${GRAY_COLOR}| ${GREEN_COLOR}YouTube  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/youtube   ${GRAY_COLOR}|${RST_COLOR}
+${GRAY_COLOR}| ${GREEN_COLOR}Instagram${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/instagram ${GRAY_COLOR}|${RST_COLOR}
+${GRAY_COLOR}| ${GREEN_COLOR}Discord  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/discord   ${GRAY_COLOR}|${RST_COLOR}
+${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}"

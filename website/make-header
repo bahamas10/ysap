@@ -6,7 +6,8 @@
 # Date: March 17, 2024
 # License: MIT
 
-. colors || exit 1
+. ./colors || exit 1
+. ./util || exit 1
 
 mapfile -t logo < logo.txt
 
@@ -14,7 +15,7 @@ description=(
 	""
 	"${RST_COLOR}You suck at programming"
 	"${RST_COLOR}Episodes and guide by dave eddy"
-	"${BLUE_COLOR}https://ysap.daveeddy.com${RST_COLOR}"
+	"${BLUE_COLOR}https://$SITE${RST_COLOR}"
 	''
 	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}"
 )
@@ -25,5 +26,5 @@ for ((i = 0; i < len; i++)); do
 	logo_line=${logo[i]}
 	desc_line=${description[i]}
 
-	echo -e "$logo_line $desc_line"
+	echo -e "${BOLD_COLOR}$logo_line${RST_COLOR} $desc_line"
 done
