@@ -22,7 +22,7 @@ You can also access it on your terminal with:
 ```
 $ curl ysap.sh
  _   _ ___  __ _ _ __
-| | | / __|/ _` | '_ \   You suck at programming
+| | | / __|/ _` | '_ \   You Suck at Programming
 | |_| \__ \ (_| | |_) |  Episodes and guide by dave eddy
  \__, |___/\__,_| .__/   https://ysap.sh
   __/ |         | |

@@ -54,7 +54,7 @@ make-video-page() {
 	<body>
 		<div id="container">
 			<br>
-			<a href="/">&larr; You suck at programming</a>
+			<a href="/">&larr; You Suck at Programming</a>
 			<span class="center">
 				<h1>$title</h1>
 				<br>

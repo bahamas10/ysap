@@ -13,7 +13,7 @@ mapfile -t logo < logo.txt
 
 description=(
 	""
-	"${RST_COLOR}You suck at programming"
+	"${RST_COLOR}You Suck at Programming"
 	"${RST_COLOR}Episodes and guide by dave eddy"
 	"${BLUE_COLOR}https://$SITE${RST_COLOR}"
 	''

@@ -34,7 +34,7 @@ foreach-episode callback
 
 now=$(date +%s)
 printf '%s\n' "${objects[@]}" | jq -n --arg site "https://$SITE" --argjson date "$now" '{
-    "name": "You suck at programming",
+    "name": "You Suck at Programming",
     "site": $site,
     "generated": $date,
     "episodes": [inputs]
