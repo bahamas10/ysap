@@ -26,7 +26,7 @@ $ curl ysap.sh
 | |_| \__ \ (_| | |_) |  Episodes and guide by dave eddy
  \__, |___/\__,_| .__/   https://ysap.sh
   __/ |         | |
- |___/          |_|      Source: https://github.com/bahamas10/you-suck-at-programming
+ |___/          |_|      Source: https://github.com/bahamas10/ysap
 
 + ------------------------- + -------------------------------------- + -------------------- +
 | TITLE                     | DESCRIPTION                            | VIDEO                |

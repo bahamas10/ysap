@@ -17,7 +17,7 @@ description=(
 	"${RST_COLOR}Episodes and guide by dave eddy"
 	"${BLUE_COLOR}https://$SITE${RST_COLOR}"
 	''
-	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/you-suck-at-programming${RST_COLOR}"
+	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/ysap${RST_COLOR}"
 )
 
 len=${#logo[@]}
