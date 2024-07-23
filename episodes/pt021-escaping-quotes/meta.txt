@@ -1,3 +1,5 @@
 21. Escaping Quotes
 Quote wrangling in bash
 tiktok https://www.tiktok.com/@bahamas10_/video/7207497574180277546
+youtube https://www.youtube.com/watch?v=5DD7YrOgmq4
+instagram https://www.instagram.com/p/C9yG2tbvDAY/
