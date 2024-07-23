@@ -7,8 +7,7 @@ Repository
 ----------
 
 - [episodes/](episodes/) - scripts and notes used during videos
-- [website/](website/) - scripts used for creating the
-- [ysap.sh](https://ysap.sh) site
+- [website/](website/) - scripts used for creating the [ysap.sh](https://ysap.sh) site
 
 Episodes
 --------
