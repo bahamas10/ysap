@@ -1,7 +1,12 @@
-You Suck at Programming
-=======================
+![You Suck at Programming Banner](https://files.daveeddy.com/ysap/github-banner.png)
 
-A series on programming (actually just bash scripting) on tiktok and youtube.
+`ysap` - You Suck at Programming
+================================
+
+A series on programming (actually just bash scripting) on youtube, tiktok and
+instagram.
+
+https://ysap.sh
 
 Repository
 ----------
