@@ -50,6 +50,7 @@ check:
 .PHONY: clean
 clean:
 	rm -rf _site
+	rm -f favicon.ico
 
 .PHONY: deploy
 deploy:
