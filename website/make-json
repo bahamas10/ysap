@@ -19,15 +19,31 @@ callback() {
 	local yt=$6
 	local ig=$7
 
+	# this is an "episode" object in the final json
+	local json
+	read -d '' -r json <<-"EOF"
+	{
+		"title": $title,
+		"desc": $desc,
+		"link": $link,
+		"external": {
+			"tiktok": $tiktok,
+			"youtube": $youtube,
+			"instagram": $instagram
+		}
+	}
+	EOF
+
 	local object
 	object=$(jq -c --null-input \
 		--arg title "$title" \
 		--arg desc "$desc" \
 		--arg link "$link" \
-		--arg _tiktok_link "$tt" \
-		--arg _youtube_link "$yt" \
-		--arg _instagram_link "$ig" \
-		'$ARGS.named') || exit
+		--arg tiktok "$tt" \
+		--arg youtube "$yt" \
+		--arg instagram "$ig" \
+		"$json"
+	) || exit
 	objects+=("$object")
 }
 foreach-episode callback
