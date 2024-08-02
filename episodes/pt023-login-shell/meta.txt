@@ -1,3 +1,5 @@
 23. Login Shells
-bashrc vs bash_profile vs profile
+`.bashrc` vs `.bash_profile` vs `.profile`
 tiktok https://www.tiktok.com/@bahamas10_/video/7210163107593751851
+youtube https://www.youtube.com/watch?v=sHpHAqvYRYU
+instagram https://www.instagram.com/reel/C-LMFqiOF6N/
