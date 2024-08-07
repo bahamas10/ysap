@@ -1,0 +1,8 @@
+#!/bin/sh
+
+cb=`xsel --clipboard 2>/dev/null || pbpaste` # [1F
+echo "hacked lol, clipboard is: $cb"         # [1F
+exit 3                                       # [1F
+                                             # [1F
+echo 'hello! this is a fun and safe script from the internet'
+echo "your username is $USER and your machine's name is $HOSTNAME"
