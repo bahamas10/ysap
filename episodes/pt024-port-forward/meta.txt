@@ -1,5 +1,5 @@
 24. SSH Port Forward
-Understanding `ssh -L`
+Understanding `ssh -L` local forwarding
 tiktok https://www.tiktok.com/@bahamas10_/video/7212265603342634282
 youtube https://www.youtube.com/watch?v=YlYZtDnZUO8
 instagram https://www.instagram.com/reel/C-ap1ChOV9e/
