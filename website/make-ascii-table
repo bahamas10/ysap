@@ -99,6 +99,9 @@ format-ticks() {
 	printf '%s' "$new_s"
 }
 
+typ=$1
+[[ -n $1 ]] || exit 1
+
 # read each episode once to determine max length
 titles=()
 descs=()
@@ -113,7 +116,7 @@ max-length-callback() {
 	videos+=("$video")
 }
 
-foreach-episode max-length-callback
+foreach-video "$typ" max-length-callback
 
 # figure out the max title, desc, and video
 num_episodes=${#titles[@]}
@@ -144,5 +147,5 @@ output-callback() {
 
 	make-row "$num" "$title" "$desc" "$video"
 }
-foreach-episode output-callback
+foreach-video "$typ" output-callback
 make-rule

@@ -8,6 +8,9 @@
 
 . ./util || exit 1
 
+typ=$1
+[[ -n $1 ]] || exit 1
+
 objects=()
 
 callback() {
@@ -46,7 +49,7 @@ callback() {
 	) || exit
 	objects+=("$object")
 }
-foreach-episode callback
+foreach-video "$typ" callback
 
 now=$(date +%s)
 printf '%s\n' "${objects[@]}" | jq -n --arg site "https://$SITE" --argjson date "$now" '{
