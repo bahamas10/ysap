@@ -9,7 +9,7 @@
 . ./util || exit 1
 
 typ=$1
-[[ -n $1 ]] || exit 1
+[[ -n $typ ]] || exit 1
 
 objects=()
 
@@ -52,9 +52,14 @@ callback() {
 foreach-video "$typ" callback
 
 now=$(date +%s)
-printf '%s\n' "${objects[@]}" | jq -n --arg site "https://$SITE" --argjson date "$now" '{
+printf '%s\n' "${objects[@]}" | jq -n \
+    --arg site "https://$SITE" \
+    --arg typ "$typ" \
+    --argjson date "$now" \
+    '{
     "name": "You Suck at Programming",
     "site": $site,
     "generated": $date,
+    "type": $typ,
     "episodes": [inputs]
 }'

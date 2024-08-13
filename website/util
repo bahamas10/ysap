@@ -17,13 +17,11 @@ foreach-video() {
 	local typ=$1
 	local callback=$2
 	local line title num desc pt
+	local lines links
 
 	local base_link="https://$SITE"
 
 	for pt in ../"$typ"/pt*/meta.txt; do
-		local line= title= num= desc= link=
-		local tiktok= youtube= instagram=
-		local lines links
 		unset lines links
 
 		mapfile -t lines < "$pt"

@@ -66,9 +66,13 @@ all: build deploy
 serve:
 	python3 -mhttp.server -d _site
 
+.PHONY: check-deps
+check-deps:
+	./check-deps
+
 .PHONY: check
 check:
-	./check-deps
+	shellcheck -x make-* check-*
 
 .PHONY: clean
 clean:
