@@ -18,9 +18,11 @@
 
 . ./util
 
-dir=$1
+typ=$1
+dir=$2
 
 [[ -n $dir ]] || exit 1
+[[ -n $typ ]] || exit 1
 
 NUM_RE='^[0-9]+'
 
@@ -43,8 +45,8 @@ make-video-page() {
 	# sanity check - ensure the number is just a number
 	[[ $episode =~ $NUM_RE ]] || exit 1
 
-	mkdir -p "$dir/v/$episode"
-	cat <<-EOF > "$dir/v/$episode/index.html"
+	mkdir -p "$dir/$episode"
+	cat <<-EOF > "$dir/$episode/index.html"
 <!doctype html>
 <html>
 	<head>
@@ -83,4 +85,4 @@ make-video-page() {
 	EOF
 }
 
-foreach-episode make-video-page
+foreach-video "$typ" make-video-page

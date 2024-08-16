@@ -8,14 +8,20 @@
 
 SITE='ysap.sh'
 
-foreach-episode() {
-	local callback=$1
-	local line title num desc
+fatal() {
+	echo '[FATAL]' "$@" >&2
+	exit 1
+}
 
-	for pt in ../episodes/pt*/meta.txt; do
-		local line= title= num= desc=
-		local tiktok= youtube= instagram=
-		local lines links
+foreach-video() {
+	local typ=$1
+	local callback=$2
+	local line title num desc pt
+	local lines links
+
+	local base_link="https://$SITE"
+
+	for pt in ../"$typ"/pt*/meta.txt; do
 		unset lines links
 
 		mapfile -t lines < "$pt"
@@ -24,7 +30,12 @@ foreach-episode() {
 		num=${title%%.*}
 		title=${title#*. }
 
-		link="https://$SITE/v/$num"
+		case "$typ" in
+			episodes) link=$base_link/v/$num;;
+			general) link=$base_link/general/v/$num;;
+			*) fatal "unknown type $typ";;
+		esac
+
 		desc=${lines[1]}
 
 		lines=("${lines[@]:2}")

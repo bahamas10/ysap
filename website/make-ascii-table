@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2059
 #
 # Take a list of text episodes and generate a nice console-compatible table
 #
@@ -59,7 +60,8 @@ make-header() {
 format-title() {
 	local num=$1
 	local title=$2
-	local s=$(format-ticks "$title" "$((max_title - title_pad))" "$TITLE_COLOR")
+	local s
+	s=$(format-ticks "$title" "$((max_title - title_pad))" "$TITLE_COLOR")
 	printf -v num '%*d.' "${#num_episodes}" "$num"
 
 	echo "${RST_COLOR}${NUM_COLOR}$num ${RST_COLOR}${TITLE_COLOR}$s"
@@ -99,6 +101,9 @@ format-ticks() {
 	printf '%s' "$new_s"
 }
 
+typ=$1
+[[ -n $typ ]] || exit 1
+
 # read each episode once to determine max length
 titles=()
 descs=()
@@ -113,7 +118,7 @@ max-length-callback() {
 	videos+=("$video")
 }
 
-foreach-episode max-length-callback
+foreach-video "$typ" max-length-callback
 
 # figure out the max title, desc, and video
 num_episodes=${#titles[@]}
@@ -144,5 +149,5 @@ output-callback() {
 
 	make-row "$num" "$title" "$desc" "$video"
 }
-foreach-episode output-callback
+foreach-video "$typ" output-callback
 make-rule
