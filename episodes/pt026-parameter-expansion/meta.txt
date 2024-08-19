@@ -1,3 +1,5 @@
 26. Parameter Expansion
 `${parameter//expansions}` in bash
 tiktok https://www.tiktok.com/@bahamas10_/video/7216822787996945706
+youtube https://www.youtube.com/watch?v=Bzi7pa7y15M
+instagram https://www.instagram.com/reel/C-2nJdbpj1j/
