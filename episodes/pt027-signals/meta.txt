@@ -1,3 +1,5 @@
-27. Signals
+27. Unix Signals
 Unix signals with `kill`
 tiktok https://www.tiktok.com/@bahamas10_/video/7219764374968306986
+instagram https://www.instagram.com/p/C_EDXetsPFl/
+youtube https://www.youtube.com/watch?v=mIcdOWq4MME
