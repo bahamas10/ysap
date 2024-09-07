@@ -26,7 +26,7 @@ dir=$2
 
 NUM_RE='^[0-9]+'
 
-mkdir -p "$dir/v"
+mkdir -p "$dir"
 
 make-video-page() {
 	local episode=$1
