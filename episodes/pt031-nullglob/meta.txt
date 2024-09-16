@@ -1,3 +1,5 @@
 31. Simple File Globbing
 Understand `shopt -s nullglab`
 tiktok https://www.tiktok.com/@bahamas10_/video/7257942648986651947
+youtube https://www.youtube.com/watch?v=vGJIY8RVly0
+instagram https://www.instagram.com/p/C_--KYxsL9O/
