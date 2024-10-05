@@ -14,6 +14,5 @@ ${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}YouTube  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/youtube   ${GRAY_COLOR}|${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}Instagram${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/instagram ${GRAY_COLOR}|${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}TikTok   ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/tiktok    ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Ko-fi    ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/ko-fi     ${GRAY_COLOR}|${RST_COLOR}
 ${GRAY_COLOR}| ${GREEN_COLOR}Discord  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/discord   ${GRAY_COLOR}|${RST_COLOR}
 ${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}"
