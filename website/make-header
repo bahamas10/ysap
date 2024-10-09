@@ -15,7 +15,7 @@ description=(
 	""
 	"${RST_COLOR}You Suck at Programming"
 	"${RST_COLOR}Episodes and guide by dave eddy"
-	"${BLUE_COLOR}https://$SITE${RST_COLOR}"
+	"${BLUE_COLOR}https://$SITE${RST_COLOR} | ${BLUE_COLOR}https://daveeddy.com${RST_COLOR}"
 	''
 	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/ysap${RST_COLOR}"
 )
