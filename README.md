@@ -51,7 +51,7 @@ Notes For Dave
 Terminal size: 78x24
 Zoom command+ 3x
 
-PS1='\[\e[1;36m\]\$ \[\e[0;0m\]'
+PS1='\[\e[1;32m\]\$ \[\e[0;0m\]'
 ```
 
 License
