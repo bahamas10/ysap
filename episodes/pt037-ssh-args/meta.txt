@@ -1,3 +1,5 @@
 37. SSH Scripts
 Run commands over `ssh`
 tiktok https://www.tiktok.com/@bahamas10_/video/7282139775778262318
+youtube https://www.youtube.com/watch?v=XOo5I7ir43U
+instagram https://www.instagram.com/reel/DCKeGwfA9AK/
