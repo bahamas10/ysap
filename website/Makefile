@@ -42,29 +42,6 @@ build: favicon.ico
 		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
 		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template > _site/index.html
-	# create "general" stuff
-	mkdir -p _site/general
-	# create json
-	./make-json general > _site/general/json
-	# create index ascii page for curl users
-	cat <(./make-header) <(echo) \
-	    <(./make-ascii-table general) \
-	    <(./make-footer) \
-	    > _site/general/index.txt
-	# create nocolor version of that page
-	npx strip-ansi-cli < _site/general/index.txt > _site/general/nocolor
-	# create all pages for each video
-	./make-video-pages general _site/general/v
-	# create the general HTML page
-	cat <(./make-header) <(echo) \
-	    <(./make-ascii-table general) \
-	    <(./make-footer) <(echo) \
-	    <(./make-donate) \
-		| sed -e 's/ /\&nbsp;/g' \
-		| npx ansi-to-html \
-		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
-		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
-		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template > _site/general/index.html
 
 favicon.ico:
 	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=32
