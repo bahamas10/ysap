@@ -1,5 +1,15 @@
 SHELL := bash
 
+.PHONY: help
+help:
+	@echo 'make build         default target, builds the site into ./_site'
+	@echo 'make check-deps    check to ensure needed dependencies are installed'
+	@echo 'make check         check tools syntax using shellcheck'
+	@echo 'make serve         serve site locally out of ./_site'
+	@echo 'make deploy        deploy the site (using rsync)'
+	@echo 'make all           build and deploy the site'
+	@echo 'make clean         remove any generated files'
+
 .PHONY: build
 build: favicon.ico
 	mkdir -p _site
