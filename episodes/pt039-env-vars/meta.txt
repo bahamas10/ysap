@@ -1,3 +1,5 @@
 39. Environmental Variables
 Env vars on Unix with `env`
 tiktok https://www.tiktok.com/@bahamas10_/video/7287322106424102190
+youtube https://www.youtube.com/watch?v=Ql-47hpjeYo
+instagram https://www.instagram.com/p/DDFRX-VPVZG/
