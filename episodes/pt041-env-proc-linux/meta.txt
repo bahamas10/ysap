@@ -1,3 +1,5 @@
 41. Proc FS Environment
-Looking at `/proc/&&/environ`
+Looking at `/proc/$$/environ`
 tiktok https://www.tiktok.com/@bahamas10_/video/7292170649970298154
+youtube https://www.youtube.com/watch?v=siYvZv7q-u8
+instagram https://www.instagram.com/p/DDz1z8uMoJl/
