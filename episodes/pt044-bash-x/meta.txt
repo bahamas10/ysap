@@ -1,3 +1,5 @@
 44. Debugging bash
 Use `bash -x` in code
 tiktok https://www.tiktok.com/@bahamas10_/video/7342542801499950382
+youtube https://www.youtube.com/watch?v=4TAx3Z9OgPs
+instagram https://www.instagram.com/p/DF5iFlvPgMg/
