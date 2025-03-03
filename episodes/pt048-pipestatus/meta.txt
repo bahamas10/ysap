@@ -1,3 +1,5 @@
 48. Shell Pipelines
 Use `PIPESTATUS` to track exit codes
 tiktok https://www.tiktok.com/@bahamas10_/video/7352947786515631403
+instagram https://www.instagram.com/reel/DGvl9rjOIRD/
+youtube https://www.youtube.com/watch?v=5wGgHViyokE
