@@ -46,13 +46,14 @@ done < <(./make-list)
 printf -v now '%(%s)T' -1
 output=$(printf '%s\n' "${objects[@]}" | jq -n \
     --argjson date "$now" \
-    --arg link "$baselink"
+    --arg link "$baselink" \
     '{
-    "name": "You Suck at Programming",
-    "site": $link,
-    "generated": $date,
-    "episodes": [inputs]
-}')
+        "name": "You Suck at Programming",
+        "site": $link,
+        "generated": $date,
+        "episodes": [inputs]
+     }'
+)
 
 # print the data (optionally as jsonp if the first arg is set)
 if [[ -n $varname ]]; then

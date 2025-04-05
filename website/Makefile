@@ -68,7 +68,7 @@ check-deps:
 
 .PHONY: check
 check:
-	shellcheck -x make-* tools/*
+	shellcheck -x check-* make-* tools/*
 
 .PHONY: clean
 clean:
