@@ -8,7 +8,7 @@
  */
 
 const TYPING_SPEED = 110;
-const INITIAL_DELAY = 3000;
+const INITIAL_DELAY = 2200;
 const SUBSEQUENT_DELAY = 5000;
 
 const CURSOR_BLINK_START = 1;
