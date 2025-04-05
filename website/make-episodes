@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#
+# Generate the page as seen by `curl ysap.sh/episodes`
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 17, 2024
+# License: MIT
+
+. ./theme || exit
+
+format() {
+	local num title desc link _tt _yt _ig
+	while IFS=$'\t' read -r num title desc link _tt _yt _ig; do
+		title=$(format-title "$num" "$title")
+		desc=$(format-description "$desc")
+		link=$(format-link "$link")
+		printf '%s\t%s\t%s\n' \
+			"$title" \
+			"$desc" \
+			"$link"
+	done
+}
+
+format-title() {
+	local num=$1
+	local name=$2
+
+	printf -v num '%2d' "$num"
+
+	echo "$COLOR4$num. $RST$COLOR3$name$RST"
+}
+
+format-description() {
+	local desc=$1
+
+	format-ticks "$desc"
+}
+
+format-link() {
+	local link=$1
+
+	echo "${COLOR1}https://ysap.sh$link$RST"
+}
+
+format-ticks() {
+        local text=$1
+        local colors=("$COLOR5" "$COLOR2")
+
+        local index=0
+        local new_s=${colors[index]}
+        local i c
+        for ((i = 0; i < ${#text}; i++)); do
+                c=${text:i:1}
+                if [[ $c == '`' ]]; then
+                        index=$(((index + 1) % 2))
+                        new_s+="$RST${colors[index]}"
+                else
+                        new_s+=$c
+                fi
+        done
+	new_s+=$RST
+
+        printf '%s' "$new_s"
+}
+
+# create the header
+./make-header -p 7 |
+    ./tools/box -hp 4 -T plain
+
+echo
+
+# create the table
+./make-list | \
+    format | \
+    ./tools/box -s $'\t' -hp 1 -tc "$COLOR5" -bc "$COLOR4" -t Episodes -vp 1

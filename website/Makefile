@@ -1,3 +1,10 @@
+# Create, manage, and deploy the YSAP website
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: April 05, 2025
+# License: MIT
+
+# duh
 SHELL := bash
 
 .PHONY: help
@@ -11,40 +18,42 @@ help:
 	@echo 'make clean         remove any generated files'
 
 .PHONY: build
-build: favicon.ico
-	mkdir -p _site
+build: static/favicon.ico static/ysap.png
+	mkdir -p _site _site/contact _site/static _site/episodes
+	# disable indexing for certain dirs
+	echo -n > _site/static/index.html
 	# copy static files
-	cat favicon.ico > _site/favicon.ico
-	cat style.css > _site/style.css
-	cat robots.txt > _site/robots.txt
-	# create json
-	./make-json episodes > _site/json
-	# create help page
-	cat <(./make-header) <(echo) <(./make-help) > _site/help
-	# create index ascii page for curl users
-	cat <(./make-header) <(echo) \
-	    <(./make-ascii-table episodes) \
-	    <(./make-footer) \
-	    > _site/index.txt
-	# create nocolor version of that page
-	npx strip-ansi-cli < _site/index.txt > _site/nocolor
+	cat static/favicon.ico > _site/favicon.ico
+	cat static/robots.txt > _site/robots.txt
+	cat static/ysap.png > _site/static/ysap.png
+	cat static/style.css > _site/static/style.css
+	cat static/ansi.css > _site/static/ansi.css
+	cat static/terminal.js > _site/static/terminal.js
+	cat static/index.html > _site/index.html
+	cat static/contact.html > _site/contact/index.html
+	cat static/episodes.html > _site/episodes/index.html
+	# make /ping endpoint (nginx handles this for me, but just in case)
+	echo 'pong' > _site/ping
+	# create ASCII index page for curl users
+	./make-index > _site/index.txt
+	# create ASCII help page
+	./make-help > _site/help
+	# create episodes ASCII table
+	./make-episodes > _site/episodes/index.txt
+	# make episodes JSON file for curl
+	./make-episodes-json > _site/json
+	# make jsonp for our HTML files
+	./make-commands-jsonp > _site/static/commands.js
+	./make-episodes-json EPISODES > _site/static/episodes.js
+	cat _site/json > _site/episodes.json
 	# create all pages for each video
-	./make-video-pages episodes _site/v
-	# create the main HTML page
-	cat <(./make-header) <(echo) \
-	    <(./make-socials) <(echo) \
-	    <(./make-ascii-table episodes) \
-	    <(./make-footer) <(echo) \
-	    <(./make-help) \
-	    <(./make-donate) \
-		| sed -e 's/ /\&nbsp;/g' \
-		| npx ansi-to-html \
-		| sed -e 's|http://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
-		| sed -e 's|https://[a-zA-Z0-9./-]*|<a href="&">&</a>|g' \
-		| sed -e '/CONTENT/{r /dev/stdin' -e 'd;}' index.html.template > _site/index.html
+	./make-video-pages
 
-favicon.ico:
-	curl -o $@ https://secure.gravatar.com/avatar/d6e53a055695ad6488b32a6ac4f6ee5d?s=32
+static/favicon.ico:
+	curl -o $@ https://files.daveeddy.com/ysap/favicon.ico
+
+static/ysap.png:
+	curl -o $@ https://files.daveeddy.com/ysap/ysap.png
 
 .PHONY: all
 all: build deploy
@@ -59,12 +68,13 @@ check-deps:
 
 .PHONY: check
 check:
-	shellcheck -x make-* check-*
+	shellcheck -x make-* tools/*
 
 .PHONY: clean
 clean:
 	rm -rf _site
-	rm -f favicon.ico
+	rm -f static/favicon.ico
+	rm -f static/ysap.png
 
 .PHONY: deploy
 deploy:

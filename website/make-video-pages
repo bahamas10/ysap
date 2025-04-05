@@ -1,88 +1,25 @@
 #!/usr/bin/env bash
 #
-# Take a list of text episodes and generate redirect pages
+# Make a page for each video by copying the static video page
 #
-# This allows us to basically have our own URL shortener, albeit in HTML
-# redirects and not HTTP - but still, it makes for smaller URLs.
-#
-# This will create files like:
-#
-# /v/4/index.html
-#
-# Which allows a user to request `GET /v/4` and get redirected to the tiktok
-# video URL for episode 4.
+# Can we use symlinks instead? for now just copy them because they are small
+# files.
 #
 # Author: Dave Eddy <dave@daveeddy.com>
-# Date: March 17, 2024
+# Date: April 05, 2025
 # License: MIT
 
-. ./util
+num_re='^[0-9]+$'
 
-typ=$1
-dir=$2
+echo 'making video pages in _site/v/...'
 
-[[ -n $dir ]] || exit 1
-[[ -n $typ ]] || exit 1
+i=0
+while IFS=$'\t' read -r num _; do
+	# sanity
+	[[ $num =~ $num_re ]] || exit
+	mkdir -p "_site/v/$num"
+	cat static/video.html > "_site/v/$num/index.html"
+	((i++))
+done < <(./make-list)
 
-NUM_RE='^[0-9]+'
-
-mkdir -p "$dir"
-
-make-video-page() {
-	local episode=$1
-	local title=$2
-	local desc=$3
-	local link=$4
-
-	local tiktok=$5
-	local youtube=$6
-	local instagram=$7
-
-	local ytcode=${youtube##*=}
-
-	echo "generating page for episode $episode -> $link"
-
-	# sanity check - ensure the number is just a number
-	[[ $episode =~ $NUM_RE ]] || exit 1
-
-	mkdir -p "$dir/$episode"
-	cat <<-EOF > "$dir/$episode/index.html"
-<!doctype html>
-<html>
-	<head>
-		<title>$title</title>
-		<link rel="stylesheet" href="/style.css">
-	</head>
-	<body>
-		<div id="container">
-			<br>
-			<a href="/">&larr; You Suck at Programming</a>
-			<span class="center">
-				<h1>$title</h1>
-				<br>
-				<p>$desc</p>
-				<br>
-				<p>
-				<iframe width="560" height="315"
-				src="https://www.youtube.com/embed/$ytcode"
-				title="" frameBorder="0"   allow="accelerometer;
-				autoplay; clipboard-write; encrypted-media;
-				gyroscope; picture-in-picture; web-share"
-				allowFullScreen>
-				</iframe>
-				</p>
-				<br>
-				<br>
-				<ul>
-					<li><a href="$youtube">Watch on YouTube</a></li>
-					<li><a href="$instagram">Watch on Instagram</a></li>
-					<li><a href="$tiktok">Watch on TikTok</a></li>
-				</ul>
-			</span>
-		</div>
-	</body>
-</html>
-	EOF
-}
-
-foreach-video "$typ" make-video-page
+echo "made pages for $i videos"

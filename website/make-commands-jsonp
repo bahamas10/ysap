@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# Create the JSONP file for the commands to execute on index.html using the
+# terminal emulator as seen from the web browser.
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: April 03, 2025
+# License: MIT
+
+# we can declare multiple commands here, but for now i just like having 1
+declare -A cmds
+cmds['curl ysap.sh']=$(./make-index | ansi2html -p)
+#cmds['curl ysap.sh/help']=$(./make-help-page | ansi2html -p)
+
+inputs=()
+for cmd in "${!cmds[@]}"; do
+	output=${cmds[$cmd]}
+	s=$(jq -cnR --arg cmd "$cmd" '{
+	    "cmd": $cmd,
+	    "lines": [inputs]
+	}' <<< "$output") || exit 1
+	inputs+=("$s")
+done
+
+json=$(printf '%s\n' "${inputs[@]}" | jq -cn '[inputs]') || exit 1
+echo "const COMMANDS = $json;"

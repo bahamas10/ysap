@@ -1,19 +1,28 @@
 #!/usr/bin/env bash
 #
-# Generate a page with my socials
+# Print the socials - indtended to be passed to `tools/box`
 #
 # Author: Dave Eddy <dave@daveeddy.com>
-# Date: March 17, 2024
+# Date: April 05, 2025
 # License: MIT
 
-. ./colors || exit 1
-. ./util || exit 1
+. ./theme || exit
 
-echo -e "${GRAY_COLOR}# join the community${RST_COLOR}
-${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}YouTube  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/youtube   ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Instagram${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/instagram ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Twitch   ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/twitch    ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Merch    ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/merch     ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}| ${GREEN_COLOR}Discord  ${GRAY_COLOR} | ${BLUE_COLOR}https://$SITE/discord   ${GRAY_COLOR}|${RST_COLOR}
-${GRAY_COLOR}+ --------- + ------------------------- +${RST_COLOR}"
+readarray -t SOCIALS << "EOF"
+Instagram|https://ysap.sh/instagram
+YouTube|https://ysap.sh/youtube
+Discord|https://ysap.sh/discord
+Twitch|https://ysap.sh/twitch
+X|https://ysap.sh/x
+EOF
+
+UNDERLINE=$'\x1b[3m'
+
+for line in "${SOCIALS[@]}"; do
+	IFS='|' read -r name url <<< "$line"
+
+	echo -n "$COLOR2$name$RST"
+	echo -n '|'
+	echo -n "$UNDERLINE$COLOR2$url$RST"
+	echo
+done
