@@ -79,6 +79,7 @@ source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/baham
 			// set title and description
 			titleElem.textContent = num + '. ' + episode.title;
 			descriptionElem.textContent = episode.desc;
+			document.title = episode.title + ' | ysap.sh';
 
 			// set youtube iframe
 			let yt = episode.external.youtube;
