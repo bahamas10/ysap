@@ -16,9 +16,8 @@ check() {
 	fi
 }
 
-check command -v npx
+check command -v ansi2html
+check command -v curl
 check command -v jq
-check npx strip-ansi-cli --version
-check npx ansi-to-html --version
 
 exit "$code"

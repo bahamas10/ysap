@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+#
+# Make the body of the index page for ysap.sh
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: April 05, 2025
+# License: MIT
+
+. ./theme || exit 1
+
+mapfile -t ABOUT < <(./make-about |
+    ./tools/box -t About -hp 1 -vp 1 -bc "$COLOR4" -tc "$COLOR5" -s '|')
+
+mapfile -t SOCIALS < <(./make-socials |
+    ./tools/box -t Socials -hp 1 -vp 1 -bc "$COLOR4" -tc "$COLOR5" -s '|')
+
+# get the max of both boxes
+num_about=${#ABOUT[@]}
+num_socials=${#SOCIALS[@]}
+if ((num_socials > num_about)); then
+	max=$num_socials
+else
+	max=$num_about
+fi
+
+# get the length of a single "about" line
+about_stripped=$(./tools/strip-ansi <<< "${ABOUT[0]}")
+about_len=${#about_stripped}
+
+for ((i = 0; i < max; i++)); do
+	line1=${ABOUT[i]}
+	line2=${SOCIALS[i]}
+
+	if [[ -z $line1 ]]; then
+		line1=$(./tools/repeat-char ' ' "$about_len")
+	fi
+
+	echo "$line1 $line2"
+done

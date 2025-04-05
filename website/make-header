@@ -1,23 +1,34 @@
 #!/usr/bin/env bash
 #
-# Print the colorized YSAP logo and metadata
+# Print the colorized YSAP logo and metadata used as the header for all pages
+# you can request via `curl`
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: March 17, 2024
 # License: MIT
 
-. ./colors || exit 1
-. ./util || exit 1
+. ./theme || exit
+. ./tools/repeat-char || exit
 
-mapfile -t logo < logo.txt
+padding=1
+while getopts 'p:' opt; do
+	case "$opt" in
+		p) padding=$OPTARG;;
+		*) exit 1;;
+	esac
+done
+
+padding=$(repeat-char ' ' "$padding")
+
+mapfile -t logo < <(./make-logo)
 
 description=(
 	""
-	"${RST_COLOR}You Suck at Programming"
-	"${RST_COLOR}Episodes and guide by dave eddy"
-	"${BLUE_COLOR}https://$SITE${RST_COLOR} | ${BLUE_COLOR}https://daveeddy.com${RST_COLOR}"
+	"${COLOR5}You Suck at Programming$RST"
+	"${COLOR5}Episodes and guide by dave eddy$RST"
+	"${COLOR1}https://ysap.sh | https://daveeddy.com$RST"
 	''
-	"${RST_COLOR}Source: ${BLUE_COLOR}https://github.com/bahamas10/ysap${RST_COLOR}"
+	"${COLOR5}Source: ${COLOR1}https://github.com/bahamas10/ysap$RST"
 )
 
 len=${#logo[@]}
@@ -26,5 +37,5 @@ for ((i = 0; i < len; i++)); do
 	logo_line=${logo[i]}
 	desc_line=${description[i]}
 
-	echo -e "${BOLD_COLOR}$logo_line${RST_COLOR} $desc_line"
+	echo "$logo_line$padding$desc_line"
 done

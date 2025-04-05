@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+	<head>
+		<title>ysap.sh</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="/static/style.css">
+		<link rel="stylesheet" href="/static/ansi.css">
+	</head>
+	<body>
+		<div id="container">
+			<div id="top-nav">
+				<ul>
+					<li><a href="/">home</a></li>
+					<li><a href="/episodes">episodes</a></li>
+					<li class="right"><a href="/contact">contact</a></li>
+				</ul>
+			</div>
+
+			<h1 class="title" id="video-title">[object Object]</h1>
+			<p class="content">
+				<span id="video-description">nothing here yet bud</span>
+
+
+				<br>
+				<br>
+				<iframe class="shadow" id="video-yt-frame" width="560" height="315"
+                                src="https://www.youtube.com/embed/KwRow9DdFJ0"
+                                title="" frameBorder="0"   allow="accelerometer;
+                                autoplay; clipboard-write; encrypted-media;
+                                gyroscope; picture-in-picture; web-share"
+                                allowFullScreen>
+                                </iframe>
+                                <br>
+                                <br>
+                                <br>
+                                <ul>
+                                        <li>- <a id="video-youtube-link" href="#">Watch on YouTube</a></li>
+                                        <li>- <a id="video-instagram-link" href="#">Watch on Instagram</a></li>
+                                        <li>- <a id="video-tiktok-link" href="#">Watch on TikTok</a></li>
+                                </ul>
+			</p>
+
+			<pre class="footer"><code>
+source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/bahamas10/ysap</a>
+&copy; dave eddy - ysap <script>document.write(new Date().getFullYear())</script>
+			</code></pre>
+		</div>
+		<script src="/static/episodes.js"></script>
+		<script>
+			const titleElem = document.getElementById('video-title');
+			const descriptionElem = document.getElementById('video-description');
+			const ytVideoElem = document.getElementById('video-yt-frame');
+
+			const ytLinkElem = document.getElementById('video-youtube-link');
+			const igLinkElem = document.getElementById('video-instagram-link');
+			const ttLinkElem = document.getElementById('video-tiktok-link');
+
+			// figure out what video we are based on the windows location
+			const path = window.location.pathname
+				.replace(/index\.html$/, '')
+				.replace(/\/+$/, '');
+
+			console.log('looking up %s', path);
+
+			let m, num;
+			if ((m = path.match(/^\/v\/([0-9]+)$/))) {
+				num = m[1];
+			} else {
+				throw 'unrecoginzed url';
+			}
+
+			let episode = EPISODES.episodes[num - 1];
+			if (!episode) {
+				throw 'non existent episode';
+			}
+
+			// set title and description
+			titleElem.textContent = num + '. ' + episode.title;
+			descriptionElem.textContent = episode.desc;
+
+			// set youtube iframe
+			let yt = episode.external.youtube;
+			if ((m = yt.match(/v=(.*)$/))) {
+				ytVideoElem.src = 'https://www.youtube.com/embed/' + m[1];
+			} else {
+				throw 'invalid youtube link: ' + yt;
+			}
+
+			// set external links
+			ytLinkElem.href = episode.external.youtube;
+			igLinkElem.href = episode.external.instagram;
+			ttLinkElem.href = episode.external.tiktok;
+		</script>
+	</body>
+</html>

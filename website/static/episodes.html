@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+	<head>
+		<title>episodes | ysap.sh</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="/static/style.css">
+		<link rel="stylesheet" href="/static/ansi.css">
+	</head>
+	<body>
+		<div id="container">
+			<div id="top-nav">
+				<ul>
+					<li><a href="/">home</a></li>
+					<li><a href="/episodes" class="active">episodes</a></li>
+					<li class="right"><a href="/contact">contact</a></li>
+				</ul>
+			</div>
+
+			<h1 class="title">episodes</h1>
+			<img src="/static/ysap.png" class="logo" alt="ysap" height="100" />
+			<p class="content">
+				<span class="highlight">You Suck at
+					Programming</span> is the series that
+				kickstarted my channel and led me to start
+				creating tech content online. This series
+				features 2-5 minute videos that cover cool
+				Unix/Bash facts or gotchas, offering insights
+				that are either useful or, at the very least,
+				      interesting.
+				<br>
+				<br>
+				There is also a compilation of the first 50
+				episodes <a
+				href="https://www.youtube.com/watch?v=KwRow9DdFJ0&t=7726s">available
+				on YouTube</a>.
+				<br>
+				<br>
+				<span class="highlight">$ curl</span> ysap.sh/episodes
+				<br>
+			</p>
+			<br>
+
+			<table id="episodes-table" class="shadow">
+				<thead>
+					<tr>
+						<th>TITLE</th>
+						<th>DESCRIPTION</th>
+						<th>LINK</th>
+					</tr>
+				</thead>
+				<tbody id="episodes-tbody">
+				</tbody>
+			</table>
+
+			<pre class="footer"><code>
+source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/bahamas10/ysap</a>
+&copy; dave eddy - ysap <script>document.write(new Date().getFullYear())</script>
+			</code></pre>
+		</div>
+		<script src="/static/episodes.js"></script>
+		<script>
+			var tbody = document.getElementById('episodes-tbody');
+
+			EPISODES.episodes.forEach(function (episode) {
+				let num = episode.num;
+
+				let numFormatted = num.toString();
+				if (numFormatted.length < 2) {
+					numFormatted = '&nbsp' + numFormatted;
+				}
+
+				let tr = document.createElement('tr');
+				let td, span;
+
+				td = document.createElement('td');
+				span = document.createElement('span');
+				span.classList.add('number');
+				span.innerHTML = numFormatted + '. ';
+				td.appendChild(span);
+				span = document.createElement('span');
+				span.classList.add('name');
+				span.textContent = episode.title;
+				td.appendChild(span);
+				td.classList.add('title');
+				tr.appendChild(td);
+
+				td = document.createElement('td');
+				let i = 0;
+				let s = '';
+				episode.desc.split('').forEach(function (c) {
+					switch (c) {
+						case '&': c = '&amp;'; break;
+						case '<': c = '&lt;'; break;
+						case '>': c = '&gt;'; break;
+						case '"': c = '&quot;'; break;
+						case "'": c = '&#39;'; break;
+						case '/': c = '&#47;'; break;
+						case '`':
+							if (i % 2 === 0) {
+								c = '<span class="code">';
+							} else {
+								c = '</span>'
+							}
+							i++;
+							break;
+					}
+					s += c;
+				});
+				td.innerHTML = s;
+				td.classList.add('description');
+				tr.appendChild(td);
+
+				td = document.createElement('td');
+				let a = document.createElement('a');
+				a.href = '/v/' + num;
+				a.textContent = 'ysap.sh/v/' + num;
+				td.appendChild(a);
+				td.classList.add('link');
+				tr.appendChild(td);
+
+				tbody.appendChild(tr);
+			});
+		</script>
+	</body>
+</html>

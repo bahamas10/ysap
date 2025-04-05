@@ -1,6 +1,15 @@
 YSAP Website
 ============
 
+https://ysap.sh
+
+```
+curl ysap.sh
+```
+
+Usage
+-----
+
 ```
 $ make help
 make build         default target, builds the site into ./_site

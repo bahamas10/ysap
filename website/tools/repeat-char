@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Repeat a given character multiple times and return a string
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 28, 2025
+# License: MIT
+
+# repeat-char '=' 50
+repeat-char() {
+	local char=$1
+	local n=$2
+	local s
+	printf -v s "%${n}s"
+	echo -n "${s// /$char}"
+}
+
+if ! (return &>/dev/null); then
+	repeat-char "$@"
+fi

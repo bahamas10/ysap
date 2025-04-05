@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Pad input text on the left-side with a given string
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: March 28, 2025
+# License: MIT
+
+# echo ... | lpad '  '
+lpad() {
+	s=$1
+	line=
+	while IFS= read -r line; do
+		echo "$s$line"
+	done
+}
+
+if ! (return &>/dev/null); then
+	lpad "$@"
+fi

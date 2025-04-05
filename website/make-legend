@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Generate the Legend (help message) - intended to be passed to `tools/box`
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: April 05, 2025
+# License: MIT
+
+. ./theme || exit
+
+full='false'
+while getopts 'f' opt; do
+	case "$opt" in
+		f) full='true';;
+		*) exit 1;;
+	esac
+done
+
+LEGEND=(
+	'ysap.sh|Get this page'
+	'ysap.sh/episodes|Get the list of episodes in the YSAP series'
+	'ysap.sh/json|Get the above in JSON format'
+	'ysap.sh/help|Get the full list of available endpoints'
+)
+
+if $full; then
+	LEGEND+=(
+		'ysap.sh/ping|Get a 200 with the text pong'
+		'[-46] ysap.sh/ip|Get your current IP address as a string'
+	)
+fi
+
+UNDERLINE=$'\x1b[3m'
+
+echo '|'
+for line in "${LEGEND[@]}"; do
+	IFS='|' read -r name url <<< "$line"
+
+	echo -n "$COLOR3$ curl $RST$COLOR5$name"
+	echo -n '|'
+	echo -n "$COLOR1$UNDERLINE$url$RST"
+	echo
+done

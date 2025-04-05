@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Generate the page as seen by `curl ysap.sh/help`
+# Generate the page as seen by `curl ysap.sh`
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: April 05, 2025
@@ -14,10 +14,12 @@
 ./make-header -p 7 |
     ./tools/box -hp 4 -T plain
 
+# create the body
 echo
+./make-body
 
 # create the legend
-./make-legend -f |
+./make-legend |
     ./tools/box -s '|' -hp 1 -tc "$COLOR5" -T plain -t Legend
 
 } | ./tools/lpad '  '
