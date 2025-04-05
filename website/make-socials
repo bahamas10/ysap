@@ -13,7 +13,7 @@ Instagram|https://ysap.sh/instagram
 YouTube|https://ysap.sh/youtube
 Discord|https://ysap.sh/discord
 Twitch|https://ysap.sh/twitch
-X|https://ysap.sh/x
+Twitter|https://ysap.sh/twitter
 EOF
 
 UNDERLINE=$'\x1b[3m'
