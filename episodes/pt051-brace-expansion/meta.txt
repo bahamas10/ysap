@@ -1,3 +1,5 @@
 51. Brace Expansion
 Expanding `{...}` in bash
 tiktok https://www.tiktok.com/@bahamas10_/video/7361498703481294123
+youtube https://www.youtube.com/watch?v=0y1ZO79qWc8
+instagram https://www.instagram.com/reel/DIJ6fQvRT4j/
