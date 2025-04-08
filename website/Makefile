@@ -18,12 +18,13 @@ help:
 	@echo 'make clean         remove any generated files'
 
 .PHONY: build
-build: static/favicon.ico static/ysap.png
+build: static/favicon.ico static/ysap.png static/favicon.jpg
 	mkdir -p _site _site/contact _site/static _site/episodes
 	# disable indexing for certain dirs
 	echo -n > _site/static/index.html
 	# copy static files
 	cat static/favicon.ico > _site/favicon.ico
+	cat static/favicon.jpg > _site/static/favicon.jpg
 	cat static/robots.txt > _site/robots.txt
 	cat static/ysap.png > _site/static/ysap.png
 	cat static/style.css > _site/static/style.css
@@ -52,6 +53,9 @@ build: static/favicon.ico static/ysap.png
 static/favicon.ico:
 	curl -o $@ https://files.daveeddy.com/ysap/favicon.ico
 
+static/favicon.jpg:
+	curl -o $@ https://files.daveeddy.com/ysap/favicon.jpg
+
 static/ysap.png:
 	curl -o $@ https://files.daveeddy.com/ysap/ysap.png
 
@@ -73,7 +77,7 @@ check:
 .PHONY: clean
 clean:
 	rm -rf _site
-	rm -f static/favicon.ico
+	rm -f static/favicon.{ico,jpg}
 	rm -f static/ysap.png
 
 .PHONY: deploy
