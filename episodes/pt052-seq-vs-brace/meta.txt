@@ -1,3 +1,5 @@
 52. Brace Number Expansion
 Braces `{n..m}` vs `seq $n $m`
 tiktok https://www.tiktok.com/@bahamas10_/video/7361498703481294123
+youtube https://www.youtube.com/watch?v=fGCCi_KegHg
+instagram https://www.instagram.com/p/DIWtdYLP-E1/
