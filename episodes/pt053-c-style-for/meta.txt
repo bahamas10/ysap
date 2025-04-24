@@ -1,3 +1,5 @@
 53. C-Style for-loops
 Using `for ((i = 0; i < 4; i++))` loops
 tiktok https://www.tiktok.com/@bahamas10_/video/7365931806325214510
+instagram https://www.instagram.com/p/DI1aKIhJ3ug/
+youtube https://www.youtube.com/watch?v=v634D-Cezyk
