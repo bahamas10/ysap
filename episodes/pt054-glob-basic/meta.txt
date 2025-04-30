@@ -1,0 +1,5 @@
+54. Basic Globbing
+Using `*`, `?`, `[abc]`, etc. wildcards
+tiktok https://www.tiktok.com/@bahamas10_/video/7499133946723175722
+instagram https://www.instagram.com/p/DJE4lMHJXGv/
+youtube https://www.youtube.com/watch?v=gsucx2W-9sg
