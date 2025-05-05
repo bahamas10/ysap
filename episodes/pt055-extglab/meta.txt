@@ -1,0 +1,5 @@
+55. Extended Globbing
+Using `+(foo|bar).txt` as a glob
+tiktok https://www.tiktok.com/@bahamas10_/video/7500989806579813678
+instagram https://www.instagram.com/p/DJRxB_-PUtE/
+youtube https://www.youtube.com/watch?v=K-SvJpFLTjE
