@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+s='user \u bash \v'
+
+echo "${s@P}"

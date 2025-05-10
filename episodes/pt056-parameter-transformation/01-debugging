@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+s='hey my name is Dave'
+
+echo "${s@Q}"
+echo "${s@A}"

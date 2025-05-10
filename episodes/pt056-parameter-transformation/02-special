@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+s="this is $(tput setaf 1)red$(tput sgr0)"
+
+echo "${s@Q}"
+echo "${s@E}"
