@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+my-long-function() {
+	echo 'starting function...'
+	sleep 5
+	echo 'done'
+}
+
+timeout 1s my-long-function
