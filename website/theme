@@ -10,6 +10,6 @@
 COLOR1=$'\x1b[38;5;87m'   # cyan
 COLOR2=$'\x1b[38;5;211m'  # magenta
 COLOR3=$'\x1b[38;5;120m'  # green
-COLOR4=$'\x1b[2m'         # dim
-COLOR5=$'\e[38;5;223;49m' # off-white (text)
+COLOR4=$'\x1b[38;5;241m'  # dim
+COLOR5=$'\x1b[38;5;223m'  # off-white (text)
 RST=$'\x1b[0m'
