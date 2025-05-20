@@ -8,8 +8,8 @@
 
 # echo ... | lpad '  '
 lpad() {
-	s=$1
-	line=
+	local s=$1
+	local line=
 	while IFS= read -r line; do
 		echo "$s$line"
 	done
