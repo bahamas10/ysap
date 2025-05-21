@@ -61,7 +61,8 @@ ul {
 body {
 	background-color: #000;
 	color: var(--color5);
-	line-height: 18px;
+	/*line-height: 18px;*/
+	font-size: 13px;
 }
 
 body, code {
