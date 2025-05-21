@@ -17,7 +17,6 @@
 echo
 
 # create the legend
-./make-legend -f |
-    ./tools/box -s '|' -hp 1 -tc "$COLOR5" -T plain -t Legend
+./make-legend -f
 
 } | ./tools/lpad '  '
