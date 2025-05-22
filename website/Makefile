@@ -19,7 +19,7 @@ help:
 
 .PHONY: build
 build: static/favicon.ico static/ysap.png static/favicon.jpg
-	mkdir -p _site _site/contact _site/static _site/episodes
+	mkdir -p _site _site/contact _site/static _site/episodes _site/resources
 	# disable indexing for certain dirs
 	echo -n > _site/static/index.html
 	# copy static files
@@ -33,6 +33,7 @@ build: static/favicon.ico static/ysap.png static/favicon.jpg
 	cat static/index.html > _site/index.html
 	cat static/contact.html > _site/contact/index.html
 	cat static/episodes.html > _site/episodes/index.html
+	cat static/resources.html > _site/resources/index.html
 	# make /ping endpoint (nginx handles this for me, but just in case)
 	echo 'pong' > _site/ping
 	# create ASCII index page for curl users
