@@ -66,8 +66,9 @@ body {
 }
 
 body, code {
-	font-family: "PT Mono", monospace;
+	font-family: "Fira Mono", monospace;
 	font-weight: 400;
+	font-style: normal;
 }
 
 b, strong, h1, h2, h3, h4, h5, h6 {
