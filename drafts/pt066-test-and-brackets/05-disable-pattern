@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+f='test.jpg'
+if [[ $f == '*.jpg' ]]; then
+	echo "$f is *.jpg"
+else
+	echo "$f is not LITERALLY *.jpg"
+fi

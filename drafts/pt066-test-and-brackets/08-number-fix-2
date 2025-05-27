@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+a=9
+b=10
+
+if ((b > a)); then
+	echo "$b is greater than $a"
+else
+	echo "uh oh"
+fi

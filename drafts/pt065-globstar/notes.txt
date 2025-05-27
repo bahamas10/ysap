@@ -1,0 +1,15 @@
+cd ~/dev/ysap
+
+find .
+echo **
+
+shopt -s globstar
+
+echo **
+printf '%s\n' **
+
+shopt -s dotglob
+
+txt=( ./**/*.txt )
+
+count it, show loop

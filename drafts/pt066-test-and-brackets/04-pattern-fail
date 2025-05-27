@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+f='test.jpg'
+if [ $f == *.jpg ]; then
+	echo "$f is a jpg file"
+else
+	echo "$f is not a jpg file"
+fi
