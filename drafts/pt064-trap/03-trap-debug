@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+my-func() {
+	echo "[DEBUG] running: $BASH_COMMAND"
+}
+
+trap my-func debug
+
+echo script starting
+echo ...
+echo script done
+exit 1

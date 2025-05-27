@@ -1,0 +1,5 @@
+60. Bash ENV File
+Using `BASH_ENV` in bash for env vars
+# tiktok
+# instagram
+# youtube

@@ -1,0 +1,5 @@
+63. Syntax Checker
+Statically checking bash syntax with `bash -n`
+# tiktok
+# instagram
+# youtube

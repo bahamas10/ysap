@@ -1,0 +1,6 @@
+FOO=1
+BAR=2
+
+foo() {
+	echo 'hello from foo function!'
+}

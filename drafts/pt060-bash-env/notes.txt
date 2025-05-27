@@ -1,0 +1,5 @@
+env
+env-extra
+env-scary
+
+show bash -p and find it in man page

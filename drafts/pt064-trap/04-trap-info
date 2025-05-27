@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+my-func() {
+	echo "hello world"
+}
+
+trap my-func SIGINFO || exit 1
+
+while true; do
+	sleep 1
+	echo running
+done
