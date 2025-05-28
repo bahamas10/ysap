@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+do-work() {
+	local i j
+	for i in {0..2}; do
+		for j in {a..c}; do
+			if [[ $i == '1' && $j == 'b' ]]; then
+				return
+			fi
+			echo "$i $j"
+		done
+	done
+}
+
+do-work

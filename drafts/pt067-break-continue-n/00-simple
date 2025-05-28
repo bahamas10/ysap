@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for i in {0..2}; do
+	for j in {a..c}; do
+		echo "$i $j"
+	done
+done
