@@ -3,5 +3,5 @@
 # Set the terminal
 
 tell application "iTerm2"
-    set bounds of window 1 to {1410, 85, 2000, 660}
+    set bounds of window 1 to {1410, 85, 2000, 630}
 end tell
