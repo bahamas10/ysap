@@ -1,0 +1,27 @@
+# go into the episodes directory
+touch basement1.txt
+touch basement2.txt
+
+find . -name based
+find . -name base*
+
+# what??
+
+rm basement2.txt
+find . -name base*
+
+# explain
+
+rm basement1.txt
+find . -name base*
+
+# fix it by quoting
+find . -name 'base*'
+
+# now let's explain this
+
+# what's happening?
+printf '%s\n' foo bar baz
+printf '%s\n' find . -name base*
+
+touch basement{1,2}.txt
