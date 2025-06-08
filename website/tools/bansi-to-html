@@ -1,0 +1,300 @@
+#!/usr/bin/env bash
+#
+# Convert ANSI to HTML purely in Bash.
+#
+# A strict design choice for this software is that absolutely 0 external tools
+# will be used - all of the code will be using bash builtins.
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 06, 2025
+# License: MIT
+
+PROG_NAME='bansi-to-html'
+PROG_VERSION=0.1.0
+PROG_SOURCE='https://github.com/bahamas10/bansi-to-html'
+
+# don't try to handle unicode or anything other than raw bytes as best we can
+# (nul bytes may be ignored because of bash being bash)
+LANG=C
+LC_ALL=C
+
+ESC=$'\e'
+PREFIX='ansi-'
+WARNONLY=false
+DEBUG=false
+HEADER=true
+
+# internal state machine for ANSI parsing
+state_bold=false
+state_dim=false
+state_italics=false
+state_underline=false
+state_slow_blink=false
+state_fast_blink=false
+state_invert=false
+state_conceal=false
+state_strikethrough=false
+state_fg_color=
+state_bg_color=
+state_in_span=false
+in_escape=false
+sequence=''
+
+# print the usage message
+usage() {
+	IFS= read -d '' -r usage <<- EOF
+	Usage: $PROG_NAME [-hdwH] [-p prefix] [file]
+
+	Convert ANSI to HTML purely in Bash.
+
+	This program will read a file passed as the first argument or from stdin
+	if no argument is given.  ANSI escape sequences for color output will be
+	processed and turned into their relevant CSS classes in <span>
+	elements.  No extraneous newlines or processing will be done on the
+	input - so the output should be safe to put in your own
+	<pre><code>...</code></pre> block and have it appear exactly as it
+	should.
+
+	Any unexpected, unsupported, or broken escape sequences will be
+	considered an error and will cause this program to halt immediately with
+	an error exit status.  The '-w' flag can be given to tell this program
+	to ignore those warnings and just discard the unknown sequences
+	(warnings will be emitted to stderr).
+
+	Options
+	  -d             Print debug message to stderr.
+	  -h             Print this message and exit.
+	  -H             Don't emit HTML program header comment.
+	  -p <prefix>    CSS class prefix to use, defaults to "ansi-" - used
+	                 directly in the HTML so make sure it is HTML safe.
+	  -w             Ignore unsupported sequences, just emit a warning to
+	                 stderr and keep running.
+	  -v             Print the version number and exit.
+
+	Source code: $PROG_SOURCE
+	EOF
+	echo -n "$usage"
+}
+
+# emit a warning to stderr and optionally exit
+warn() {
+	echo '[WARN]' "$@" >&2
+	$WARNONLY || exit 1
+}
+
+# emit a debug message to stderr
+debug() {
+	$DEBUG && echo '[DEBUG]' "$@" >&2
+}
+
+# process a single ANSI escape sequence with the leading "\e[" and trailing "m"
+# removed.  this function is called like:
+#
+#     process-sequence 41;32;7
+#
+# ... and reads processes every sequence found, modifying the global state
+# machine to reflect what is seen.
+process-sequence() {
+	local seq=$1
+
+	debug "processing sequence: '$seq'"
+
+	local parts
+	IFS=';' read -ra parts <<< "$seq"
+	set -- "${parts[@]}"
+
+	while (($# > 0)); do
+		local num=$1
+
+		case "$num" in
+			0)
+				state_bold=false
+				state_dim=false
+				state_italics=false
+				state_underline=false
+				state_slow_blink=false
+				state_fast_blink=false
+				state_invert=false
+				state_conceal=false
+				state_strikethrough=false
+				state_fg_color=
+				state_bg_color=
+				;;
+			1) state_bold=true;;
+			2) state_dim=true;;
+			3) state_italics=true;;
+			4) state_underline=true;;
+			5) state_slow_blink=true;;
+			6) state_fast_blink=true;;
+			7) state_invert=true;;
+			8) state_conceal=true;;
+			9) state_strikethrough=true;;
+			22) state_bold=false; state_dim=false;;
+			23) state_italics=false;;
+			24) state_underline=false;;
+			25) state_slow_blink=false; state_fast_blink=false;;
+			27) state_invert=false;;
+			28) state_conceal=false;;
+			29) state_strikethrough=false;;
+			3[0-7]) state_fg_color=$num;;
+			39) state_fg_color=;;
+			4[0-7]) state_bg_color=$num;;
+			49) state_bg_color=;;
+			9[0-7]) state_fg_color=$num;;
+			10[0-7]) state_bg_color=$num;;
+			38 | 48)
+				# multi-parameter color
+				process-multi-color "$1" "$2" "$3"
+				# shift 2 now - the 3rd shift happens below
+				shift 2
+				;;
+			*) warn "single ANSI escape out of range (found $num)";;
+		esac
+
+		shift
+	done
+
+	emit-span-element
+}
+
+# process a multicolor sequence of parameters like:
+#
+#     process-multi-color 38 5 255
+#     process-multi-color 48 5 128
+#
+process-multi-color() {
+	local num=$1
+	local typ=$2
+	local color=$3
+
+	case "$typ" in
+		2) warn 'truecolor not implemented';;
+		5) # 256 color
+			((color >= 0 && color < 256)) \
+			    || warn "invalid 256 color (found $color)"
+
+			case "$num" in
+				38) state_fg_color=$typ-$color;;
+				48) state_bg_color=$typ-$color;;
+				*) warn "invalid multi-color num ($num)";;
+			esac
+			;;
+		*) warn "invalid multi-color type ($typ)";;
+	esac
+}
+
+# emit a new span element, optionally closing one behind it so we are never
+# nested inside span elements, with all of the required classes based on our
+# internal state machine.
+emit-span-element() {
+	$state_in_span && echo -n '</span>'
+	state_in_span=true
+
+	local classes=()
+
+	# handle style flags
+	$state_bold && classes+=('bold')
+	$state_dim && classes+=('dim')
+	$state_italics && classes+=('italics')
+	$state_underline && classes+=('underline')
+	$state_slow_blink && classes+=('slow-blink')
+	$state_fast_blink && classes+=('fast-blink')
+	$state_invert && classes+=('invert')
+	$state_conceal && classes+=('conceal')
+	$state_strikethrough && classes+=('strikethrough')
+
+	# handle color
+	local fgc=${state_fg_color:-default}
+	local bgc=${state_bg_color:-default}
+	classes+=("color-fg-$fgc")
+	classes+=("color-bg-$bgc")
+
+	# output HTML
+	echo -n '<span'
+	if ((${#classes[@]} > 0)); then
+		local prefixed=( "${classes[@]/#/"$PREFIX"}" )
+		printf ' class="%s"' "${prefixed[*]}"
+	fi
+	echo -n '>'
+}
+
+main() {
+	local char OPTIND
+	while getopts 'dhHp:wv' opt; do
+		case "$opt" in
+			d) DEBUG=true;;
+			h) usage; exit 0;;
+			H) HEADER=false;;
+			p) PREFIX=$OPTARG;;
+			w) WARNONLY=true;;
+			v) echo "$PROG_VERSION"; exit 0;;
+			*) usage >&2; exit 1;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	local file=$1
+
+	# open the file for reading if supplied, otherwise just use fd 0 (stdin)
+	local fd=0
+	if [[ -n $file && $file != '-' ]]; then
+		exec {fd}<"$file" || exit
+	fi
+
+	# emit header
+	if $HEADER; then
+		echo -n "<!-- generated by $PROG_NAME v$PROG_VERSION"
+		echo -n " | $PROG_SOURCE -->"
+	fi
+
+	# emit the default span
+	emit-span-element
+
+	# read character-by-character
+	while IFS= read -u "$fd" -d '' -r -n 1 char; do
+		if $in_escape; then
+			# we only support SGR escapes, so first ensure it is CSI
+			if [[ -z $sequence ]]; then
+				# we are looking at the first character of the
+				# escape
+				[[ $char == '[' ]] \
+				    || warn 'non CSI sequence found'
+
+				sequence+=$char
+			elif [[ $char == m ]]; then
+				# SGR message over - process it
+				process-sequence "${sequence:1}"
+
+				in_escape=false
+				sequence=''
+			elif [[ $char == [@-~] ]]; then
+				warn "unsupported ANSI sequence ending '$char'"
+				in_escape=false
+				sequence=''
+			else
+				sequence+=$char
+			fi
+		elif [[ $char == "$ESC" ]]; then
+			in_escape=true
+			sequence=''
+		else
+			case "$char" in
+				'>') echo -n '&gt;';;
+				'<') echo -n '&lt;';;
+				'&') echo -n '&amp;';;
+				*) echo -n "$char";;
+			esac
+		fi
+	done
+
+	# cleanup
+	$in_escape && warn 'reached EOF and still inside escape sequence'
+	$state_in_span && echo '</span>'
+
+	# close the input file
+	exec {fd}<&-
+
+	return 0
+}
+
+main "$@"

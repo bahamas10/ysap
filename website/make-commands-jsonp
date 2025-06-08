@@ -9,7 +9,7 @@
 
 # we can declare multiple commands here, but for now i just like having 1
 declare -A cmds
-cmds['curl ysap.sh']=$(./make-index | ansi2html -p)
+cmds['curl ysap.sh']=$(./make-index | ./tools/bansi-to-html -H)
 #cmds['curl ysap.sh/help']=$(./make-help-page | ansi2html -p)
 
 inputs=()

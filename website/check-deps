@@ -16,7 +16,7 @@ check() {
 	fi
 }
 
-check command -v ansi2html
+check command -v bash
 check command -v curl
 check command -v jq
 
