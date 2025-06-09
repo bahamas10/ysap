@@ -69,7 +69,7 @@ if $full; then
 
 	extras+=(
 		'$ curl xmas.ysap.sh | bash%Christmas tree animation'
-		'$ bash <(curl nightfall.ysap.sh)%Music Album TUI'
+		'$ curl nightfall.ysap.sh | bash%Music Album TUI'
 	)
 fi
 
