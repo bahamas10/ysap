@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Print the socials - indtended to be passed to `tools/box`
+# Print the socials - indended to be passed to `tools/box`
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: April 05, 2025
@@ -11,9 +11,9 @@
 readarray -t SOCIALS << "EOF"
 Instagram|https://ysap.sh/instagram
 YouTube|https://ysap.sh/youtube
+Patreon|https://ysap.sh/patreon
 Discord|https://ysap.sh/discord
 Twitch|https://ysap.sh/twitch
-Twitter|https://ysap.sh/twitter
 EOF
 
 UNDERLINE=$'\x1b[3m'
