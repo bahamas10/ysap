@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+name=$1
+
+while true; do
+	sleep 3
+	echo "[client $name] hello" > pipe
+done

@@ -1,0 +1,5 @@
+59. Named Pipes
+Uing `mkfifo` and pipes in Bash
+tiktok https://www.tiktok.com/@bahamas10_/video/7516991335165922590
+instagram https://www.instagram.com/p/DLAy_ZGIYM3/
+youtube https://www.youtube.com/watch?v=hthUAYVqors
