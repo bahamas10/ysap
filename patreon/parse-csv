@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Parse the CSV file returned by the Patreon member list.
+#
+# Note that we use the most naive CSV parsing ever and i'm sure this can
+# probably break lmao so like - be careful?
+#
+#   ./parse-csv [active|inactive] [tier-name] < patreon.csv
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 18, 2025
+# License: MIT
+
+want_active=$1
+want_tier=$2
+
+IFS=, read -ra columns
+while IFS=, read -ra fields; do
+	# parse a single record into an assoc array
+	declare -A record=()
+	for ((i = 0; i < ${#columns[@]}; i++)); do
+		key=${columns[i]}
+		value=${fields[i]}
+		record[$key]=$value
+	done
+
+	tier=${record[Tier]}
+	name=${record[Name]}
+
+	# get active status
+	if [[ ${record['Patron Status']} == 'Active patron' ]]; then
+		active='active'
+	else
+		active='inactive'
+	fi
+
+	# optionally skip based on active
+	if [[ -n $want_active && $active != "$want_active" ]]; then
+		continue
+	fi
+
+	# optionally skip based on tier
+	if [[ -n $want_tier && $tier != "$want_tier" ]]; then
+		continue
+	fi
+
+	# print the record
+	printf '%-30s %-10s %-30s\n' \
+	    "${record[Name]}" \
+	    "$active" \
+	    "${record[Tier]}"
+done
