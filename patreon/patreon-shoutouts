@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+#
+# super duper opionated script for shouting out patreon members
+#
+# like, really. this was written by dave and for dave.
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: June 24, 2025
+# License: MIT
+
+csvfile=$1
+
+if [[ -z $csvfile ]]; then
+	# we try to find the CSV file ourselves by looking for the *newest* file
+	# in our downloads directory named 'Member*.csv'
+	shopt -s nullglob
+	files=(~/Downloads/Member*.csv)
+
+	if ((${#files[@]} == 0)); then
+		echo 'no suitable CSV files found' >&2
+		exit 1
+	fi
+
+	newest=${files[0]}
+	for file in "${files[@]:1}"; do
+		[[ $file -nt "$newest" ]] && newest=$file
+	done
+
+	csvfile=$newest
+fi
+
+set -e
+cd ~/dev/ysap/patreon/member-shoutouts
+cargo run -q < "$csvfile"
