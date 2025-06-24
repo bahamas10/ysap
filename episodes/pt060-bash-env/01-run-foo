@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo trying to run foo
+foo
+echo ran foo

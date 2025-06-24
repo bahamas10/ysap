@@ -1,0 +1,5 @@
+60. Bash ENV File
+Using `BASH_ENV` in bash for env vars
+tiktok https://www.tiktok.com/@bahamas10_/video/7519539913121860919
+instagram https://www.instagram.com/p/DLSeyh8MJi8/
+youtube https://www.youtube.com/watch?v=e9iSYCHslzg
