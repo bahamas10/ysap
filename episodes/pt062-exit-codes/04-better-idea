@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+code=0
+for arg in "$@"; do
+	ssh "$arg" || code=1
+done
+exit "$code"

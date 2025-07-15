@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "uh oh"
+exit 1
