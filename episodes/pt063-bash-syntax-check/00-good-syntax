@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo this is a working script
+echo nothing weird here
