@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+patron=$1
+
+# read question from stdin
+fold -w 30
+tput dim
+echo "Patron: $patron"
+tput sgr0
