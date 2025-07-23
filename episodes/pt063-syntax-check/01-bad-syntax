@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+echo I am here!
+if [[ $1 == '-h' ]; then
+	echo 'h was given'
+fi

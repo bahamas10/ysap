@@ -1,0 +1,5 @@
+63. Syntax Checker
+Statically checking bash syntax with `bash -n`
+tiktok https://www.tiktok.com/@bahamas10_/video/7530298645858602254
+instagram https://www.instagram.com/p/DMdILCXNntu/
+youtube https://www.youtube.com/watch?v=O_6Jot9i79U
