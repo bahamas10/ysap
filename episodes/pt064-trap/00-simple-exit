@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+cleanup() {
+	echo cleanup function running
+}
+
+trap cleanup exit
+
+echo script starting
+echo ...
+echo script done
