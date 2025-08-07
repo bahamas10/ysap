@@ -12,6 +12,7 @@ const TIERS: &[(&str, u32)] = &[
     ("/bin/bash", 167),
     ("/bin/sh", 179),
 ];
+const COLUMNS: usize = 2;
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
@@ -77,6 +78,9 @@ fn main() -> Result<()> {
         }
     }
 
+    // get the length of the longest name - use this for formatting
+    let max_len = members.iter().map(|s| s.name().len()).max().unwrap_or(0) + 4;
+
     // sorted by most to least expensive
     for (tier, color) in TIERS {
         let tier_members: Vec<_> = members
@@ -92,10 +96,17 @@ fn main() -> Result<()> {
             tier_members.len(),
             rst()
         );
-        for member in tier_members {
-            println!("- {}", member.name());
+
+        for (i, member) in tier_members.iter().enumerate() {
+            print!("{:width$}", member.name(), width = max_len);
+            if i % COLUMNS == COLUMNS - 1 {
+                println!();
+            }
         }
         println!();
+        if tier_members.len() % COLUMNS != 0 {
+            println!();
+        }
     }
 
     println!("{}total: {} active members{}", dim(), members.len(), rst());
