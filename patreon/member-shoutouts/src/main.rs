@@ -98,9 +98,10 @@ fn main() -> Result<()> {
         );
 
         for (i, member) in tier_members.iter().enumerate() {
-            print!("{:width$}", member.name(), width = max_len);
             if i % COLUMNS == COLUMNS - 1 {
-                println!();
+                println!("{}", member.name());
+            } else {
+                print!("{:width$}", member.name(), width = max_len);
             }
         }
         println!();
