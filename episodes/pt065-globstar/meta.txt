@@ -1,5 +1,5 @@
 65. Recursive Globbing
 Find all files with `globstar` and `**`
-# tiktok
-# instagram
-# youtube
+tiktok https://www.tiktok.com/@bahamas10_/video/7536277839721565453
+instagram https://www.instagram.com/p/DNGnzbBsf9s/
+youtube https://www.youtube.com/watch?v=uiIqD_eGq24
