@@ -21,4 +21,4 @@ echo
 # create the legend
 ./make-legend
 
-} | ./tools/lpad '  '
+} | ./tools/lpad '  ' | ./tools/rtrim-ansi-aware

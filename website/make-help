@@ -19,4 +19,4 @@ echo
 # create the legend
 ./make-legend -f
 
-} | ./tools/lpad '  '
+} | ./tools/lpad '  ' | ./tools/rtrim-ansi-aware
