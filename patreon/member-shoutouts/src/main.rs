@@ -12,7 +12,8 @@ const TIERS: &[(&str, u32)] = &[
     ("/bin/bash", 167),
     ("/bin/sh", 179),
 ];
-const COLUMNS: usize = 2;
+const COLUMNS: usize = 3;
+const PADDING: usize = 2;
 
 #[derive(Debug, Deserialize)]
 #[allow(dead_code)]
@@ -79,7 +80,8 @@ fn main() -> Result<()> {
     }
 
     // get the length of the longest name - use this for formatting
-    let max_len = members.iter().map(|s| s.name().len()).max().unwrap_or(0) + 4;
+    let max_len =
+        members.iter().map(|s| s.name().len()).max().unwrap_or(0) + PADDING;
 
     // sorted by most to least expensive
     for (tier, color) in TIERS {
