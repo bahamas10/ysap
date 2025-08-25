@@ -1,3 +1,0 @@
-Run this to see the website on your terminal
-
-curl ysap.sh

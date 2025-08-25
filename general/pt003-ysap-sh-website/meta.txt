@@ -1,5 +1,0 @@
-3. New Website `ysap.sh`
-View the site rendered in your terminal
-youtube https://www.youtube.com/watch?v=POhY7EZTcMU
-tiktok https://www.tiktok.com/@bahamas10_/video/7394155363450457390
-instagram https://www.instagram.com/reel/C9seIAIP_mI/

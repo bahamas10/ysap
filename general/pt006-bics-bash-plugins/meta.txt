@@ -1,5 +1,0 @@
-6. Bash Interactive Plugins
-Using `bics` for managing plugins
-youtube https://www.youtube.com/watch?v=B30I0lA0Cgs
-tiktok https://www.tiktok.com/@bahamas10_/video/7414249345597361451
-instagram https://www.instagram.com/p/C_33gXUPPvr/

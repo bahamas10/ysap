@@ -1,5 +1,0 @@
-5. Parallel SSH with `sshp`
-Connect to Multiple Hosts over `ssh`
-youtube https://www.youtube.com/watch?v=m_Gr0510IHc
-tiktok https://www.tiktok.com/@bahamas10_/video/7408249970463083819
-instagram https://www.instagram.com/reel/C_OQnxmuznb/

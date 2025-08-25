@@ -1,5 +1,0 @@
-7. Bash `cd` Stack
-Making `cd` better with history
-youtube https://www.youtube.com/watch?v=5OM-Mx_c8HM
-tiktok https://www.tiktok.com/@bahamas10_/video/7420471286079474987
-instagram https://www.instagram.com/reel/DAjDCIbszid/
