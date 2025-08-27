@@ -14,7 +14,7 @@ if [[ -z $csvfile ]]; then
 	# we try to find the CSV file ourselves by looking for the *newest* file
 	# in our downloads directory named 'Member*.csv'
 	shopt -s nullglob
-	files=(~/Downloads/Member*.csv)
+	files=(~/Downloads/*.csv)
 
 	if ((${#files[@]} == 0)); then
 		echo 'no suitable CSV files found' >&2

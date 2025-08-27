@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+for i in {0..2}; do
+	for j in {a..c}; do
+		if [[ $i == '1' && $j == 'b' ]]; then
+			break
+		fi
+		echo "$i $j"
+	done
+done
