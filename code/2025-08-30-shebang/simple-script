@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo $BASH
+echo $BASH_VERSION

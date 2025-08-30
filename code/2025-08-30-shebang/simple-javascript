@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * this is a comment
+ */
+
+# THIS IS NOT A COMMENT
+
+console.log('hello world');
