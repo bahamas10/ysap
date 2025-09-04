@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+raw='Dave likes Bash and Unix'
+
+enc=${raw//and/\&}
+
+echo "raw: $raw"
+echo "enc: $enc"

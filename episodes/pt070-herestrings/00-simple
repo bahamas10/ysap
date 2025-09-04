@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+cat <<< 'This is a string'

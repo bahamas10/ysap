@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+read -r a b c <<< 'foo bar baz'
+
+echo "a is $a"
+echo "b is $b"
+echo "c is $c"

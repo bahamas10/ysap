@@ -1,0 +1,24 @@
+on linux
+
+mkdir secret
+touch secret/{foo,bar,baz}
+ls secret
+
+chmod -x secret
+stat secret
+
+cd secret
+ls secret
+python
+on.listdir('secret')
+
+chmod +x
+chmod -r
+stat secret
+
+cd secret
+ls
+touch hi
+rm foo
+
+this is why 755 for dirs

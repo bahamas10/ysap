@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo 'foo' <<- EOF
+bar
+EOF

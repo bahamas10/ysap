@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+main() {
+	cat << EOF
+	Hello
+	   World
+EOF
+}
+main
