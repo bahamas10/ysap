@@ -1,0 +1,9 @@
+1. shopt -s cdspell
+# show examples of types
+
+2. shopt -s autocd
+# show examples of autocd
+
+3. talk about `..`
+
+4. mention that it's interactive only
