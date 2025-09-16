@@ -1,14 +1,34 @@
 #!/usr/bin/env bash
 #
-# Print the YSAP logo - sorry this sucks lol
+# Print the YSAP logo
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: April 05, 2025
 # License: MIT
 
-printf "\e[49m\e[38;5;223;49m▄▄\e[49m  \e[38;5;223;49m▄▄\e[49m  \e[38;5;223;49m▄▄▄▄\e[49m     \e[38;5;223;49m▄▄▄\e[49m   \e[38;5;223;49m▄▄▄▄▄\e[49m \e[m
-\e[49m\e[48;5;223m  \e[49m  \e[48;5;223m  \e[49m \e[48;5;223m  \e[49m  \e[49;38;5;223m▀▀\e[49m  \e[49;38;5;223m▄\e[38;5;223;48;5;223m▄\e[49;38;5;223m▀\e[49m \e[49;38;5;223m▀\e[48;5;223m \e[38;5;223;49m▄\e[49m \e[48;5;223m  \e[49m  \e[48;5;223m  \e[49m\e[m
-\e[49m \e[49;38;5;223m▀\e[48;5;223m  \e[49;38;5;223m▀\e[49m   \e[49;38;5;223m▀▀▀▀\e[48;5;223m \e[38;5;223;49m▄\e[49m \e[48;5;223m  \e[38;5;223;49m▄▄▄\e[48;5;223m  \e[49m \e[48;5;223m  \e[38;5;223;49m▄▄\e[48;5;223m \e[49;38;5;223m▀\e[49m\e[m
-\e[49m  \e[48;5;223m  \e[49m   \e[49;38;5;223m▀\e[48;5;223m \e[38;5;223;49m▄▄▄\e[48;5;223m \e[49;38;5;223m▀\e[49m \e[48;5;223m  \e[49m   \e[48;5;223m  \e[49m \e[48;5;223m  \e[49m    \e[m
-\e[49m\e[38;5;160;49m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\e[49m\e[m
-\e[49m\e[38;5;214;48;5;202m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\e[49m\e[m\n"
+. ./theme || exit
+
+read -d '' LOGO << EOF
+AA  AA  AAAA     AAA   AAAAA
+CC  CC CC  BB  ACB BCA CC  CC
+ BCCB   BBBBCA CCAAACC CCAACB
+  CC   BCAAACB CC   CC CC    
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+EOF
+
+LOGO=$(echo "$LOGO" | sed 's/[A|B]\+/'$COLOR5'\0'$RST'/g;'\
+'s/C\+/'$COLOR6'\0'$RST'/g;'\
+'s/D\+/'$COLOR7'\0'$RST'/g;'\
+'s/E\+/'$COLOR8'\0'$RST'/g;'\
+'s/[A|D|E]/▄/g;'\
+'s/B/▀/g;'\
+'s/C/ /g')
+
+# LOGO=${LOGO//A/${COLOR5}▄$RST}
+# LOGO=${LOGO//B/${COLOR5}▀$RST}
+# LOGO=${LOGO//C/${COLOR6} $RST}
+# LOGO=${LOGO//D/${COLOR7}▄$RST}
+# LOGO=${LOGO//E/${COLOR8}▄$RST}
+
+echo "$LOGO"
