@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+foo=1
+
+cat <<- ANYTHING_LOL
+Hello $USER foo is $foo
+The uname command says $(uname)
+ANYTHING_LOL

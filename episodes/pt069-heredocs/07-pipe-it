@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cat <<- EOF | nl | grep bar | tail
+foo
+bar
+baz
+EOF

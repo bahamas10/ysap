@@ -1,0 +1,5 @@
+69. Heredocs In Bash
+Using `<<` / `<<-` with `EOF` markers
+tiktok https://www.tiktok.com/@bahamas10_/video/7552583740040482061
+instagram https://www.instagram.com/p/DO3xPE6DqHF/
+youtube https://www.youtube.com/watch?v=-a1VAole01s
