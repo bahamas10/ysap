@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# quick and dirty script to generate a mermaid doc, render it, and display it
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: September 17, 2025
+# License: MIT
+
+IMAGE_OUT=${IMAGE_OUT:-/tmp/graph.png}
+IMAGE_SIZE=${IMAGE_SIZE:-100%}
+
+cargo run -q --release --manifest-path=./inode-visualizer/Cargo.toml -- "$@" |
+    mmdc -q -i - -o "$IMAGE_OUT" -w 2000 -H 2000 -t dark -b '#444' || exit 1
+
+exec imgcat -r -W "$IMAGE_SIZE" "$IMAGE_OUT"

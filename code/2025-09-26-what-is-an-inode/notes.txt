@@ -1,0 +1,86 @@
+notes for dave to follow for the video
+
+1. show meme
+ - discuss how it'll be simple at the beginning and then get more complex
+ - "i used to be here... but now i'm here and it's a mess lol"
+2. love to end the video by saying "inode is the files metadata"... that's 99%
+true. but let's do some example and dive into it.
+ - different filesystems define what is in the inode and what it looks like on
+   the disk (the on-disk representation) - in fact filesystems like ZFS don't
+   technically have inodes but have dnodes... but you'll still find inode in the
+   source code.
+ - people will know what you mean when you say inode, even if you just mean stat
+   buffer (don't use that term yet)
+
+3. show basic example on terminal
+
+```
+echo foo > file
+ls
+cat foo
+# we have the filename, and the file contents, what else is there?
+stat file
+gstat file
+```
+
+other languages will have this information too!
+
+```
+python3
+import os
+os.listdir(".")
+```
+
+```
+node
+fs.statSync('.')
+```
+
+alias nstat='node -pe "JSON.stringify(fs.statSync(process.argv[1]))"'
+
+4. recap
+
+so what's not there? the filename isn't in here? it's in the directory.
+
+# so we have 3 main things:
+1. file name
+2. file metadata
+3. file contents
+
+with the filename we can get the inode, and with the inode we can get the data.
+the kernel abstracts this so we don't need to do this manually.
+
+all file types have an inode - including directories.  directories are a special
+type of file, just link symlinks, pipes, etc.
+
+5. dir0 (IMAGE_SIZE=50%)
+
+... do all the dirs, creating them as you go ...
+
+6. show `--show-dot` and `--show-dot-dots` on dir0, dir7, dir8
+
+conclusion - show how we make the diagrams fully
+
+
+
+
+
+- future video on ls? why `ls` is more complicated than you think!
+
+illumos-gate: usr/src/uts/common/sys/fs/ufs_inode.h
+
+
+python3
+import os
+os.listdir(".")
+// an array of the filenames as strings
+
+nodejs readdir is sorted
+pull up js
+pull up src
+check uv docs
+
+it seems like its in scandir
+
+ls -U1 on illumos
+ls -f1 on mac
