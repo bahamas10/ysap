@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+input="this is a variable for $USER"
+
+cat <<< "$input"

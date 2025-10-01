@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+my-func() {
+	while read -r line; do
+		echo "my-func: $line"
+	done
+}
+
+my-func <<< 'this is one line'

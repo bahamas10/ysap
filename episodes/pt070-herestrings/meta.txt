@@ -1,0 +1,5 @@
+70. Here Strings In Bash
+Using `<<<` with commands
+tiktok https://www.tiktok.com/@bahamas10_/video/7556277083903659278
+instagram https://www.instagram.com/p/DPRZZd-DGwJ/
+youtube https://www.youtube.com/watch?v=0cWuZvw8lXc
