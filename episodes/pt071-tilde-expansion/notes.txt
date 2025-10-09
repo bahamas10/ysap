@@ -1,0 +1,31 @@
+echo ~
+echo `~`
+
+cat <<< ~
+
+echo ~/dev
+echo ~/does-not-exist # still works
+
+echo ~+ # current dir
+echo ~- # old PWD
+
+echo ~dave
+echo ~nobody
+echo ~john
+
+you can't detect a failure unless you look for string being untouched
+
+foo=~dave
+echo "$foo"
+
+foo=~:~dave:~nobody:~john
+echo "$foo"
+
+this is useful for PATH
+
+name='dave'
+home=~$name
+
+this won't work because of the order of operations
+
+eval echo ~
