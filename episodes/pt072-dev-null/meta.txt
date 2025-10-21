@@ -1,0 +1,5 @@
+72. Null Device
+Understanding `/dev/null` and its quirks
+tiktok https://www.tiktok.com/@bahamas10_/video/7563719716313828663
+instagram https://www.instagram.com/p/DQFComtj1S7/
+youtube https://www.youtube.com/watch?v=v199lQLCA9k

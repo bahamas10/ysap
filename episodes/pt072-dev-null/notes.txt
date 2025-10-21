@@ -1,0 +1,14 @@
+after 0 - 2
+
+cp /dev/null file.txt # works
+mv file.txt /dev/null # doesn't work
+
+it's a FILE - not a directory
+
+bonus:
+
+ls /dev/random
+ls /dev/urandom
+ls /dev/full # not on mac
+ls /dev/zero
+
