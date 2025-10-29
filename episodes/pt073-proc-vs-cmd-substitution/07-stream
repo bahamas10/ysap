@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# will stream the file
+while read -r line; do
+	echo "$line"
+done < <(grep 'dave' /usr/share/dict/words)
