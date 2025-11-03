@@ -1,14 +1,38 @@
 #!/usr/bin/env bash
 #
-# Print the YSAP logo - sorry this sucks lol
+# Print the YSAP logo
 #
 # Author: Dave Eddy <dave@daveeddy.com>
 # Date: April 05, 2025
 # License: MIT
 
-printf "\e[49m\e[38;5;223;49m▄▄\e[49m  \e[38;5;223;49m▄▄\e[49m  \e[38;5;223;49m▄▄▄▄\e[49m     \e[38;5;223;49m▄▄▄\e[49m   \e[38;5;223;49m▄▄▄▄▄\e[49m \e[m
-\e[49m\e[48;5;223m  \e[49m  \e[48;5;223m  \e[49m \e[48;5;223m  \e[49m  \e[49;38;5;223m▀▀\e[49m  \e[49;38;5;223m▄\e[38;5;223;48;5;223m▄\e[49;38;5;223m▀\e[49m \e[49;38;5;223m▀\e[48;5;223m \e[38;5;223;49m▄\e[49m \e[48;5;223m  \e[49m  \e[48;5;223m  \e[49m\e[m
-\e[49m \e[49;38;5;223m▀\e[48;5;223m  \e[49;38;5;223m▀\e[49m   \e[49;38;5;223m▀▀▀▀\e[48;5;223m \e[38;5;223;49m▄\e[49m \e[48;5;223m  \e[38;5;223;49m▄▄▄\e[48;5;223m  \e[49m \e[48;5;223m  \e[38;5;223;49m▄▄\e[48;5;223m \e[49;38;5;223m▀\e[49m\e[m
-\e[49m  \e[48;5;223m  \e[49m   \e[49;38;5;223m▀\e[48;5;223m \e[38;5;223;49m▄▄▄\e[48;5;223m \e[49;38;5;223m▀\e[49m \e[48;5;223m  \e[49m   \e[48;5;223m  \e[49m \e[48;5;223m  \e[49m    \e[m
-\e[49m\e[38;5;160;49m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\e[49m\e[m
-\e[49m\e[38;5;214;48;5;202m▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\e[49m\e[m\n"
+. ./theme || exit
+
+COLOR6=$'\e[48;5;223m'          # off-white (background)
+COLOR7=$'\e[38;5;160m'          # red
+COLOR8=$'\e[38;5;214;48;5;202m' # yellow (text) orange (background)
+
+readarray -t LOGO << EOF
+AA  AA  AAAA     AAA   AAAAA
+CC  CC CC  BB  ACB BCA CC  CC
+ BCCB   BBBBCA CCAAACC CCAACB
+  CC   BCAAACB CC   CC CC
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+EOF
+
+shopt -s extglob
+
+for line in "${LOGO[@]}"; do
+	line=${line//+(A|B)/$COLOR5&$RST}
+	line=${line//+(C)/$COLOR6&$RST}
+	line=${line//+(D)/$COLOR7&$RST}
+	line=${line//+(E)/$COLOR8&$RST}
+
+	line=${line//[ADE]/▄}
+	line=${line//B/▀}
+	line=${line//C/ }
+
+	echo "$line"
+done
+
