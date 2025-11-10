@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+raw='Dave Likes <Bash> & <Unix>'
+
+enc=${raw//</\&lt;}
+enc=${enc//>/\&gt;}
+enc=${enc//&/\&amp;}
+
+echo "raw: $raw"
+echo "enc: $enc"
