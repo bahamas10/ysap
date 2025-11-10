@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-for arg in "$@"; do
+for arg in $*; do
 	echo "<$arg>"
 done
