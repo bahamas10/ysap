@@ -112,7 +112,16 @@ fn main() -> Result<()> {
         }
     }
 
-    println!("{}total: {} active members{}", dim(), members.len(), rst());
+    let total_recognized = members
+        .iter()
+        .filter(|m| TIERS.iter().any(|(tier, _)| m.tier.as_deref() == Some(tier)))
+        .count();
+    println!(
+        "{}total: {} active members{}",
+        dim(),
+        total_recognized,
+        rst()
+    );
     println!("{}patreon: {}{}{}{}", dim(), rst(), color256(6), LINK, rst());
 
     Ok(())
