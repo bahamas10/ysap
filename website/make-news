@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Make the news section
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: December 06, 2025
+# License: MIT
+
+. ./theme || exit
+
+{
+echo -n "${COLOR4}2025-12-15 ${COLOR5}The ${COLOR3}Complete Bash Course${RST}"
+echo -n "${COLOR5} is now available!${RST}"
+echo " ${COLOR1}https://course.ysap.sh${RST}"
+} | ./tools/box -hp 1 -vp 1 -tc "$COLOR5" -t 'News' -bc "$COLOR4" -T plain

@@ -9,16 +9,13 @@
 . ./theme || exit
 
 {
-
-# create the header
 ./make-header -p 7 |
     ./tools/box -hp 4 -T plain
 
-# create the body
-echo
+./make-news
+
 ./make-body
 
-# create the legend
 ./make-legend
 
 } | ./tools/lpad '  ' | ./tools/rtrim-ansi-aware
