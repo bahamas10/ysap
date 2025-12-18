@@ -9,16 +9,10 @@ SHELL := bash
 
 .PHONY: help
 help:
-	@echo 'make build         default target, builds the site into ./_site'
-	@echo 'make check-deps    check to ensure needed dependencies are installed'
-	@echo 'make check         check tools syntax using shellcheck'
-	@echo 'make serve         serve site locally out of ./_site'
-	@echo 'make deploy        deploy the site (using rsync)'
-	@echo 'make all           build and deploy the site'
-	@echo 'make clean         remove any generated files'
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 .PHONY: build
-build: static/favicon.ico static/ysap.png static/favicon.jpg
+build: static/favicon.ico static/ysap.png static/favicon.jpg ## default target, builds the site into ./_site
 	mkdir -p _site _site/contact _site/static _site/episodes _site/resources
 	# disable indexing for certain dirs
 	echo -n > _site/static/index.html
@@ -61,26 +55,26 @@ static/ysap.png:
 	curl -o $@ https://files.daveeddy.com/ysap/ysap.png
 
 .PHONY: all
-all: build deploy
+all: build deploy ## build and deploy the site
 
 .PHONY: serve
-serve:
+serve: ## serve site locally out of ./_site
 	python3 -mhttp.server -d _site
 
 .PHONY: check-deps
-check-deps:
+check-deps: ## check to ensure needed dependencies are installed
 	./check-deps
 
 .PHONY: check
-check:
+check: ## check tools syntax using shellcheck
 	shellcheck -x check-* make-* tools/*
 
 .PHONY: clean
-clean:
+clean: ## remove any generated files
 	rm -rf _site
 	rm -f static/favicon.{ico,jpg}
 	rm -f static/ysap.png
 
 .PHONY: deploy
-deploy:
+deploy: ## deploy the site (using rsync)
 	rsync -avh --delete ./_site/ web:/var/www/ysap.sh/
