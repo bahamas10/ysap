@@ -12,6 +12,8 @@ fatal() {
 progress-bar() {
 	local current=$1
 	local len=$2
+    # if len is zero, fail gracefully
+    [ ! "$len" ]||[ "$len" -le 0 ]&& return
 
 	local perc_done=$((current * 100 / len))
 
