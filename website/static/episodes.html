@@ -70,13 +70,14 @@ source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/baham
 		<script src="/static/episodes.js"></script>
 		<script>
 			var tbody = document.getElementById('episodes-tbody');
+			const episodeCount = EPISODES.episodes.length;
 
 			EPISODES.episodes.forEach(function (episode) {
 				let num = episode.num;
 
 				let numFormatted = num.toString();
-				if (numFormatted.length < 2) {
-					numFormatted = '&nbsp' + numFormatted;
+				for (let i = numFormatted.length; i < episodeCount.toString().length; i++) {
+					numFormatted = '0' + numFormatted;
 				}
 
 				let tr = document.createElement('tr');

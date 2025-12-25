@@ -246,3 +246,16 @@ tr:hover {
 	color: var(--color5) !important;
 	*/
 }
+
+#prev-episode-btn, #next-episode-btn {
+	background-color: #111;
+	color: var(--color5);
+	border: 1px solid var(--color3);
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
