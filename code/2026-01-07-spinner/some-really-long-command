@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+for i in {1..4}; do
+	echo "finished $i/4 ticks"
+	sleep 1
+done

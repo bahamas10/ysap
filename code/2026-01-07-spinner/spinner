@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+#
+# Run a command with an animated spinner.
+#
+# Spinners taken from:
+# https://github.com/sindresorhus/cli-spinners
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: January 05, 2026
+# License: MIT
+
+SPINNER_PID=
+DEBUG=false
+THEME=default
+CHARS=
+
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [options] <cmd>
+
+	Run a command with an animated spinner.
+
+	Options
+	  -d          enable debug output
+	  -t <theme>  theme to use, default is $THEME
+	  -h          print this message and exit
+	EOF
+}
+
+spinner() {
+	local c
+	while true; do
+		for c in "${CHARS[@]}"; do
+			printf ' %s \r' "$c"
+			sleep .2
+		done
+	done
+}
+
+debug() {
+	if $DEBUG; then
+		echo "[$$] $*" >&2
+	fi
+}
+
+cleanup() {
+	if [[ -n $SPINNER_PID ]]; then
+		debug "killing spinner ($SPINNER_PID)"
+		kill "$SPINNER_PID"
+	fi
+
+	debug 'finished spinner'
+}
+
+load-theme() {
+	local theme=$1
+
+	case "$theme" in
+		default) CHARS=('\' '|' '/' '-');;
+		dots) CHARS=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏);;
+		pong) CHARS=(
+			  "▐⠂       ▌"
+			  "▐⠈       ▌"
+			  "▐ ⠂      ▌"
+			  "▐ ⠠      ▌"
+			  "▐  ⡀     ▌"
+			  "▐  ⠠     ▌"
+			  "▐   ⠂    ▌"
+			  "▐   ⠈    ▌"
+			  "▐    ⠂   ▌"
+			  "▐    ⠠   ▌"
+			  "▐     ⡀  ▌"
+			  "▐     ⠠  ▌"
+			  "▐      ⠂ ▌"
+			  "▐      ⠈ ▌"
+			  "▐       ⠂▌"
+			  "▐       ⠠▌"
+			  "▐       ⡀▌"
+			  "▐      ⠠ ▌"
+			  "▐      ⠂ ▌"
+			  "▐     ⠈  ▌"
+			  "▐     ⠂  ▌"
+			  "▐    ⠠   ▌"
+			  "▐    ⡀   ▌"
+			  "▐   ⠠    ▌"
+			  "▐   ⠂    ▌"
+			  "▐  ⠈     ▌"
+			  "▐  ⠂     ▌"
+			  "▐ ⠠      ▌"
+			  "▐ ⡀      ▌"
+			  "▐⠠       ▌"
+			  );;
+		*)
+			echo "invalid theme: $THEME" >&2;
+			usage >&2;
+			exit 1
+			;;
+	esac
+}
+
+main() {
+	local opt OPTIND OPTARG
+	while getopts 'dht:' opt; do
+		case "$opt" in
+			d) DEBUG=true;;
+			h) usage; return 0;;
+			t) THEME=$OPTARG;;
+			*) usage >&2; return 1;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	load-theme "$THEME"
+
+	if (($# == 0)); then
+		usage >&2
+		return 1
+	fi
+
+	trap cleanup EXIT
+
+	debug 'starting spinner'
+	spinner &
+	SPINNER_PID=$!
+
+	debug "SPINNER_PID=$SPINNER_PID"
+
+	"$@"
+}
+
+main "$@"
