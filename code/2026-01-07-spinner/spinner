@@ -23,7 +23,7 @@ usage() {
 
 	Options
 	  -d          enable debug output
-	  -t <theme>  theme to use, default is $THEME
+	  -t <theme>  theme to use, default is default
 	  -h          print this message and exit
 	EOF
 }
