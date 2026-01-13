@@ -40,10 +40,21 @@
                                 allowFullScreen>
                                 </iframe>
                                 <br>
+								<br>
+
+								<div>
+									<button onclick="goToPrevEpisode()" id="prev-episode-btn">
+										&lt; Previous Episode
+									</button>
+									<button onclick="goToNextEpisode()" id="next-episode-btn">
+										Next Episode &gt;
+									</button>
+								</div>
+
                                 <br>
                                 <br>
                                 <ul>
-                                        <li>- <a id="video-youtube-link" href="#">Watch on YouTube</a></li>
+                                    	<li>- <a id="video-youtube-link" href="#">Watch on YouTube</a></li>
                                         <li>- <a id="video-instagram-link" href="#">Watch on Instagram</a></li>
                                         <li>- <a id="video-tiktok-link" href="#">Watch on TikTok</a></li>
                                 </ul>
@@ -56,6 +67,53 @@ source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/baham
 		</div>
 		<script src="/static/episodes.js"></script>
 		<script>
+			function isFirstEpisode(currentNum) {
+				return currentNum === 1;
+			}
+
+			function isLastEpisode(currentNum) {
+				return currentNum === EPISODES.episodes.length;
+			}
+
+			function getCurrentEpisodeNum() {
+				// figure out what video we are based on the windows location
+				const path = window.location.pathname
+					.replace(/index\.html$/, '')
+					.replace(/\/+$/, '');
+
+				console.log('looking up %s', path);
+
+				let m, num;
+				if ((m = path.match(/^\/v\/([0-9]+)$/))) {
+					num = m[1];
+				} else {
+					throw 'unrecoginzed url';
+				}
+
+				let episode = EPISODES.episodes[num - 1];
+				if (!episode) {
+					throw 'non existent episode';
+				}
+
+				return +num;
+			}
+
+			function goToNextEpisode() {
+				let nextNum = getCurrentEpisodeNum() + 1;
+				let nextEpisode = EPISODES.episodes[nextNum - 1];
+				if (nextEpisode) {
+					globalThis.location.href = '/v/' + nextNum;
+				}
+			}
+
+			function goToPrevEpisode() {
+				let prevNum = getCurrentEpisodeNum() - 1;
+				let prevEpisode = EPISODES.episodes[prevNum - 1];
+				if (prevEpisode) {
+					globalThis.location.href = '/v/' + prevNum;
+				}
+			}
+
 			const titleElem = document.getElementById('video-title');
 			const descriptionElem = document.getElementById('video-description');
 			const ytVideoElem = document.getElementById('video-yt-frame');
@@ -64,24 +122,11 @@ source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/baham
 			const igLinkElem = document.getElementById('video-instagram-link');
 			const ttLinkElem = document.getElementById('video-tiktok-link');
 
-			// figure out what video we are based on the windows location
-			const path = window.location.pathname
-				.replace(/index\.html$/, '')
-				.replace(/\/+$/, '');
+			const prevEpisodeBtn = document.getElementById('prev-episode-btn');
+			const nextEpisodeBtn = document.getElementById('next-episode-btn');
 
-			console.log('looking up %s', path);
-
-			let m, num;
-			if ((m = path.match(/^\/v\/([0-9]+)$/))) {
-				num = m[1];
-			} else {
-				throw 'unrecoginzed url';
-			}
-
-			let episode = EPISODES.episodes[num - 1];
-			if (!episode) {
-				throw 'non existent episode';
-			}
+			const num = getCurrentEpisodeNum();
+			const episode = EPISODES.episodes[num - 1];
 
 			// set title and description
 			titleElem.textContent = num + '. ' + episode.title;
@@ -100,6 +145,15 @@ source: <a class="alt" href="https://github.com/bahamas10/ysap">github.com/baham
 			ytLinkElem.href = episode.external.youtube;
 			igLinkElem.href = episode.external.instagram;
 			ttLinkElem.href = episode.external.tiktok;
+
+			if (isFirstEpisode(episode.num)) {
+				prevEpisodeBtn.disabled = true;
+				prevEpisodeBtn.setAttribute('title', 'This is the first episode :)');
+			}
+			if (isLastEpisode(episode.num)) {
+				nextEpisodeBtn.disabled = true;
+				nextEpisodeBtn.setAttribute('title', 'You have made it to the end! :D' );
+			}
 		</script>
 	</body>
 </html>
