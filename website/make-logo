@@ -2,9 +2,13 @@
 #
 # Print the YSAP logo
 #
-# Author: Dave Eddy <dave@daveeddy.com>
+# # Created
+# Author: Dave Eddy <ysap@daveeddy.com>
 # Date: April 05, 2025
 # License: MIT
+#
+# # Contributors
+# - Dave Eddy <ysap@daveeddy.com>
 
 . ./theme || exit
 
