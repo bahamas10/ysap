@@ -1,0 +1,192 @@
+#!/usr/bin/env bash
+#
+# Visulaze CPU usage per-core on Linux.
+#
+# Created
+# Author: Dave Eddy <ysap@daveeddy.com>
+# Date: January 13, 2026
+# License: MIT
+#
+# # Contributors
+# - Dave Eddy <ysap@daveeddy.com>
+
+CURRENT=()
+PREVIOUS=()
+ALL_CPUS=()
+
+BAR_CHAR='|'
+EMPTY_CHAR=' '
+BAR_LENGTH=30
+
+if [[ -z $NO_COLOR ]]; then
+	COLOR1=$'\e[31m'
+	COLOR2=$'\e[35m'
+	COLOR3=$'\e[36m'
+	DIM=$'\e[2m'
+	RST=$'\e[0m'
+else
+	COLOR1=
+	COLOR2=
+	COLOR3=
+	DIM=
+	RST=
+fi
+
+# copy the data from the current array into the previous array
+copy-data() {
+	PREVIOUS=()
+
+	local key value
+	for key in "${!CURRENT[@]}"; do
+		value=${CURRENT[$key]}
+		PREVIOUS[$key]=$value
+	done
+}
+
+read-proc() {
+	local key user nice system idle iowait
+	local irq softirq steal guest guest_nice
+
+	CURRENT=()
+	for key in "${ALL_CPUS[@]}"; do
+		CURRENT[$key]=
+	done
+
+	local busy value num
+	while read -r key user nice system idle iowait \
+	    irq softirq steal guest guest_nice; do
+		# filter out everything but the cores
+		if [[ $key != cpu* ]]; then
+			continue
+		elif [[ $key == 'cpu' ]]; then
+			continue
+		fi
+		num=${key#cpu}
+
+		busy=$((user + nice + system + irq + softirq + steal + guest + nice))
+		idle=$((idle + iowait))
+
+		value="$busy $idle"
+
+		CURRENT[$num]=$value
+	done < /proc/stat
+}
+
+print-bar() {
+	local key=$1
+
+	local busy1 idle1 busy2 idle2
+	read -r busy1 idle1 <<< "${PREVIOUS[$key]}"
+	read -r busy2 idle2 <<< "${CURRENT[$key]}"
+
+	# check for offline cpu
+	local usage online
+	if [[ -z $busy1 || -z $busy2 ]]; then
+		# offline CPU
+		usage=0
+		online=
+	else
+		# online CPU
+		local busy=$((busy2 - busy1))
+		local idle=$((idle2 - idle1))
+		local total=$((busy + idle))
+
+		usage=$((1000 * busy / total))
+		online=1
+	fi
+
+	local int=$((usage / 10))
+	local frac=$((usage % 10))
+	local perc=$int.$frac
+
+	local num_bars=$((usage * BAR_LENGTH / 1000))
+
+	local i
+	local s='['
+	for ((i = 0; i < num_bars; i++)); do
+		s+=$COLOR1$BAR_CHAR$RST
+	done
+	for ((i = num_bars; i < BAR_LENGTH; i++)); do
+		s+=$EMPTY_CHAR
+	done
+	s+=']'
+
+	local state
+	if [[ -n $online ]]; then
+		state=$COLOR3$perc%$RST
+	else
+		state=${DIM}offline$RST
+	fi
+
+	echo "$s ${COLOR2}cpu$key$RST $state"
+}
+
+visualize-data() {
+	echo "${DIM}CPU Usage on $COLOR3$HOSTNAME$RST"
+
+	local key
+	for key in "${!CURRENT[@]}"; do
+		print-bar "$key"
+	done
+
+	local now
+	printf -v now '%(%Y-%m-%dT%H:%M:%S%z)T'
+	echo "$DIM$now$RST"
+}
+
+cleanup() {
+	printf '\e[?1049l' # disable alternate buffer
+	printf '\e[?25h' # show the cursor
+}
+
+update-window-size() {
+	if [[ -n $COLUMNS ]]; then
+		# figure out how much buffer room is needed
+		local cpus=( "${!CURRENT[@]}" )
+		local highest_cpu=${cpus[-1]}
+
+		# [] + " cpu" + num + " offline"
+		local i=$((2 + 4 + ${#highest_cpu} + 8))
+		echo "$COLUMNS -> $i"
+		BAR_LENGTH=$((COLUMNS - i))
+	fi
+}
+
+read-all-cpus() {
+	ALL_CPUS=(/sys/devices/system/cpu/cpu[0-9]*)
+	ALL_CPUS=("${ALL_CPUS[@]##*/cpu}")
+}
+
+main() {
+	shopt -s checkwinsize
+
+	read-all-cpus
+	read-proc
+	echo 'waiting for data...'
+	sleep 1
+
+	trap cleanup EXIT
+	trap update-window-size WINCH
+
+	printf '\e[?1049h' # enable alternate buffer
+	printf '\e[?25l' # hide the cursor
+	printf '\e[H' # move the cursor home
+
+	update-window-size
+
+	local s
+	while true; do
+		copy-data
+		read-proc
+
+		s=${ visualize-data; }
+
+		printf '\e[2J' # clear the screen
+		printf '\e[H' # move the cursor home
+		echo -n "$s"
+
+		sleep 1
+	done
+}
+
+main "$@"
