@@ -63,7 +63,7 @@ read-proc() {
 		fi
 		num=${key#cpu}
 
-		busy=$((user + nice + system + irq + softirq + steal + guest + nice))
+		busy=$((user + nice + system + irq + softirq + steal + guest + guest_nice))
 		idle=$((idle + iowait))
 
 		value="$busy $idle"
