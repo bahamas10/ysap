@@ -17,6 +17,14 @@ Repository
 - [tools/](tools/) - helper tools used for content creation.
 - [website/](website/) - scripts used for creating the [ysap.sh](https://ysap.sh) site.
 
+
+
+Track your learning 
+-------------------
+
+https://github.com/TilakMaddy/ysap-bash
+
+
 Episodes
 --------
 
@@ -27,6 +35,7 @@ Updated list of episodes can be seen here:
 You can also access it on your terminal with:
 
     curl ysap.sh/episodes
+
 
 ![You Suck at Programming
 Episodes](https://files.daveeddy.com/ysap/ysap-episodes.jpg)
