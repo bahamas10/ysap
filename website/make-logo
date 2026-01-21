@@ -9,6 +9,7 @@
 #
 # # Contributors
 # - Dave Eddy <ysap@daveeddy.com>
+# - Joshua Rayton <joshua.rayton@gmail.com>
 
 . ./theme || exit
 
