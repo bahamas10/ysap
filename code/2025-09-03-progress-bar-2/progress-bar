@@ -13,6 +13,9 @@ progress-bar() {
 	local current=$1
 	local len=$2
 
+	if [[ $len -eq 0 ]]; then
+		exit
+	fi
 	local perc_done=$((current * 100 / len))
 
 	local suffix=" $current/$len ($perc_done%)"
