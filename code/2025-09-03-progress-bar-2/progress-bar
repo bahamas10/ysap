@@ -13,8 +13,8 @@ progress-bar() {
 	local current=$1
 	local len=$2
 
-	if [[ $len -eq 0 ]]; then
-		exit
+	if (( len == 0 )); then
+		fatal 'division by 0'
 	fi
 	local perc_done=$((current * 100 / len))
 
