@@ -28,7 +28,7 @@ description=(
 	"${COLOR5}Episodes and guide by dave eddy$RST"
 	"${COLOR1}https://ysap.sh | https://daveeddy.com$RST"
 	''
-	"${COLOR5}Source: ${COLOR1}https://github.com/bahamas10/ysap$RST"
+	"${COLOR5}src: ${COLOR1}https://github.com/bahamas10/ysap$RST"
 )
 
 len=${#logo[@]}

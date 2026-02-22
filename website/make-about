@@ -10,10 +10,11 @@
 . ./theme || exit 1
 
 readarray -t ABOUT << "EOF"
-Yo what's up everyone my name's
-Dave and you suck at programming.
-Connect with my socials or use this
-site to easily find my content!
+Yo what's up everyone my
+name's Dave and you suck at
+programming.  Connect with
+my socials or use this site
+to easily find my content!
 EOF
 
 for line in "${ABOUT[@]}"; do

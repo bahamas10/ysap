@@ -18,4 +18,4 @@
 
 ./make-legend
 
-} | ./tools/lpad '  ' | ./tools/rtrim-ansi-aware
+} | ./tools/rtrim-ansi-aware
