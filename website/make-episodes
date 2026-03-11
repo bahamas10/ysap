@@ -6,7 +6,7 @@
 # Date: March 17, 2024
 # License: MIT
 
-. ./theme || exit
+. ./colors || exit
 
 format() {
 	local num title desc link _tt _yt _ig

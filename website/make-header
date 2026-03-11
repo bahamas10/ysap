@@ -7,7 +7,7 @@
 # Date: March 17, 2024
 # License: MIT
 
-. ./theme || exit
+. ./colors || exit
 . ./tools/repeat-char || exit
 
 padding=1

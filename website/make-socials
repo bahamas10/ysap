@@ -6,7 +6,7 @@
 # Date: April 05, 2025
 # License: MIT
 
-. ./theme || exit
+. ./colors || exit
 
 readarray -t SOCIALS << "EOF"
 Instagram|https://ysap.sh/instagram

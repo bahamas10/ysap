@@ -6,7 +6,7 @@
 # Date: April 05, 2025
 # License: MIT
 
-. ./theme || exit 1
+. ./colors || exit 1
 
 mapfile -t ABOUT < <(./make-about |
     ./tools/box -t About -hp 1 -vp 1 -bc "$COLOR4" -tc "$COLOR5" -s '|')

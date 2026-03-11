@@ -11,7 +11,7 @@
 # - Dave Eddy <ysap@daveeddy.com>
 # - Joshua Rayton <joshua.rayton@gmail.com>
 
-. ./theme || exit
+. ./colors || exit
 
 COLOR6=$'\e[48;5;223m'          # off-white (background)
 COLOR7=$'\e[38;5;160m'          # red

@@ -7,7 +7,7 @@
 # Date: April 05, 2025
 # License: MIT
 
-. ./theme || exit 1
+. ./colors || exit 1
 
 readarray -t ABOUT << "EOF"
 Yo what's up everyone my

@@ -6,7 +6,7 @@
 # Date: December 06, 2025
 # License: MIT
 
-. ./theme || exit
+. ./colors || exit
 
 {
 echo -n "${COLOR4}2025-12-15 ${COLOR5}The ${COLOR3}Complete Bash Course${RST}"
