@@ -30,6 +30,8 @@ build: static/favicon.ico static/ysap.png static/favicon.jpg ## default target, 
 	cat static/resources.html > _site/resources/index.html
 	# make /ping endpoint (nginx handles this for me, but just in case)
 	echo 'pong' > _site/ping
+	# create ANSI theme override page
+	./make-theme > _site/theme
 	# create ASCII index page for curl users
 	./make-index > _site/index.txt
 	# create ASCII help page
