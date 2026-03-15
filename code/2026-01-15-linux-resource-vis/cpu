@@ -181,7 +181,7 @@ main() {
 
 		s=${ visualize-data; }
 
-		printf '\e[2J' # clear the screen
+		#printf '\e[2J' # clear the screen
 		printf '\e[H' # move the cursor home
 		echo -n "$s"
 
