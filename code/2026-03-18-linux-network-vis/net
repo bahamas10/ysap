@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+#
+# Visualize network bandwidth on a host
+#
+# # Created
+# Author: Dave Eddy <ysap@daveeddy.com>
+# Date: March 16, 2026
+# License: MIT
+#
+# # Contributors
+# - Dave Eddy <ysap@daveeddy.com>
+
+declare -A DATA=()
+
+if [[ -z $NO_COLOR ]]; then
+	COLOR=$'\e[36m'
+	DIM=$'\e[2m'
+	RST=$'\e[0m'
+else
+	COLOR=
+	DIM=
+	RST=
+fi
+
+TITLE_FMT="$DIM%15s %15s %15s %15s$RST\\n"
+DATA_FMT="$COLOR%15s$RST %15s %15s %15s\\n"
+
+fatal() {
+	echo '[FATAL]' "$@" >&2
+	exit 1
+}
+
+format-bits() {
+	local bits=$1
+
+	if ((bits > 1000000)); then
+		echo "$((bits / 1000000)) mbps"
+	elif ((bits > 1000)); then
+		echo "$((bits / 1000)) kbps"
+	else
+		echo "$bits  bps"
+	fi
+}
+
+process-iface() {
+	local iface=$1
+	local rx_bytes=$2
+	local tx_bytes=$3
+
+	# check if we've seen this interface before
+	local old=${DATA[$iface]}
+
+	# store the new data no matter what
+	DATA[$iface]="$rx_bytes $tx_bytes"
+
+	# stop here if we haven't seen this interface before
+	if [[ -z $old ]]; then
+		echo "> $iface old data not found"
+		return 1
+	fi
+
+	local old_rx_bytes old_tx_bytes
+	read -r old_rx_bytes old_tx_bytes <<< "$old"
+
+	local d_rx_bytes=$((rx_bytes - old_rx_bytes))
+	local d_tx_bytes=$((tx_bytes - old_tx_bytes))
+	local d_total_bytes=$((d_rx_bytes + d_tx_bytes))
+
+	local d_rx_bits=$((d_rx_bytes * 8))
+	local d_tx_bits=$((d_tx_bytes * 8))
+	local d_total_bits=$((d_total_bytes * 8))
+
+	local rx=${ format-bits "$d_rx_bits"; }
+	local tx=${ format-bits "$d_tx_bits"; }
+	local total=${ format-bits "$d_total_bits"; }
+
+	printf "$DATA_FMT" "$iface" "$rx" "$tx" "$total"
+}
+
+deinit-term() {
+	printf '\e[?1049l' # disable alternate buffer
+	printf '\e[?25h' # show the cursor
+}
+
+init-term() {
+	printf '\e[?1049h' # enable alternate buffer
+	printf '\e[?25l' # hide the cursor
+	printf '\e[H' # move the cursor home
+}
+
+main() {
+	trap deinit-term EXIT
+	init-term
+
+	while true; do
+		printf '\e[H' # move the cursor home
+
+		# read /proc file
+		local -a lines
+		mapfile -t -s 2 lines < /proc/net/dev \
+		    || fatal 'failed to read proc device'
+
+		# loop each line in the file
+		echo
+		printf "$TITLE_FMT" interface receive transmit total
+
+		local line
+		for line in "${lines[@]}"; do
+			local -a info
+			read -ra info <<< "$line"
+			local iface=${info[0]}
+			local rx_bytes=${info[1]}
+			local tx_bytes=${info[9]}
+
+			local iface=${iface%:}
+
+			process-iface "$iface" "$rx_bytes" "$tx_bytes"
+		done
+		echo
+
+		sleep 1
+	done
+}
+
+main "$@"
