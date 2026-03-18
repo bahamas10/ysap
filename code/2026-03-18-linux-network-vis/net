@@ -53,14 +53,15 @@ process-iface() {
 	# store the new data no matter what
 	DATA[$iface]="$rx_bytes $tx_bytes"
 
-	# stop here if we haven't seen this interface before
-	if [[ -z $old ]]; then
-		echo "> $iface old data not found"
-		return 1
-	fi
-
 	local old_rx_bytes old_tx_bytes
-	read -r old_rx_bytes old_tx_bytes <<< "$old"
+
+	# initialize old values to 0 if we haven't seen this interface before
+	if [[ -z $old ]]; then
+		old_rx_bytes=0
+		old_tx_bytes=0
+	else
+		read -r old_rx_bytes old_tx_bytes <<< "$old"
+	fi
 
 	local d_rx_bytes=$((rx_bytes - old_rx_bytes))
 	local d_tx_bytes=$((tx_bytes - old_tx_bytes))
