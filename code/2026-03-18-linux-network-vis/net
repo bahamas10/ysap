@@ -9,6 +9,7 @@
 #
 # # Contributors
 # - Dave Eddy <ysap@daveeddy.com>
+# - Ilias Moulas <ilias@moulas.dev>
 
 declare -A DATA=()
 
