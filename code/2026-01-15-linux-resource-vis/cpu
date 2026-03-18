@@ -39,7 +39,7 @@ copy-data() {
 	local key value
 	for key in "${!CURRENT[@]}"; do
 		value=${CURRENT[$key]}
-		PREVIOUS[$key]=$value
+		PREVIOUS[key]=$value
 	done
 }
 
@@ -49,7 +49,7 @@ read-proc() {
 
 	CURRENT=()
 	for key in "${ALL_CPUS[@]}"; do
-		CURRENT[$key]=
+		CURRENT[key]=
 	done
 
 	local busy value num
@@ -68,7 +68,7 @@ read-proc() {
 
 		value="$busy $idle"
 
-		CURRENT[$num]=$value
+		CURRENT[num]=$value
 	done < /proc/stat
 }
 
@@ -113,7 +113,8 @@ print-bar() {
 
 	local state
 	if [[ -n $online ]]; then
-		state=$COLOR3$perc%$RST
+		printf -v perc '%-7s' "$perc%"
+		state=$COLOR3$perc$RST
 	else
 		state=${DIM}offline$RST
 	fi
@@ -140,16 +141,15 @@ cleanup() {
 }
 
 update-window-size() {
-	if [[ -n $COLUMNS ]]; then
-		# figure out how much buffer room is needed
-		local cpus=( "${!CURRENT[@]}" )
-		local highest_cpu=${cpus[-1]}
+	COLUMNS=${COLUMNS:-80}
 
-		# [] + " cpu" + num + " offline"
-		local i=$((2 + 4 + ${#highest_cpu} + 8))
-		echo "$COLUMNS -> $i"
-		BAR_LENGTH=$((COLUMNS - i))
-	fi
+	# figure out how much buffer room is needed
+	local cpus=( "${!CURRENT[@]}" )
+	local highest_cpu=${cpus[-1]}
+
+	# [] + " cpu" + num + " offline"
+	local i=$((2 + 4 + ${#highest_cpu} + 8))
+	BAR_LENGTH=$((COLUMNS - i))
 }
 
 read-all-cpus() {
@@ -179,11 +179,8 @@ main() {
 		copy-data
 		read-proc
 
-		s=${ visualize-data; }
-
-		#printf '\e[2J' # clear the screen
 		printf '\e[H' # move the cursor home
-		echo -n "$s"
+		visualize-data
 
 		sleep 1
 	done
