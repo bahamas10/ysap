@@ -118,7 +118,9 @@ main() {
 		done
 		echo
 
-		sleep 1
+		local keystroke
+		read -r -s -n 1 -t 1 keystroke
+		[[ $keystroke == q ]] && exit
 	done
 }
 
