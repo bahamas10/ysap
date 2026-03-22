@@ -120,7 +120,7 @@ main() {
 
 		local keystroke
 		read -r -s -n 1 -t 1 keystroke
-		[[ $keystroke == q ]] && exit
+		[[ $keystroke == q ]] && return 0
 	done
 }
 
