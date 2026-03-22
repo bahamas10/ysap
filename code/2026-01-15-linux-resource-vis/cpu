@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# Visulaze CPU usage per-core on Linux.
+# Visualize CPU usage per-core on Linux.
 #
-# Created
+# # Created
 # Author: Dave Eddy <ysap@daveeddy.com>
 # Date: January 13, 2026
 # License: MIT
