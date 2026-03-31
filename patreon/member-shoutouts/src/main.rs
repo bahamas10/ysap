@@ -12,7 +12,7 @@ const TIERS: &[(&str, u32)] = &[
     ("/bin/bash", 167),
     ("/bin/sh", 179),
 ];
-const COLUMNS: usize = 3;
+const COLUMNS: usize = 4;
 const PADDING: usize = 2;
 
 #[derive(Debug, Deserialize)]
