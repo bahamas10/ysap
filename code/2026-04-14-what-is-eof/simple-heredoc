@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cat <<-___
+hello
+world
+___
