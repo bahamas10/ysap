@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# THIS WON'T WORK IF YOU ARE NOT DAVE LOL
+#
 # super duper opionated script for shouting out patreon members
 #
 # like, really. this was written by dave and for dave.
@@ -30,5 +32,5 @@ if [[ -z $csvfile ]]; then
 fi
 
 set -e
-cd ~/dev/ysap/patreon/member-shoutouts
-cargo run -q < "$csvfile"
+cd ~/dev/ysap/patreon/patreon-shoutouts
+./patreon-shoutouts "$csvfile"

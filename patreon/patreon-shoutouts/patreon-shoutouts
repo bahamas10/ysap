@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+#
+# print the patreon support auto-scrolling thing
+#
+# Author: Dave Eddy <dave@daveeddy.com>
+# Date: May 03, 2026
+# License: MIT
+
+# generated via https://patorjk.com/software/taag
+# font: Future
+IFS= read -d '' -r INTRO <<-EOF
+┏━┓┏━┓╺┳╸┏━┓┏━╸┏━┓┏┓╻   ┏━┓╻ ╻┏━┓┏━┓┏━┓┏━┓╺┳╸┏━╸┏━┓┏━┓
+┣━┛┣━┫ ┃ ┣┳┛┣╸ ┃ ┃┃┗┫   ┗━┓┃ ┃┣━┛┣━┛┃ ┃┣┳┛ ┃ ┣╸ ┣┳┛┗━┓
+╹  ╹ ╹ ╹ ╹┗╸┗━╸┗━┛╹ ╹   ┗━┛┗━┛╹  ╹  ┗━┛╹┗╸ ╹ ┗━╸╹┗╸┗━┛
+EOF
+
+IFS= read -d '' -r THANKS <<-EOF
+╺┳╸╻ ╻┏━┓┏┓╻╻┏ ┏━┓   ┏━╸┏━┓┏━┓
+ ┃ ┣━┫┣━┫┃┗┫┣┻┓┗━┓   ┣╸ ┃ ┃┣┳┛
+ ╹ ╹ ╹╹ ╹╹ ╹╹ ╹┗━┛   ╹  ┗━┛╹┗╸
+   ╻ ╻┏━┓╺┳╸┏━╸╻ ╻╻┏┓╻┏━╸
+   ┃╻┃┣━┫ ┃ ┃  ┣━┫┃┃┗┫┃╺┓
+   ┗┻┛╹ ╹ ╹ ┗━╸╹ ╹╹╹ ╹┗━┛
+EOF
+
+deinit-term() {
+	printf '\e[2 q'
+}
+
+init-term() {
+	printf '\e[4 q'
+}
+
+csv=${1?'CSV file must be arg1'}
+usecs=${2:-18000}
+
+trap deinit-term EXIT
+init-term
+
+while true; do
+	clear
+
+	# show "patreon supporters"
+	printf '\e[1m\n'
+	echo "$INTRO"
+	printf '\e[0m'
+
+	# show the credits
+	cargo run -q \
+	    --manifest-path ./member-shoutouts/Cargo.toml \
+	    -- < "$csv" | \
+	    ./writer "$usecs"
+	sleep 5
+	clear
+
+	# show "thanks for watching"
+	printf '\e[1m\n'
+	echo "$THANKS"
+	printf '\n\e[0m'
+	sleep 5
+done
