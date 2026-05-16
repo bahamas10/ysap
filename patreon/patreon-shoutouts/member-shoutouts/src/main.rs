@@ -62,22 +62,22 @@ impl Member {
 fn color256(n: u32) -> String {
     format!("\x1b[38;5;{}m", n)
 }
+
 fn rst() -> &'static str {
     "\x1b[0m"
 }
+
 fn dim() -> &'static str {
     "\x1b[2m"
 }
 
 fn main() -> Result<()> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
-    let mut members = vec![];
-    for result in rdr.deserialize() {
-        let member: Member = result?;
-        if member.is_active() {
-            members.push(member);
-        }
-    }
+    let members: Vec<_> = rdr.deserialize::<Member>()
+        .filter(|m| m.is_ok()) // Not strictly necessary but prevents panics
+        .map(|m| m.unwrap())
+        .filter(|m| m.is_active())
+        .collect();
 
     // sorted by most to least expensive
     for (tier, color) in TIERS {
@@ -95,17 +95,19 @@ fn main() -> Result<()> {
             rst()
         );
 
-        // get the length of the longest name - use this for formatting
-//        let max_len = tier_members.iter().map(|s| s.name().len()).max().unwrap_or(0) + PADDING;
-        let max_len = WIDTH;
-
-        for (i, member) in tier_members.iter().enumerate() {
-            if i % COLUMNS == COLUMNS - 1 {
-                println!("{}", member.name());
-            } else {
-                print!("{:width$}", member.name(), width = max_len);
+        fn printname(i: usize, member: &Member) -> (){
+            match i % COLUMNS == COLUMNS - 1 {
+                true => println!("{}", member.name()),
+                false => print!("{:width$}", member.name(), width = WIDTH)
             }
         }
+
+        tier_members
+            .iter()
+            .enumerate()
+            .map(|(i, member)| printname(i, member))
+            .for_each(drop);
+
         println!();
         if tier_members.len() % COLUMNS != 0 {
             println!();
@@ -118,6 +120,7 @@ fn main() -> Result<()> {
             TIERS.iter().any(|(tier, _)| m.tier.as_deref() == Some(tier))
         })
         .count();
+
     println!("{}total: {} active members{}", dim(), total_recognized, rst());
     println!("{}patreon: {}{}{}{}", dim(), rst(), color256(6), LINK, rst());
 
