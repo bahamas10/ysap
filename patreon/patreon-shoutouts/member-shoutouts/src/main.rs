@@ -74,13 +74,13 @@ fn dim() -> &'static str {
 fn main() -> Result<()> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     let members: Vec<_> = rdr.deserialize::<Member>()
-        .filter(|m| m.is_ok()) // Not strictly necessary but prevents panics
-        .map(|m| m.unwrap())
-        .filter(|m| m.is_active())
+        .filter(Result::is_ok()) // Not strictly necessary but prevents panics
+        .map(Result::unwrap())
+        .filter(Member::is_active())
         .collect();
 
     // sorted by most to least expensive
-    for (tier, color) in TIERS {
+    fn print_tier(tier, color){
         let tier_members: Vec<_> = members
             .iter()
             .filter(|m| m.tier.as_deref() == Some(tier))
@@ -93,8 +93,7 @@ fn main() -> Result<()> {
             dim(),
             tier_members.len(),
             rst()
-        );
-
+            );
         fn printname(i: usize, member: &Member) -> (){
             match i % COLUMNS == COLUMNS - 1 {
                 true => println!("{}", member.name()),
@@ -107,13 +106,17 @@ fn main() -> Result<()> {
             .enumerate()
             .map(|(i, member)| printname(i, member))
             .for_each(drop);
-
+            
         println!();
         if tier_members.len() % COLUMNS != 0 {
             println!();
         }
     }
 
+    TIERS
+        .map(|(tier, color)| print_tier(tier, color))
+        .for_each(drop);
+                
     let total_recognized = members
         .iter()
         .filter(|m| {
