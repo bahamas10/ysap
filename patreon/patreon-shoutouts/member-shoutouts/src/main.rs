@@ -63,50 +63,44 @@ fn color256(n: u32) -> String {
     format!("\x1b[38;5;{}m", n)
 }
 
-fn rst() -> &'static str {
-    "\x1b[0m"
-}
-
-fn dim() -> &'static str {
-    "\x1b[2m"
-}
+const RST: &str = "\x1b[0m";
+const DIM: &str = "\x1b[2m";
 
 fn main() -> Result<()> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     let members: Vec<_> = rdr.deserialize::<Member>()
-        .filter(Result::is_ok()) // Not strictly necessary but prevents panics
-        .map(Result::unwrap())
-        .filter(Member::is_active())
+        .filter(Result::is_ok) // Not strictly necessary but prevents panics
+        .map(Result::unwrap)
+        .filter(Member::is_active)
         .collect();
 
     // sorted by most to least expensive
-    fn print_tier(tier, color){
+    fn print_tier(members: &Vec<Member>, tier: &str, color: u32){
         let tier_members: Vec<_> = members
             .iter()
             .filter(|m| m.tier.as_deref() == Some(tier))
             .collect();
+
         println!(
             "{}{}{} {}({} members){}",
-            color256(*color),
+            color256(color),
             tier,
-            rst(),
-            dim(),
+            RST,
+            DIM,
             tier_members.len(),
-            rst()
-            );
-        fn printname(i: usize, member: &Member) -> (){
-            match i % COLUMNS == COLUMNS - 1 {
-                true => println!("{}", member.name()),
-                false => print!("{:width$}", member.name(), width = WIDTH)
-            }
-        }
+            RST);
 
         tier_members
             .iter()
             .enumerate()
-            .map(|(i, member)| printname(i, member))
+            .map(|(i, member)| {
+                match i % COLUMNS == COLUMNS - 1 {
+                    true => println!("{}", member.name()),
+                    false => print!("{:width$}", member.name(), width = WIDTH)
+                }
+            })
             .for_each(drop);
-            
+
         println!();
         if tier_members.len() % COLUMNS != 0 {
             println!();
@@ -114,9 +108,10 @@ fn main() -> Result<()> {
     }
 
     TIERS
-        .map(|(tier, color)| print_tier(tier, color))
+        .iter()
+        .map(|(tier, color)| print_tier(&members, tier, *color))
         .for_each(drop);
-                
+
     let total_recognized = members
         .iter()
         .filter(|m| {
@@ -124,8 +119,8 @@ fn main() -> Result<()> {
         })
         .count();
 
-    println!("{}total: {} active members{}", dim(), total_recognized, rst());
-    println!("{}patreon: {}{}{}{}", dim(), rst(), color256(6), LINK, rst());
+    println!("{}total: {} active members{}", DIM, total_recognized, RST);
+    println!("{}patreon: {}{}{}{}", DIM, RST, color256(6), LINK, RST);
 
     Ok(())
 }
