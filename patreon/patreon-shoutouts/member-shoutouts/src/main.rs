@@ -69,8 +69,7 @@ const DIM: &str = "\x1b[2m";
 fn main() -> Result<()> {
     let mut rdr = csv::Reader::from_reader(io::stdin());
     let members: Vec<_> = rdr.deserialize::<Member>()
-        .filter(Result::is_ok) // Not strictly necessary but prevents panics
-        .map(Result::unwrap)
+        .filter_map(Result::ok) // Not strictly necessary but prevents panics
         .filter(Member::is_active)
         .collect();
 
@@ -93,13 +92,12 @@ fn main() -> Result<()> {
         tier_members
             .iter()
             .enumerate()
-            .map(|(i, member)| {
+            .for_each(|(i, member)| {
                 match i % COLUMNS == COLUMNS - 1 {
                     true => println!("{}", member.name()),
                     false => print!("{:width$}", member.name(), width = WIDTH)
                 }
-            })
-            .for_each(drop);
+            });
 
         println!();
         if tier_members.len() % COLUMNS != 0 {
@@ -109,8 +107,7 @@ fn main() -> Result<()> {
 
     TIERS
         .iter()
-        .map(|(tier, color)| print_tier(&members, tier, *color))
-        .for_each(drop);
+        .for_each(|(tier, color)| print_tier(&members, tier, *color));
 
     let total_recognized = members
         .iter()
