@@ -1,0 +1,7 @@
+- \ec      # RIS - Reset to Initial State
+- \e]104\b # OSC - Reset color palette (modern)
+- \e[!p    # DECSTR - Soft Terminal Reset
+- \e[?3;4l # CSI - Reset DEC private modes (very old)
+- \e[4l    # CSI - Disable insert mode
+- \e>      # ESC - Normal Keypad Mode (very old)
+- \e[?69l  # CSI - Private mode reset (similar to above, old)
