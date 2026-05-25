@@ -9,22 +9,18 @@
 #
 # # Contributors
 # - Dave Eddy <ysap@daveeddy.com>
-# - Ilias Moulas <ilias@moulas.dev>
 
 declare -A DATA=()
 
 if [[ -z $NO_COLOR ]]; then
-	COLOR=$'\e[36m'
 	DIM=$'\e[2m'
 	RST=$'\e[0m'
 else
-	COLOR=
 	DIM=
 	RST=
 fi
 
 TITLE_FMT="$DIM%15s %15s %15s %15s$RST\\n"
-DATA_FMT="$COLOR%15s$RST %15s %15s %15s\\n"
 
 fatal() {
 	echo '[FATAL]' "$@" >&2
@@ -33,13 +29,20 @@ fatal() {
 
 format-bits() {
 	local bits=$1
+    local -n var=$2
+    local -n color=$3
 
 	if ((bits > 1000000)); then
-		echo "$((bits / 1000000)) mbps"
+		var="$((bits / 1000000)) mbps"
+        color=$'\e[31m'
 	elif ((bits > 1000)); then
-		echo "$((bits / 1000)) kbps"
+		var="$((bits / 1000)) kbps"
+        color=$'\e[33m'
 	else
-		echo "$bits  bps"
+        #shellcheck disable=SC2034 # false positive due to nameref 
+		var="$bits  bps"
+        #shellcheck disable=SC2034 
+        color=$'\e[32m'
 	fi
 }
 
@@ -54,15 +57,14 @@ process-iface() {
 	# store the new data no matter what
 	DATA[$iface]="$rx_bytes $tx_bytes"
 
-	local old_rx_bytes old_tx_bytes
-
-	# initialize old values to 0 if we haven't seen this interface before
+	# stop here if we haven't seen this interface before
 	if [[ -z $old ]]; then
-		old_rx_bytes=0
-		old_tx_bytes=0
-	else
-		read -r old_rx_bytes old_tx_bytes <<< "$old"
+		echo "> $iface old data not found"
+		return 1
 	fi
+
+	local old_rx_bytes old_tx_bytes
+	read -r old_rx_bytes old_tx_bytes <<< "$old"
 
 	local d_rx_bytes=$((rx_bytes - old_rx_bytes))
 	local d_tx_bytes=$((tx_bytes - old_tx_bytes))
@@ -72,11 +74,14 @@ process-iface() {
 	local d_tx_bits=$((d_tx_bytes * 8))
 	local d_total_bits=$((d_total_bytes * 8))
 
-	local rx=${ format-bits "$d_rx_bits"; }
-	local tx=${ format-bits "$d_tx_bits"; }
-	local total=${ format-bits "$d_total_bits"; }
-
-	printf "$DATA_FMT" "$iface" "$rx" "$tx" "$total"
+    local rx tx total rx_color tx_color total_color
+    format-bits "$d_rx_bits" rx rx_color
+    format-bits "$d_tx_bits" tx tx_color
+    format-bits "$d_total_bits" total total_color
+    
+     #shellcheck disable=SC2154 # shellcheck full choke on nameref
+    printf -- "$%*s ${rx_color}%*s ${tx_color}%*s ${total_color}%*s\e[0m\n"\
+              15 "$iface" 15 "$rx" 15 "$tx" 15 "$total"
 }
 
 deinit-term() {
@@ -120,10 +125,9 @@ main() {
 		done
 		echo
 
-		local keystroke
-		read -r -s -n 1 -t 1 keystroke
-		[[ $keystroke == q ]] && return 0
+		sleep 1
 	done
 }
 
 main "$@"
+
