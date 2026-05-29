@@ -51,16 +51,18 @@ while true; do
 	printf '\e[0m'
 
 	# show the credits
-	cargo run -q \
-	    --manifest-path ./member-shoutouts/Cargo.toml \
-	    -- < "$csv" | \
-	    ./writer "$usecs"
+	{
+		cargo run -q \
+		    --manifest-path ./member-shoutouts/Cargo.toml \
+		    -- < "$csv"
 
-	echo
-	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'youtube' '@yousuckatprogramming'
-	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'subscribers' "$subcount"
-	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'timestamp' "$now"
-	echo
+		ofmt='\e[2m%s:\e[0m \e[36m%s\e[0m\n'
+		echo
+		printf "$ofmt" 'youtube' '@yousuckatprogramming'
+		printf "$ofmt" 'subscribers' "$subcount"
+		printf "$ofmt" 'timestamp' "$now"
+		echo
+	} | ./writer "$usecs"
 	sleep 5
 	clear
 
