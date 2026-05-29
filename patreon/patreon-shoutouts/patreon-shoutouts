@@ -34,6 +34,11 @@ init-term() {
 csv=${1?'CSV file must be arg1'}
 usecs=${2:-18000}
 
+# get youtube subcount (best effort)
+subcount=$(curl -sSL https://ysap.sh/subcount.txt)
+subcount=${subcount:-(unknown)}
+printf -v now '%(%s)T' -1
+
 trap deinit-term EXIT
 init-term
 
@@ -50,6 +55,12 @@ while true; do
 	    --manifest-path ./member-shoutouts/Cargo.toml \
 	    -- < "$csv" | \
 	    ./writer "$usecs"
+
+	echo
+	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'youtube' '@yousuckatprogramming'
+	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'subscribers' "$subcount"
+	printf '\e[2m%s:\e[0m \e[36m%s\e[0m\n' 'timestamp' "$now"
+	echo
 	sleep 5
 	clear
 

@@ -79,4 +79,4 @@ clean: ## remove any generated files
 
 .PHONY: deploy
 deploy: ## deploy the site (using rsync)
-	rsync -avh --delete ./_site/ web:/var/www/ysap.sh/
+	rsync -avh --delete --exclude subcount.txt ./_site/ web:/var/www/ysap.sh/
