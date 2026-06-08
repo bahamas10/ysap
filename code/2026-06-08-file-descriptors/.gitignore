@@ -1,0 +1,9 @@
+*.txt
+automatic-fds
+check-fd
+list-fds
+multiple-files
+proc-list-fds
+simple
+spooky
+stdout-file
