@@ -3,6 +3,8 @@
 use std::io;
 
 use anyhow::Result;
+use fast_strip_ansi::strip_ansi_string;
+
 use serde::Deserialize;
 
 const LINK: &str = "https://ysap.sh/patreon";
@@ -95,15 +97,28 @@ fn main() -> Result<()> {
             rst()
         );
 
-        // get the length of the longest name - use this for formatting
-//        let max_len = tier_members.iter().map(|s| s.name().len()).max().unwrap_or(0) + PADDING;
-        let max_len = WIDTH;
-
         for (i, member) in tier_members.iter().enumerate() {
             if i % COLUMNS == COLUMNS - 1 {
+                // if we are on the last column don't bother padding the right
+                // with spaces
                 println!("{}", member.name());
             } else {
-                print!("{:width$}", member.name(), width = max_len);
+                // pad the right of the name with spaces
+                //
+                // in order to do this, we need to calculate the length of the
+                // string ourselvse *NOT COUNTING* ansi escape sequences.
+                // drkspace breaks this because of the weird spacing.
+                // jordan uses 6D to move the cursor 6 to the left to overwrite
+                // their name - this is really cool but makes it really annoying
+                // to calculate lol
+                let mut name = member.name();
+                let mut len = strip_ansi_string(&name).chars().count();
+
+                while len < WIDTH {
+                    len += 1;
+                    name.push(' ');
+                }
+                print!("{}", name);
             }
         }
         println!();

@@ -30,6 +30,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "fast-strip-ansi"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c3086ffd0a7160f58f988c74173a002e255da505a114e2f5425acb1eaab2b8ac"
+dependencies = [
+ "vt-push-parser",
+]
+
+[[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
+
+[[package]]
 name = "itoa"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -41,6 +56,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "csv",
+ "fast-strip-ansi",
  "serde",
 ]
 
@@ -95,6 +111,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "smallvec"
+version = "1.15.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
+
+[[package]]
 name = "syn"
 version = "2.0.104"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -110,3 +132,13 @@ name = "unicode-ident"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a5f39404a5da50712a4c1eecf25e90dd62b613502b7e925fd4e4d19b5c96512"
+
+[[package]]
+name = "vt-push-parser"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cdbf39d53c5a50cad8119d9cde929ecd208764e8d8d1626486b8929cbcd5f0e7"
+dependencies = [
+ "hex",
+ "smallvec",
+]
