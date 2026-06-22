@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+coproc bc -l
+
+math() {
+	local input=$1
+	local answer
+
+	echo -n "$input = "
+	echo "$input" >&"${COPROC[1]}"
+	read -r -u "${COPROC[0]}" answer
+	echo "$answer"
+}
+
+math '2.3 + 5.7'
+math '1 / 3'
+math '2 + 2'

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+coproc ./md5er
+
+for i in {1..1000}; do
+	echo -n "$i: "
+
+	echo "$i" >&"${COPROC[1]}"
+	read -r -u "${COPROC[0]}" answer
+	echo "$answer"
+done

@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+writer() {
+	local name=$1
+
+	while true; do
+		sleep 3
+		#echo "[writer $name] hello" >&"$write_end" || break
+		echo "[writer $name] hello" >&3 || break
+	done
+
+	echo "[writer $name] has errored"
+	return 1
+}
+
+my-cat() {
+	local line
+	while IFS= read -r line; do
+		echo "$line"
+	done
+}
+
+coproc my-cat
+read_end=${COPROC[0]}
+
+exec {write_end}>&"${COPROC[1]}"
+writer foo 3>&"$write_end" &
+writer bar 3>&"$write_end" &
+writer baz 3>&"$write_end" &
+exec {write_end}>&-
+
+while read -r -u "$read_end" line; do
+	echo "[read data] $line"
+done

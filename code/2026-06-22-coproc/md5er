@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+const crypto = require('crypto');
+const readline = require('node:readline');
+
+function md5(s) {
+    let thing = crypto.createHash('md5');
+    thing.update(s);
+    return thing.digest('hex');
+}
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  terminal: false // Set to false if you are piping data to avoid TTY issues
+});
+
+rl.on('line', (line) => {
+    console.log(md5(line));
+});
+
+rl.once('close', () => {
+});
