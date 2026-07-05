@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+. ./stacktrace.bash
+
+read -r -p 'enter text: ' answer
+
+stacktrace
+if [[ $answer == 'foo' ]]; then
+	echo 'you gave us foo'
+else
+	echo 'uh oh'
+fi

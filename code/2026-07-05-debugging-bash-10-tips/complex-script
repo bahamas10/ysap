@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+. ./stacktrace.bash
+. ./vardump.bash
+
+i=0
+
+bat() {
+	((i++))
+}
+
+baz() {
+	bat
+}
+
+bar() {
+	baz
+}
+
+foo() {
+	bar
+}
+
+main() {
+	foo
+}
+
+if [[ -n $TRACE ]]; then
+	PS4='[TRACE] '
+	set -x
+fi
+
+vardump -v USER
+
+main
