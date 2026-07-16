@@ -50,9 +50,8 @@ done
 
 legend=(
 	'$ curl ysap.sh%Get this page'
-	'$ curl ysap.sh/episodes%Get the list of episodes in the YSAP series'
-	'$ curl ysap.sh/json%Get the above in JSON format'
 	'$ curl ysap.sh/help%Get the full list of available endpoints'
+	'$ curl style.ysap.sh%Bash Style Guide for writing safe scripts'
 )
 resources=()
 extras=()
@@ -64,7 +63,8 @@ if $full; then
 	)
 
 	resources+=(
-		'$ curl style.ysap.sh%Bash Style Guide for writing safe scripts'
+		'$ curl ysap.sh/episodes%Get the list of episodes in the YSAP series'
+		'$ curl ysap.sh/json%Get the above in JSON format'
 	)
 
 	extras+=(
