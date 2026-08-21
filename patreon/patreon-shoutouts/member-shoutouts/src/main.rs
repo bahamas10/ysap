@@ -112,8 +112,14 @@ fn main() -> Result<()> {
                 // their name - this is really cool but makes it really annoying
                 // to calculate lol
                 let mut name = member.name();
+
+                // ok, it finally happened lol - let's start making people play
+                // nice
+                name = name.replace("\x1b#8", "<<E>>");
+
                 let mut len = strip_ansi_string(&name).chars().count();
 
+                name.push_str("\x1b[0m");
                 while len < WIDTH {
                     len += 1;
                     name.push(' ');
