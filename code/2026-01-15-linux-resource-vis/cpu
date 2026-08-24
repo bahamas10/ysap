@@ -44,8 +44,8 @@ copy-data() {
 }
 
 read-proc() {
-	local key user nice system idle iowait
-	local irq softirq steal guest guest_nice
+	local F=(key user nice system idle iowait irq softirq steal guest guest_nice)
+	local "${F[@]}"
 
 	CURRENT=()
 	for key in "${ALL_CPUS[@]}"; do
@@ -53,8 +53,7 @@ read-proc() {
 	done
 
 	local busy value num
-	while read -r key user nice system idle iowait \
-	    irq softirq steal guest guest_nice; do
+	while read -r "${F[@]}"; do
 		# filter out everything but the cores
 		if [[ $key != cpu* ]]; then
 			continue
