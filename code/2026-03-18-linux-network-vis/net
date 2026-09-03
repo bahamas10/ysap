@@ -72,9 +72,9 @@ process-iface() {
 	local d_tx_bits=$((d_tx_bytes * 8))
 	local d_total_bits=$((d_total_bytes * 8))
 
-	local rx=${ format-bits "$d_rx_bits"; }
-	local tx=${ format-bits "$d_tx_bits"; }
-	local total=${ format-bits "$d_total_bits"; }
+	local rx=$(format-bits "$d_rx_bits")
+	local tx=$(format-bits "$d_tx_bits")
+	local total=$(format-bits "$d_total_bits")
 
 	printf "$DATA_FMT" "$iface" "$rx" "$tx" "$total"
 }
