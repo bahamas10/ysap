@@ -22,11 +22,14 @@ int main(int argc, char** argv) {
 	int result = door_call(door, &args);
 	if (result == -1) {
 		perror("door_call");
+		close(fd);
 		return 1;
 	}
 
 	printf("door called successfully\n");
 	printf("got data: %s\n", args.data_ptr);
+
+	close(fd);
 
 	return 0;
 }
