@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/mman.h>
 
 int main(int argc, char** argv) {
 	int door = open("./my-file.door", O_RDONLY);
@@ -30,6 +31,7 @@ int main(int argc, char** argv) {
 	printf("door called successfully\n");
 	printf("got data: %s\n", args.data_ptr);
 
+	munmap(args.rbuf, args.rsize);
 	close(door);
 
 	return 0;
