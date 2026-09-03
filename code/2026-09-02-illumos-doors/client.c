@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char** argv) {
 	int door = open("./my-file.door", O_RDONLY);
@@ -22,14 +23,14 @@ int main(int argc, char** argv) {
 	int result = door_call(door, &args);
 	if (result == -1) {
 		perror("door_call");
-		close(fd);
+		close(door);
 		return 1;
 	}
 
 	printf("door called successfully\n");
 	printf("got data: %s\n", args.data_ptr);
 
-	close(fd);
+	close(door);
 
 	return 0;
 }
