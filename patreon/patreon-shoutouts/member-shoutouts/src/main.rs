@@ -3,7 +3,7 @@
 use std::io;
 
 use anyhow::Result;
-use fast_strip_ansi::strip_ansi_string;
+use crossterm::cursor::position;
 
 use serde::Deserialize;
 
@@ -97,34 +97,27 @@ fn main() -> Result<()> {
             rst()
         );
 
-        for (i, member) in tier_members.iter().enumerate() {
-            if i % COLUMNS == COLUMNS - 1 {
-                // if we are on the last column don't bother padding the right
-                // with spaces
-                println!("{}", member.name());
+        for member in tier_members.iter() {
+            // print the name and then go to next column
+            // let's just hope people dont use ansi to go up or left too far
+
+            // fix the **E**scape directly, one less mut :3
+            let name = member.name().replace("\x1b#8", "<<E>>");
+
+            print!("{}\x1b[0m ", name);
+
+            // query cursor position and calculate column from it
+            let x = position()?.0 as usize;
+            let column = (x - 1) / WIDTH;
+
+            if column > COLUMNS {
+                // if name ended in last column, go to next line
+                println!()
+
             } else {
-                // pad the right of the name with spaces
-                //
-                // in order to do this, we need to calculate the length of the
-                // string ourselvse *NOT COUNTING* ansi escape sequences.
-                // drkspace breaks this because of the weird spacing.
-                // jordan uses 6D to move the cursor 6 to the left to overwrite
-                // their name - this is really cool but makes it really annoying
-                // to calculate lol
-                let mut name = member.name();
+                // otherwise calculate position where next column starts
+                print!("\x1b[{}G", (COLUMNS + 1) * WIDTH + 1)
 
-                // ok, it finally happened lol - let's start making people play
-                // nice
-                name = name.replace("\x1b#8", "<<E>>");
-
-                let mut len = strip_ansi_string(&name).chars().count();
-
-                name.push_str("\x1b[0m");
-                while len < WIDTH {
-                    len += 1;
-                    name.push(' ');
-                }
-                print!("{}", name);
             }
         }
         println!();
