@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+case "$1" in
+	status) echo 'status: OK';;
+	stop) echo 'stopping ...';;
+	start) echo 'starting ...';;
+	restart) echo 'restarting ...';;
+	user) echo "hello $2!";;
+	list-commands) printf '%s\n' status stop start restart user;;
+	*) exit 2;;
+esac
