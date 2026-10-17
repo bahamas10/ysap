@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ -p pipe ]] || mkfifo pipe
+
 exec {fd}<>pipe
 
 client() {

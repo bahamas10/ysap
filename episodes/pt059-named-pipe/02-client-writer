@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ -p pipe ]] || mkfifo pipe
+
 name=$1
 
 while true; do

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ -p pipe ]] || mkfifo pipe
+
 while true; do
 	while read -r line; do
 		echo "[read line] $line"
