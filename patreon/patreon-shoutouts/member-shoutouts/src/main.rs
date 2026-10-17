@@ -116,6 +116,7 @@ fn main() -> Result<()> {
                 // ok, it finally happened lol - let's start making people play
                 // nice
                 name = name.replace("\x1b#8", "<<E>>");
+                name = name.replace("\\e", "\x1b");
 
                 let mut len = strip_ansi_string(&name).chars().count();
 
