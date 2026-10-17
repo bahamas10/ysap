@@ -98,10 +98,17 @@ fn main() -> Result<()> {
         );
 
         for (i, member) in tier_members.iter().enumerate() {
+            // ok, it finally happened lol - let's start making people play
+            // nice by formatting their names and translating characters
+            let mut name = member.name();
+            name = name.replace("\\e", "\x1b");
+            name = name.replace("\x1b#8", "<<E>>");
+            name.push_str("\x1b[0m");
+
             if i % COLUMNS == COLUMNS - 1 {
                 // if we are on the last column don't bother padding the right
                 // with spaces
-                println!("{}", member.name());
+                println!("{}", name);
             } else {
                 // pad the right of the name with spaces
                 //
@@ -111,16 +118,8 @@ fn main() -> Result<()> {
                 // jordan uses 6D to move the cursor 6 to the left to overwrite
                 // their name - this is really cool but makes it really annoying
                 // to calculate lol
-                let mut name = member.name();
-
-                // ok, it finally happened lol - let's start making people play
-                // nice
-                name = name.replace("\x1b#8", "<<E>>");
-                name = name.replace("\\e", "\x1b");
-
                 let mut len = strip_ansi_string(&name).chars().count();
 
-                name.push_str("\x1b[0m");
                 while len < WIDTH {
                     len += 1;
                     name.push(' ');
