@@ -7,13 +7,19 @@
 # duh
 SHELL := bash
 
+STATIC_IMAGES := static/favicon.ico static/ysap.png static/favicon.jpg
+
 .PHONY: help
 help:
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
+	@awk 'BEGIN { FS = ":.*?## " } \
+	/^[a-zA-Z_-]+:.*?## / { \
+	printf "\033[36m%-15s\033[0m %s\n", $$1, $$2 \
+	}' $(MAKEFILE_LIST) | sort
 
 .PHONY: build
-build: static/favicon.ico static/ysap.png static/favicon.jpg ## default target, builds the site into ./_site
-	mkdir -p _site _site/contact _site/courses _site/static _site/episodes _site/resources
+build: $(STATIC_IMAGES) ## default target, builds the site into ./_site
+	mkdir -p _site _site/contact _site/courses _site/static \
+	    _site/episodes _site/resources
 	# disable indexing for certain dirs
 	echo -n > _site/static/index.html
 	# copy static files
@@ -81,4 +87,5 @@ clean: ## remove any generated files
 
 .PHONY: deploy
 deploy: ## deploy the site (using rsync)
-	rsync -avh --delete --exclude subcount.txt ./_site/ web:/var/www/ysap.sh/
+	rsync -avh --delete --exclude subcount.txt ./_site/ \
+	    web:/var/www/ysap.sh/
