@@ -1,0 +1,239 @@
+#!/usr/bin/env bash
+#
+# Very simple file style checker.  Checks include:
+#
+# - No lines are over 80 characters.
+# - No 2 or more consecutive newlines.
+# - No trailing spaces or tabs.
+# - Consistent use of tabs and spaces.
+#
+# Source Code: https://github.com/bahamas10/style-check
+#
+# # Created
+# Author: Dave Eddy <ysap@daveeddy.com>
+# Date: May 21, 2021
+# License: MIT
+#
+# # Contributors
+# - Dave Eddy <ysap@daveeddy.com>
+
+NAME='style-check'
+VERSION='v1.0.0'
+
+usage() {
+	read -r -d '' usage <<-EOF
+	Very simple file style checker.
+
+	${YELLOW}Usage:${RESET}
+	    ${GREEN}$NAME <file, ...> ${RESET}
+
+	${YELLOW}Examples:${RESET}
+	    ${GREEN}$NAME *.c *.sh *.md${RESET}
+	    ${GREEN}$NAME ./src/*.c README.md ./test/runtest${RESET}
+
+	${YELLOW}Options:${RESET}
+	    ${GREEN}-C <when>   ${RESET}when to use color: always|never|auto
+	    ${GREEN}-h          ${RESET}print this message and exit
+	    ${GREEN}-V          ${RESET}print the version number and exit
+	EOF
+	echo "$usage"
+}
+
+# check for lines greater than 80 columns
+exceeds-line-length() (
+	set -o pipefail
+
+	local file=$1
+	local columns=80
+
+	expand "$file" | awk "-vcols=$columns" '
+	BEGIN {
+		code = 0;
+	}
+	length($0) > cols {
+		printf("line %d: over %d columns\n", NR, cols);
+		code = 1;
+	}
+	END {
+		exit(code);
+	}
+	'
+)
+
+# check for consecutive newlines
+blank-lines() {
+	local file=$1
+
+	awk '
+	BEGIN {
+		code = 0;
+		newlines = 0;
+	}
+	/^$/ {
+		newlines++;
+		if (newlines == 2) {
+			printf("line %d: extra newline(s)\n", NR);
+			code = 1;
+		}
+	}
+	/^.+$/ {
+		newlines = 0;
+	}
+	END {
+		exit(code);
+	}
+	' "$file"
+}
+
+# check for trailing whitespace
+trailing-whitespace() {
+	local file=$1
+
+	awk '
+	BEGIN {
+		code = 0;
+	}
+	/[[:blank:]]+$/ {
+		printf("line %d: trailing whitespace\n", NR);
+		code = 1;
+	}
+	END {
+		exit(code);
+	}
+	' "$file"
+}
+
+# check for bad tab/spacing
+consistent-tabs() {
+	local file=$1
+
+	awk '
+	BEGIN {
+		code = 0;
+	}
+	{
+		if ($0 ~ /^\t* / &&
+		    $0 !~ /^\t* \*/ &&
+		    $0 !~ /^\t*[ ][ ][ ][ ][^[:blank:]]/) {
+			printf("line %d: inconsistent tabs\n", NR);
+			code = 1;
+		}
+	}
+	END {
+		exit(code);
+	}
+	' "$file"
+}
+
+# run a test against a file
+#
+# usage: run-test <test-name> <file> <failure message>
+#
+# ex: run-test consistent-tabs src/sshp.c
+#
+run-test() {
+	local test=$1
+	local file=$2
+
+	((CHECKS_RAN++))
+
+	local output
+	if ! output=$("$test" "$file" 2>&1); then
+		CODE=1
+		echo "${RED}error${RESET}" >&2
+		echo "$output" >&2
+		echo >&2
+	fi
+}
+
+# load colors based on the user argument
+load-colors() {
+	local want_color=$1
+
+	if [[ $want_color == 'auto' ]]; then
+		if [[ -t 1 && -z $NO_COLOR && $TERM != 'dumb' ]]; then
+			want_color='always'
+		else
+			want_color='never'
+		fi
+	fi
+
+	case "$want_color" in
+		always)
+			RED=$'\e[31m'
+			GREEN=$'\e[32m'
+			YELLOW=$'\e[33m'
+			BOLD=$'\e[1m'
+			RESET=$'\e[0m'
+			;;
+		never)
+			RED=
+			GREEN=
+			YELLOW=
+			BOLD=
+			RESET=
+			;;
+		*)
+			echo 'error: invalid color option given' >&2
+			usage >&2
+			return 2
+	esac
+}
+
+main() {
+	load-colors 'auto' || return
+
+	local want_color='auto'
+
+	# parse args
+	local OPTARG OPTIND opt
+	while getopts 'C:hV' opt; do
+		case "$opt" in
+			C) want_color=$OPTARG;;
+			h) usage; return 0;;
+			V) echo "$VERSION"; return 0;;
+			*) usage >&2; return 2;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	if [[ $want_color != 'auto' ]]; then
+		load-colors "$want_color" || return
+	fi
+
+	CODE=0
+	CHECKS_RAN=0
+
+	# loop each argument and run checks
+	local f ext
+	for f in "$@"; do
+		[[ -d $f ]] && continue
+
+		echo "${BOLD}checking:${RESET}  $f"
+
+		run-test blank-lines "$f"
+		run-test exceeds-line-length "$f"
+		run-test trailing-whitespace "$f"
+
+		# markdown files get a pass from tab/space checks - they are
+		# wild
+		ext=${f##*.}
+		if [[ $ext != md ]]; then
+			run-test consistent-tabs "$f"
+		fi
+	done
+
+	if ((CHECKS_RAN == 0)); then
+		echo "${BOLD}${RED}no tests ran${RESET}" >&2
+		CODE=1
+	elif ((CODE == 0)); then
+		echo
+		echo "${BOLD}${GREEN}all check pass${RESET}"
+	else
+		echo "${RED}errors detected${RESET}" >&2
+	fi
+
+	return "$CODE"
+}
+
+main "$@"

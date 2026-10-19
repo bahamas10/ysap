@@ -71,7 +71,7 @@ check-deps: ## check to ensure needed dependencies are installed
 
 .PHONY: check
 check: ## check tools syntax using shellcheck
-	shellcheck -x check-* make-* tools/*
+	./tools/style-check ./* ./tools/*
 
 .PHONY: clean
 clean: ## remove any generated files
