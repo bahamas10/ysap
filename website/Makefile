@@ -13,7 +13,7 @@ help:
 
 .PHONY: build
 build: static/favicon.ico static/ysap.png static/favicon.jpg ## default target, builds the site into ./_site
-	mkdir -p _site _site/contact _site/static _site/episodes _site/resources
+	mkdir -p _site _site/contact _site/courses _site/static _site/episodes _site/resources
 	# disable indexing for certain dirs
 	echo -n > _site/static/index.html
 	# copy static files
@@ -21,11 +21,13 @@ build: static/favicon.ico static/ysap.png static/favicon.jpg ## default target, 
 	cat static/favicon.jpg > _site/static/favicon.jpg
 	cat static/robots.txt > _site/robots.txt
 	cat static/ysap.png > _site/static/ysap.png
+	cat static/ysap.css > _site/static/ysap.css
 	cat static/style.css > _site/static/style.css
 	cat static/ansi.css > _site/static/ansi.css
 	cat static/terminal.js > _site/static/terminal.js
 	cat static/index.html > _site/index.html
 	cat static/contact.html > _site/contact/index.html
+	cat static/courses.html > _site/courses/index.html
 	cat static/episodes.html > _site/episodes/index.html
 	cat static/resources.html > _site/resources/index.html
 	# make /ping endpoint (nginx handles this for me, but just in case)
