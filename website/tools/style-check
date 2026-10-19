@@ -44,20 +44,26 @@ exceeds-line-length() (
 	set -o pipefail
 
 	local file=$1
-	local columns=80
 
-	expand "$file" | awk "-vcols=$columns" '
-	BEGIN {
-		code = 0;
+	check-over() {
+		local columns=$1
+		local lineno=0
+		local code=0
+
+		local line
+		while IFS= read -r line || [[ -n $line ]]; do
+			((lineno++))
+
+			if ((${#line} > columns)); then
+				printf 'line %d: over %d columns\n' \
+					"$lineno" "$columns"
+				code=1
+			fi
+		done
+		return "$code"
 	}
-	length($0) > cols {
-		printf("line %d: over %d columns\n", NR, cols);
-		code = 1;
-	}
-	END {
-		exit(code);
-	}
-	'
+
+	expand "$file" | check-over 80
 )
 
 # check for consecutive newlines
