@@ -10,8 +10,36 @@
 # License: MIT
 
 PROG_NAME='bansi-to-html'
-PROG_VERSION=0.1.0
+PROG_VERSION=0.1.1
 PROG_SOURCE='https://github.com/bahamas10/bansi-to-html'
+
+read -d '' -r USAGE <<- EOF
+Usage: $PROG_NAME [-hdwH] [-p prefix] [file]
+
+Convert ANSI to HTML purely in Bash.
+
+This program will read a file passed as the first argument or from stdin if no
+argument is given.  ANSI escape sequences for color output will be processed and
+turned into their relevant CSS classes in <span> elements.  No extraneous
+newlines or processing will be done on the input - so the output should be safe
+to put in your own <pre><code>...</code></pre> block and have it appear exactly
+as it should.
+
+Any unexpected, unsupported, or broken escape sequences will be considered an
+error and will cause this program to halt immediately with an error exit status.
+The '-w' flag can be given to tell this program to ignore those warnings and
+just discard the unknown sequences (warnings will be emitted to stderr).
+
+Source code: $PROG_SOURCE
+
+Options
+    -d           Print debug message to stderr
+    -h           Print this message and exit
+    -H           Don't emit HTML program header comment
+    -p <prefix>  CSS class prefix to use, defaults to "ansi-", must be HTML safe
+    -w           Ignore unsupported sequences
+    -v           Print the version number and exit
+EOF
 
 # don't try to handle unicode or anything other than raw bytes as best we can
 # (nul bytes may be ignored because of bash being bash)
@@ -39,42 +67,6 @@ state_bg_color=
 state_in_span=false
 in_escape=false
 sequence=''
-
-# print the usage message
-usage() {
-	IFS= read -d '' -r usage <<- EOF
-	Usage: $PROG_NAME [-hdwH] [-p prefix] [file]
-
-	Convert ANSI to HTML purely in Bash.
-
-	This program will read a file passed as the first argument or from stdin
-	if no argument is given.  ANSI escape sequences for color output will be
-	processed and turned into their relevant CSS classes in <span>
-	elements.  No extraneous newlines or processing will be done on the
-	input - so the output should be safe to put in your own
-	<pre><code>...</code></pre> block and have it appear exactly as it
-	should.
-
-	Any unexpected, unsupported, or broken escape sequences will be
-	considered an error and will cause this program to halt immediately with
-	an error exit status.  The '-w' flag can be given to tell this program
-	to ignore those warnings and just discard the unknown sequences
-	(warnings will be emitted to stderr).
-
-	Options
-	  -d             Print debug message to stderr.
-	  -h             Print this message and exit.
-	  -H             Don't emit HTML program header comment.
-	  -p <prefix>    CSS class prefix to use, defaults to "ansi-" - used
-	                 directly in the HTML so make sure it is HTML safe.
-	  -w             Ignore unsupported sequences, just emit a warning to
-	                 stderr and keep running.
-	  -v             Print the version number and exit.
-
-	Source code: $PROG_SOURCE
-	EOF
-	echo -n "$usage"
-}
 
 # emit a warning to stderr and optionally exit
 warn() {
@@ -223,12 +215,12 @@ main() {
 	while getopts 'dhHp:wv' opt; do
 		case "$opt" in
 			d) DEBUG=true;;
-			h) usage; exit 0;;
+			h) echo "$USAGE"; exit 0;;
 			H) HEADER=false;;
 			p) PREFIX=$OPTARG;;
 			w) WARNONLY=true;;
 			v) echo "$PROG_VERSION"; exit 0;;
-			*) usage >&2; exit 1;;
+			*) echo "$USAGE" >&2; exit 1;;
 		esac
 	done
 	shift "$((OPTIND - 1))"
