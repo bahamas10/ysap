@@ -43,24 +43,24 @@ format-link() {
 }
 
 format-ticks() {
-        local text=$1
-        local colors=("$COLOR5" "$COLOR2")
+	local text=$1
+	local colors=("$COLOR5" "$COLOR2")
 
-        local index=0
-        local new_s=${colors[index]}
-        local i c
-        for ((i = 0; i < ${#text}; i++)); do
-                c=${text:i:1}
-                if [[ $c == '`' ]]; then
-                        index=$(((index + 1) % 2))
-                        new_s+="$RST${colors[index]}"
-                else
-                        new_s+=$c
-                fi
-        done
+	local index=0
+	local new_s=${colors[index]}
+	local i c
+	for ((i = 0; i < ${#text}; i++)); do
+		c=${text:i:1}
+		if [[ $c == '`' ]]; then
+			index=$(((index + 1) % 2))
+			new_s+="$RST${colors[index]}"
+		else
+			new_s+=$c
+		fi
+	done
 	new_s+=$RST
 
-        printf '%s' "$new_s"
+	printf '%s' "$new_s"
 }
 
 # create the header

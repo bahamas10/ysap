@@ -34,6 +34,7 @@ for pt in "$dir"/pt*/meta.txt; do
 
 	[[ -n $tiktok && -n $youtube && -n $instagram ]] || continue
 
-	printf '%s\t' "$num" "$title" "$desc" "$link" "$tiktok" "$youtube" "$instagram"
+	printf '%s\t' "$num" "$title" "$desc" "$link" \
+	    "$tiktok" "$youtube" "$instagram"
 	echo
 done

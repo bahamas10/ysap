@@ -59,11 +59,11 @@ extras=()
 if $full; then
 	legend+=(
 		'$ curl ysap.sh/ping%Get a 200 with the text pong'
-		'$ curl [-46] ysap.sh/ip%Get your current IP address as a string'
+		'$ curl [-46] ysap.sh/ip%Get your current IP address'
 	)
 
 	resources+=(
-		'$ curl ysap.sh/episodes%Get the list of episodes in the YSAP series'
+		'$ curl ysap.sh/episodes%Get list of older YSAP videos'
 		'$ curl ysap.sh/json%Get the above in JSON format'
 	)
 

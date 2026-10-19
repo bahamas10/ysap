@@ -46,14 +46,14 @@ usage() {
 	Create a unicode or ASCII box around input text (from stdin)
 
 	Options
-	  -h, --help     Print this message and exit
-	  -bc <color>    Color to use for the box (as ANSI escape sequence)
-	  -tc <color>    Color to use for the title (as ANSI escape sequence)
-	  -vp <padding>  Number of spaces to pad the box vertically, defaults to 0
-	  -hp <padding>  Number of spaces to pad the box horizontally, defaults to 0
-	  -s <sep>       Specify the separator character, defaults to none
-	  -t <title>     Title for the box, defaults to nothing
-	  -T <theme>     Theme to use (possible: unicode, ascii, plain)
+	    -h, --help     Print this message and exit
+	    -bc <color>    Color to use for the box (as ANSI escape sequence)
+	    -tc <color>    Color to use for the title (as ANSI escape sequence)
+	    -vp <padding>  Number of spaces to pad vertically, defaults to 0
+	    -hp <padding>  Number of spaces to pad horizontally, defaults to 0
+	    -s <sep>       Specify the separator character, defaults to none
+	    -t <title>     Title for the box, defaults to nothing
+	    -T <theme>     Theme to use (possible: unicode, ascii, plain)
 	EOF
 }
 
