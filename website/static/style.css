@@ -19,9 +19,26 @@
 }
 
 .course-card {
+	display: grid;
+	grid-template-columns: minmax(14rem, 40%) minmax(0, 1fr);
+	align-items: start;
+	gap: var(--ysap-space-3);
 	padding: var(--ysap-space-3);
 	border: 1px solid var(--ysap-border);
 	background: var(--ysap-surface);
+}
+
+.course-card-image {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	border: 1px solid var(--ysap-border);
+	object-fit: cover;
+}
+
+.course-card-content {
+	min-width: 0;
 }
 
 .course-card h2 {
@@ -210,5 +227,9 @@ button:disabled {
 	#episodes-table td {
 		padding: 0.35rem 0.45rem;
 		overflow-wrap: anywhere;
+	}
+
+	.course-card {
+		grid-template-columns: 1fr;
 	}
 }
