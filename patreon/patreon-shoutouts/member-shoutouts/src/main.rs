@@ -105,6 +105,13 @@ fn main() -> Result<()> {
             name = name.replace("\x1b#8", "<<E>>");
             name.push_str("\x1b[0m");
 
+            // check double-width
+            if name.contains("\x1b#3") || name.contains("\x1b#4") {
+                name.insert_str(0, "\n");
+                //name.push_str("\x1b#5");
+                name.push_str("\n\n");
+            }
+
             if i % COLUMNS == COLUMNS - 1 {
                 // if we are on the last column don't bother padding the right
                 // with spaces
