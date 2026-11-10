@@ -117,7 +117,7 @@ static const char *format_bytes(unsigned long long bytes, bool per_second) {
 	int n_units = sizeof (units) / sizeof (units[0]);
 	int unit = 0;
 
-	if (bytes > 1024 && unit < n_units) {
+	while (bytes > 1024 && unit < n_units) {
 		unit++;
 		bytes /= 1024;
 	}
