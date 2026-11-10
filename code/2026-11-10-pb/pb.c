@@ -197,8 +197,6 @@ static void *worker_thread(void *arg) {
 
 			atomic_fetch_add(&g_bytes_copied,
 			    (unsigned long long)n_write);
-
-			break;
 		}
 	}
 
