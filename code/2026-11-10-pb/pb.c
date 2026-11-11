@@ -24,10 +24,10 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+const int min_columns = 75;
 static atomic_bool g_done = false;
 static atomic_ullong g_bytes_copied = 0;
 static unsigned long long g_bytes_total = 0;
-volatile sig_atomic_t g_needs_resize = 0;
 
 static int g_columns = 80;
 static int g_input_fd = STDIN_FILENO;
@@ -37,18 +37,23 @@ static const char *GREEN = "\e[32m";
 static const char *DIM = "\e[2m";
 static const char *RST = "\e[0m";
 
-void handle_sigwinch(int sig) {
-	g_needs_resize = 1;
-}
-
-void get_window_size() {
+int get_window_size() {
 	struct winsize ws;
 
 	if (ioctl(STDERR_FILENO, TIOCGWINSZ, &ws) == -1) {
-		return;
+		return -1;
 	}
 
+    int old_columns = g_columns;
 	g_columns = ws.ws_col;
+    g_columns = g_columns < 1 ? 1 : g_columns;
+
+    if (g_columns >= old_columns) {
+        return 6;
+    }
+    int excess_lines = (old_columns - 1) / g_columns;
+
+    return 6 * (excess_lines + 1);
 }
 
 enum Number {
@@ -265,47 +270,60 @@ static void render_progress() {
 
 	// calculate eta
 	unsigned long long bytes_left = total - cur_copied;
-	unsigned long long eta = bytes_left / delta;
+	unsigned long long eta = delta == 0 ? 0 : bytes_left / delta;
 
 	unsigned long long speed = delta / 1; // 1 == samples per second
 
 	prev_copied = cur_copied;
 
-	// move the cursor and draw the blocks
-	restore_cursor();
-	fprintf(stderr, "\e[1B\e[1C");
-	draw_block_row(pct_copied);
+    if (g_columns >= min_columns) {
+        // move the cursor and draw the blocks
+        restore_cursor();
+        fprintf(stderr, "\e[1B\e[1C");
+        draw_block_row(pct_copied);
 
-	restore_cursor();
-	fprintf(stderr, "\e[2B\e[1C");
-	draw_block_row(pct_copied);
+        restore_cursor();
+        fprintf(stderr, "\e[2B\e[1C");
+        draw_block_row(pct_copied);
 
-	// draw the stats
-	restore_cursor();
-	fprintf(stderr, "\e[4B");
+        // draw the stats
+        restore_cursor();
+        fprintf(stderr, "\e[4B");
 
-	int spaces = (g_columns - 3) / 4;
+        int spaces = (g_columns - 3) / 4;
 
-	fprintf(stderr, "%s", GREEN);
+        fprintf(stderr, "%s", GREEN);
 
-	// print percent first
-	fprintf(stderr, "\e[1C");
-	print_percent(pct_copied);
+        // print percent first
+        fprintf(stderr, "\e[1C");
+        print_percent(pct_copied);
 
-	fprintf(stderr, "\e[%dC", spaces - 16 - 1 + 2);
-	fprintf(stderr, "%-*s", spaces - 2, format_total(total));
+        fprintf(stderr, "\e[%dC", spaces - 16 - 1 + 2);
+        fprintf(stderr, "%-*s", spaces - 2, format_total(total));
 
-	fprintf(stderr, "\e[3C");
-	fprintf(stderr, "%-*s", spaces - 2, format_speed(speed));
+        fprintf(stderr, "\e[3C");
+        fprintf(stderr, "%-*s", spaces - 2, format_speed(speed));
 
-	fprintf(stderr, "\e[3C");
-	fprintf(stderr, "%-*s", spaces - 2, format_eta(eta));
+        fprintf(stderr, "\e[3C");
+        fprintf(stderr, "%-*s", spaces - 2, format_eta(eta));
 
-	fprintf(stderr, "%s", RST);
+        fprintf(stderr, "%s", RST);
 
-	restore_cursor();
-	fprintf(stderr, "\e[6B");
-	fflush(stderr);
+        restore_cursor();
+        fprintf(stderr, "\e[6B");
+    } else {
+        restore_cursor();
+
+        fprintf(stderr, "! Minimum %d columns required !", min_columns);
+        fprintf(stderr, "%llu%%\n---\n", pct_copied);
+        fprintf(stderr, "total: %s\n", format_total(total));
+        fprintf(stderr, "speed: %s\n", format_speed(speed));
+        fprintf(stderr, "ets: %s\n", format_eta(eta));
+
+        restore_cursor();
+        fprintf(stderr, "\e[6B");
+    }
+    fflush(stderr);
 }
 
 static void repeat_text(const char *s, int times) {
@@ -373,13 +391,21 @@ static void draw_static_ui() {
 	fprintf(stderr, "%s", RST);
 }
 
-void clear_old_screen() {
+void clear_old_screen(int lines) {
 	restore_cursor();
 
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < lines; i++) {
 		fprintf(stderr, "\e[2K\e[1B");
 	}
 	fflush(stderr);
+}
+
+void handle_sigwinch(int sig) {
+    int lines = get_window_size();
+    clear_old_screen(lines);
+    if (g_columns >= min_columns) {
+        draw_static_ui();
+    }
 }
 
 int main(int argc, char **argv) {
@@ -429,16 +455,12 @@ int main(int argc, char **argv) {
 	fflush(stderr);
 	fprintf(stderr, "\e[6A");
 	save_cursor();
-	draw_static_ui();
+
+    if (g_columns >= min_columns) {
+	    draw_static_ui();
+    }
 
 	while (!atomic_load(&g_done)) {
-		if (g_needs_resize) {
-			get_window_size();
-			g_needs_resize = 0;
-			clear_old_screen();
-			draw_static_ui();
-		}
-
 		render_progress();
 		sleep(1);
 	}
