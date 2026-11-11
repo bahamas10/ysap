@@ -317,10 +317,10 @@ static void repeat_text(const char *s, int times) {
 static void draw_static_ui() {
 	const char *WE = "─";
 	const char *NS = "│";
-	const char *SE = "┌";
-	const char *NE = "└";
-	const char *SW = "┐";
-	const char *NW = "┘";
+	const char *SE = "╭";
+	const char *NE = "╰";
+	const char *SW = "╮";
+	const char *NW = "╯";
 	const char *SWE = "┬";
 	const char *NWE = "┴";
 
