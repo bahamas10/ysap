@@ -293,7 +293,7 @@ static void render_progress() {
 	print_percent(pct_copied);
 
 	fprintf(stderr, "\e[%dC", spaces - 16 - 1 + 2);
-	fprintf(stderr, "%-*s", spaces - 2, format_total(total));
+	fprintf(stderr, "%-*s", spaces - 2, format_total(cur_copied));
 
 	fprintf(stderr, "\e[3C");
 	fprintf(stderr, "%-*s", spaces - 2, format_speed(speed));
