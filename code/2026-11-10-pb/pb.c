@@ -24,6 +24,8 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
+#define EXIT_INVALID_ARGS 2
+
 const int min_columns = 75;
 static atomic_bool g_done = false;
 static atomic_ullong g_bytes_copied = 0;
@@ -429,7 +431,7 @@ int main(int argc, char **argv) {
 		}
 		default:
 			fprintf(stderr, "invalid args\n");
-			return EXIT_FAILURE;
+			return EXIT_INVALID_ARGS;
 		}
 	}
 
@@ -461,10 +463,19 @@ int main(int argc, char **argv) {
     }
 
 	while (!atomic_load(&g_done)) {
+        get_window_size();
+        if (g_columns < 35) {
+            restore_cursor();
+            fprintf(stderr, "Error: Atleast 35 columns needed!\n");
+            break;
+        }
 		render_progress();
 		sleep(1);
 	}
-	render_progress();
+    if (g_columns < 35) {
+        return EXIT_FAILURE;
+    }
+    render_progress();
 
 	// wait for the thread to finish
 	err = pthread_join(worker, NULL);
